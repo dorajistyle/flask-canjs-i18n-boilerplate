@@ -1,0 +1,49 @@
+!!! 5
+if not lang
+  lang = 'ko'
+html.no-js(lang='#{lang}')
+//
+    <![endif]
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title {{ _('title') }}
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width')
+    link(rel='shortcut icon', href='/static/img/favicon.ico')
+    {% assets "css_all" -%}
+    link(rel='stylesheet', href='#{ ASSET_URL }')
+    {%- endassets %}
+    link(rel='apple-touch-icon-precomposed', href='/static/img/apple/apple-touch-icon-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='57x57', href='/static/img/apple/apple-touch-icon-57x57-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/static/img/apple/apple-touch-icon-72x72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/static/img/apple/apple-touch-icon-114x114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/static/img/apple/apple-touch-icon-144x144-precomposed.png')
+    script(src='/static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js')
+  body
+    //if lt IE 7
+      p.chromeframe
+        | You are using an
+        strong outdated
+        | browser. Please
+        a(href='http://browsehappy.com/') upgrade your browser
+        | or
+        a(href='http://www.google.com/chromeframe/?redirect=true') activate Google Chrome Frame
+        | to improve your experience.
+    //
+       This code is taken from http://twitter.github.com/bootstrap/examples/hero.html
+    | {% include 'header.jade' %}
+    .container
+      .row-fluid
+        | {% block content %}{% endblock %}
+    hr
+    .container
+      footer
+        | {% include 'footer.jade' %}
+    script(data-main='static/js/app', src='/static/js/vendor/require.js')
+    script
+      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+

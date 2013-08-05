@@ -1,0 +1,74 @@
+<h1 id="pageTitle">{{i18n 'profile.title'}}</h1>
+
+{{#user_data}}
+    <div class="user-wrapper well span4">
+    <ul class="unstyled">
+        {{#user}}
+            <li><img alt="{{email}}" src={{gravatar}}/></li>
+            <li>{{i18n 'users.email'}} : {{email}}</li>
+            <li>{{i18n 'users.id'}} : {{id}}</li>
+            <li>{{i18n 'profile.following.title'}} : {{following_cnt}}</li>
+            {{#if following}}
+                <li>
+                    <ul id="followingList">
+                        {{#following}}
+                            <li><a href="#profile/{{ id }}">{{email}}</a></li>
+                        {{/following}}
+                    </ul>
+                </li>
+            {{/if}}
+            {{#following_flag.has_next}}
+                <li>
+                    <div class="show-more-following-wrapper">
+                        <button type="button" class="btn btn-mini show-more-following" tabindex="2">
+                            {{i18n 'profile.following.more'}}
+                        </button>
+                    </div>
+                </li>
+            {{/following_flag.has_next}}
+            <li>  {{i18n 'profile.followers.title'}} : {{followers_cnt}} </li>
+            {{#if followers}}
+                <li>
+                    <ul>
+                        {{#followers}}
+                            <li><a href="#profile/{{ id }}">{{email}}</a></li>
+                        {{/followers}}
+                    </ul>
+                </li>
+            {{/if}}
+            {{#followers_flag.has_next}}
+                <li>
+                    <div class="show-more-followers-wrapper">
+                        <button type="button" class="btn btn-mini show-more-followers" tabindex="2">
+                            {{i18n 'profile.followers.more'}}
+                        </button>
+                    </div>
+                </li>
+            {{/followers_flag.has_next}}
+        </ul>
+            {{^is_current}}
+                <form id="followersForm" name="followersForm">
+                    <input type="hidden" id="id" name="id" value="{{user.id}}"/>
+                    {{^is_following}}
+                        <div class="perform-follow-wrapper">
+                            <button type="button" class="btn btn-success perform-follow pull-right" tabindex="1">
+                                {{i18n 'profile.follow.title'}}
+                            </button>
+                        </div>
+                    {{/is_following}}
+                    {{#is_following}}
+                        <div class="perform-unfollow-wrapper">
+                            <button type="button" class="btn perform-unfollow pull-right" tabindex="2">
+                                {{i18n 'profile.unfollow.title'}}
+                            </button>
+                        </div>
+                    {{/is_following}}
+                </form>
+
+            {{/is_current}}
+        {{/user}}
+        {{^user}}
+            :(
+        {{/user}}
+    </div>
+{{/user_data}}

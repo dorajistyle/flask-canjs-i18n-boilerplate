@@ -1,0 +1,15 @@
+| {% extends "base.jade" %}
+| {% block content %}
+{% assets "css_all" -%}
+link(rel='stylesheet', href='#{ ASSET_URL }')
+{%- endassets %}
+#error-outer
+  #error-inner
+    .error-container
+      h1.fascinate-font
+       | {{ _('Sorry we messed up') }} (500)
+       span.error-page :(
+      br
+      pre {{ error }}
+      a.btn-large.btn-success(href='/#!') {{ _('Return to index') }}
+| {% endblock %}

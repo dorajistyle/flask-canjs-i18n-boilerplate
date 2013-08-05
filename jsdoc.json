@@ -1,0 +1,32 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": ["./application/frontend/static/js"],
+        "exclude": ["./application/frontend/static/js/vendor"],
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "(^|\\/|\\\\)_|/can/"
+    },
+    "plugins": [],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    },
+    "opts": {
+        "encoding": "utf8",
+        "destination": "./docs/jsdoc/",
+        "recurse": true,
+        "query": "value",
+        "private": true,
+        "lenient": true,
+
+        "version": false,
+        "explain": false,
+        "test": false,
+        "help": false,
+        "verbose": false,
+        "match": "value",
+        "nocolor": false
+    }
+}

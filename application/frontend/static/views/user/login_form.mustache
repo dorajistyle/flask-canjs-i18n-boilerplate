@@ -1,0 +1,26 @@
+<form id="loginForm" name="loginForm" method="post">
+    <div class="email">
+        <input id="loginEmail" name="loginEmail" type="email" placeholder="{{i18n 'login.enterEmail'}}"
+               class="email span12" autocomplete="on" tabindex="1"/>
+        <label for="loginEmail" class="hidden">{{i18n 'login.enterEmail'}}</label>
+    </div>
+    <div class="password">
+        <input id="loginPassword" name="loginPassword" type="password"
+               placeholder="{{i18n 'login.enterPassword'}}" class="password span12" tabindex="2"/>
+        <label for="loginPassword" class="hidden">{{i18n 'login.enterPassword'}}</label>
+    </div>
+    <div class="remember-forgot span12">
+        <label class="remember inline">
+            <input class="inline-item" type="checkbox" value="1" id="rememberMe" name="rememberMe" tabindex="3">
+            <span>{{i18n 'login.rememberMe'}}</span>
+        </label>
+        <span class="separator inline">·</span>
+        <a class="forgot inline" href="/reset">{{i18n 'login.forgotPassword'}}?</a>
+    </div>
+    <div class="perform-login-wrapper">
+        <button type="submit" class="btn btn-primary perform-login pull-right" tabindex="4">
+            {{i18n 'login.submit'}}
+        </button>
+    </div>
+
+</form>

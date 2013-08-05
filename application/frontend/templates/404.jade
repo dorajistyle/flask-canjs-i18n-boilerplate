@@ -1,0 +1,20 @@
+| {% extends "base.jade" %}
+| {% block content %}
+{% assets "css_all" -%}
+link(rel='stylesheet', href='#{ ASSET_URL }')
+{%- endassets %}
+#error-outer
+  #error-inner
+    .error-container
+        h1.error-page
+          | {{ _('Not found') }}
+          span.error-page :(
+        p.error-page {{ _('Sorry, but the page you were trying to view does not exist.') }}
+        p.error-page {{ _('It looks like this was the result of either:') }}
+        ul.error-page
+          li {{ _('a mistyped address') }}
+          li {{ _('an out-of-date link') }}
+        script
+          var GOOG_FIXURL_LANG = (navigator.language || '').slice(0,2),GOOG_FIXURL_SITE = location.host;
+        script(src='http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js')
+| {% endblock %}

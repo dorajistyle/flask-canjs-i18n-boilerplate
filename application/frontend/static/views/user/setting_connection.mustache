@@ -1,0 +1,29 @@
+<h4>{{i18n 'setting.connection.title'}}</h4>
+<hr/>
+<h5>{{i18n 'facebook.title'}}</h5>
+{{#has_facebook_connection}}
+    <div class="disconnect-to-facebook-wrapper">
+        <button type="button"
+                class="btn btn-small pull-right disconnect-to-facebook">{{i18n 'facebook.disconnect'}}</button>
+    </div>
+    <form id="sendToFacebookForm" name="sendToFacebookForm">
+        <div class="send-to-facebook-textarea-wrapper">
+            <textarea id="content" name="content" class="form-control span12" rows="3"
+                      placeholder="{{i18n "facebook.messagePlaceholder"}}"></textarea>
+        </div>
+        <div class="send-to-facebook-wrapper">
+            <button type="button" class="btn btn-info send-to-facebook pull-right" tabindex="1">
+                {{i18n 'facebook.sendMessage'}}
+            </button>
+        </div>
+    </form>
+    <div class="connect-to-facebook-wrapper hidden">
+        <a href="/connections/facebook" type="button" class="btn btn-primary pull-right">{{i18n 'facebook.connect'}}</a>
+    </div>
+{{/has_facebook_connection}}
+{{^has_facebook_connection}}
+    <div class="connect-to-facebook-wrapper">
+        <a href="/connections/facebook" type="button" class="btn btn-primary pull-right">{{i18n 'facebook.connect'}}</a>
+    </div>
+{{/has_facebook_connection}}
+<br/>

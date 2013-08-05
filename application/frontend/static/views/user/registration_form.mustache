@@ -1,0 +1,20 @@
+<form id="registrationForm" name="registrationForm" method="post">
+    <h5>
+        {{i18n 'registration.title'}}
+    </h5>
+    <hr/>
+    <div class="email">
+        <input id="registrationEmail" name="registrationEmail" type="email"
+               placeholder="{{i18n 'registration.enterEmail'}}" class="email span12" autocomplete="off" tabindex="5"/>
+        <label for="registrationEmail" class="hidden">{{i18n 'registration.enterEmail'}}</label>
+    </div>
+    <div class="password">
+        <input id="registrationPassword" name="registrationPassword" type="password"
+               placeholder="{{i18n 'registration.enterPassword'}}" class="password span12" tabindex="6"/>
+        <label for="registrationPassword" class="hidden">{{i18n 'registration.enterPassword'}}</label>
+    </div>
+    <button type="submit" class="btn btn-warning register-user pull-right" tabindex="7">
+        {{i18n 'registration.submit'}}
+    </button>
+</form>
+

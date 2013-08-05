@@ -1,0 +1,139 @@
+{
+    "service": {
+        "name": "Our Service"
+    },
+    "navbar": {
+        "login": "Login",
+        "logout": "Logout",
+        "myAccount": "My Account",
+        "profile": "Profile",
+        "setting": "Setting",
+        "aboutUs": "About Us",
+        "sitemap": "Sitemap",
+        "howItWorks": "How it Works",
+        "languages": "Languages",
+        "english": "English",
+        "korean": "한글"
+    },
+    "main": {
+        "title": "Welcome!!",
+        "description": "It's the Flask-Canjs-i18n-Boilerplate.",
+        "users": "Users"
+    },
+    "validation": {
+        "email": "Please enter an email address.",
+        "content": "Please enter a content.",
+        "agreement": "Please confirm the terms and conditions.",
+        "password": "Please enter correct password. Length should be at least 6 charcters.",
+        "newPasswordConfirm": "‘New Password Confirm’ should be exactly same as ‘New Password’.",
+        "contentTooShort": "It's too short. Content should be at least 3 characters."
+    },
+    "welcome": {
+        "login": {
+            "title": "Welcome to Service.",
+            "content": "Enjoy today, this moment, right now. Present moment is just present."
+        }
+    },
+    "registration": {
+        "title": "New to Service? Register!",
+        "enterEmail": "Please enter your email address.",
+        "enterPassword": "Please enter your password.",
+        "welcome": "Welcome %s!!!",
+        "failed": "Registration failed. Please try it again.",
+        "already": "%s is already taken.",
+        "available": "You can use %s.",
+        "submit": "Register"
+    },
+    "login": {
+        "info": "Please enter your email and password.",
+        "enterEmail": "Please enter your email address.",
+        "enterPassword": "Please enter your password.",
+        "welcome": "Welcome %s!!!",
+        "failed": "Login failed. Please try it again.",
+        "already": "You already logged in.",
+        "rememberMe": "Remember me",
+        "forgotPassword": "Forgot password",
+        "submit": "Login"
+    },
+    "logout": {
+        "success": "Goodbye. See you again.",
+        "alreadyDone": "You already logged out.",
+        "error": "Logout uncompleted. Please try it again."
+    },
+    "users": {
+        "profile": "Profile",
+        "setting": "Setting",
+        "email": "Email",
+        "id": "id"
+    },
+    "profile": {
+        "title": "Profile",
+        "follow": {
+            "title": "Follow",
+            "success": "You are following %s now.",
+            "failed": "Sorry, following perform failed."
+        },
+        "unfollow": {
+            "title": "Unfollow",
+            "success": "You are unfollowing %s now.",
+            "failed": "Sorry, unfollowing perform failed."
+        },
+        "following": {
+            "title": "Following",
+            "more": "more Following"
+        },
+        "followers": {
+            "title": "Followers",
+            "more": "more Followers"
+        }
+    },
+    "setting": {
+        "basic": {
+            "title": "Basic"
+        },
+        "changePassword": {
+            "title": "Change Password",
+            "currentPassword": "Current Password",
+            "newPassword": "New Password",
+            "newPasswordConfirm": "New Password Confirm",
+            "enterCurrentPassword": "Please enter your current password.",
+            "enterNewPassword": "Please enter new password.",
+            "enterNewPasswordConfirm": "Please enter your new password again.",
+            "success": "User information is updated.",
+            "failed": "User information is not updated.",
+            "passwordIncorrect": "You entered incorrect password. Please enter correct password.",
+            "submit": "Save changes"
+        },
+        "connection": {
+            "title": "Connection"
+        },
+        "leaveOurService": {
+            "title": "Leave our service",
+            "thankYou": ["We were happy with you.",
+                "If you want to come back later,",
+                "You are more than welcome.",
+                "Thank for use our service."],
+            "success": "Bye Bye. We hope to see you again.",
+            "failed": "Account deletion failed.",
+            "confirm": {
+                "title": "Are you sure to leave?",
+                "content": "If you decide to leave our service, your account will be delete permenantly.",
+                "close": "Close",
+                "submit": "I'm sure to leave"
+            },
+            "wantToLeave": "I want to leave here"
+        }
+    },
+    "facebook": {
+        "title": "Facebook",
+        "sendMessage": "Send Message To Facebook",
+        "messagePlaceholder": "It's a great service!!",
+        "connect": "Connect to Facebook",
+        "disconnect": "Disconnect to Facebook",
+        "send": {
+            "success": "Message sent.",
+            "failed": "Sorry, message sending failed.",
+            "connectionFailed": "Sorry, connection failed. Please connect to facebook."
+        }
+    }
+}

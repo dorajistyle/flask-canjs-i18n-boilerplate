@@ -1,0 +1,389 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Flask-canjs-i18n-boilerplate API Documentation &mdash; flask-canjs-i18n-boilerplate 0.9 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="flask-canjs-i18n-boilerplate 0.9 documentation" href="index.html" />
+    <link rel="next" title="Flask-canjs-i18n-boilerplate API Documentation" href="frontend.html" />
+    <link rel="prev" title="‘Source &lt;https://github.com/dorajistyle/flask-canjs-i18n-boilerplate&gt;’_" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="frontend.html" title="Flask-canjs-i18n-boilerplate API Documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="‘Source &lt;https://github.com/dorajistyle/flask-canjs-i18n-boilerplate&gt;’_"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">flask-canjs-i18n-boilerplate 0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="flask-canjs-i18n-boilerplate-api-documentation">
+<h1>Flask-canjs-i18n-boilerplate API Documentation<a class="headerlink" href="#flask-canjs-i18n-boilerplate-api-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="users">
+<h2>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--users">
+<tt class="descname">GET </tt><tt class="descname">/users</tt><a class="headerlink" href="#get--users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get All users with pagination.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body">users, has_next, has_prev, current_page</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--users-(user_id)">
+<tt class="descname">GET </tt><tt class="descname">/users/</tt><big>(</big><em>user_id</em><big>)</big><a class="headerlink" href="#get--users-(user_id)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get one user by user&#8217;s id.
+:param user_id: user&#8217;s id(INT)
+:return: user, is_current, is_following, followers_cnt, following_cnt</p>
+</dd></dl>
+
+<dl class="put">
+<dt id="put--users-(user_id)">
+<tt class="descname">PUT </tt><tt class="descname">/users/</tt><big>(</big><em>user_id</em><big>)</big><a class="headerlink" href="#put--users-(user_id)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update user information.</p>
+<p>&#64;login_required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>user_id</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return :</th><td class="field-body"><p class="first last">user, password_incorrect, status</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--users-(user_id)">
+<tt class="descname">DELETE </tt><tt class="descname">/users/</tt><big>(</big><em>user_id</em><big>)</big><a class="headerlink" href="#delete--users-(user_id)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete user.</p>
+<p>&#64;login_required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>user_id</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return :</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="authentications">
+<h2>Authentications<a class="headerlink" href="#authentications" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--authentications">
+<tt class="descname">GET </tt><tt class="descname">/authentications</tt><a class="headerlink" href="#get--authentications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an authenticated status.</p>
+<p>&#64;login_required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--authentications">
+<tt class="descname">POST </tt><tt class="descname">/authentications</tt><a class="headerlink" href="#post--authentications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Login user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body">status(True : Login Success | False : Login Failed)
+email(user&#8217;s email when status is True.)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--authentications">
+<tt class="descname">DELETE </tt><tt class="descname">/authentications</tt><a class="headerlink" href="#delete--authentications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logout user.</p>
+<p>&#64;login_required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="connections">
+<h2>Connections<a class="headerlink" href="#connections" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--connections-facebook">
+<tt class="descname">POST </tt><tt class="descname">/connections/facebook</tt><a class="headerlink" href="#post--connections-facebook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a message to facebook.</p>
+<p>&#64;login_required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body">status(True: when message sent success. | False: when message sent failed.)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--connections-facebook">
+<tt class="descname">DELETE </tt><tt class="descname">/connections/facebook</tt><a class="headerlink" href="#delete--connections-facebook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect facebook connection.</p>
+<p>&#64;login_required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body">status(True: when disconnection success. | False: when disconnection failed.)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--connections-facebook">
+<tt class="descname">GET </tt><tt class="descname">/connections/facebook</tt><a class="headerlink" href="#get--connections-facebook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get facebook connection.</p>
+<p>&#64;login_required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body">has_facebkk_connection</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="filters">
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--filters-user-current">
+<tt class="descname">GET </tt><tt class="descname">/filters/user/current</tt><a class="headerlink" href="#get--filters-user-current" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns current user or empty object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body">user</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--filters-user-email-(email)">
+<tt class="descname">GET </tt><tt class="descname">/filters/user/email/</tt><big>(</big><em>email</em><big>)</big><a class="headerlink" href="#get--filters-user-email-(email)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter user by email for check exist user.
+:param email: valid email.
+:return: email that requested, status(True : user exist, False : user not exist)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="followers">
+<h2>Followers<a class="headerlink" href="#followers" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--followers">
+<tt class="descname">POST </tt><tt class="descname">/followers</tt><a class="headerlink" href="#post--followers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Follow User.</p>
+<p>&#64;login_required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body">status(True : follow success, False : follow failed)
+email(following user email)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--followers">
+<tt class="descname">GET </tt><tt class="descname">/followers</tt><a class="headerlink" href="#get--followers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get followers with pagination.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body">followers, has_next, current_page</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="delete">
+<dt id="delete--followers-(user_id)">
+<tt class="descname">DELETE </tt><tt class="descname">/followers/</tt><big>(</big><em>user_id</em><big>)</big><a class="headerlink" href="#delete--followers-(user_id)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unfollow User.</p>
+<p>&#64;login_required</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>user_id</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return :</th><td class="field-body"><p class="first last">status(True : unfollow success, False : unfollow failed)
+email(unfollowing user email)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="following">
+<h2>Following<a class="headerlink" href="#following" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--following">
+<tt class="descname">GET </tt><tt class="descname">/following</tt><a class="headerlink" href="#get--following" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get following with pagination.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return :</th><td class="field-body">following, has_next, current_page</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Flask-canjs-i18n-boilerplate API Documentation</a><ul>
+<li><a class="reference internal" href="#users">Users</a></li>
+<li><a class="reference internal" href="#authentications">Authentications</a></li>
+<li><a class="reference internal" href="#connections">Connections</a></li>
+<li><a class="reference internal" href="#filters">Filters</a></li>
+<li><a class="reference internal" href="#followers">Followers</a></li>
+<li><a class="reference internal" href="#following">Following</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">&#8216;Source &lt;https://github.com/dorajistyle/flask-canjs-i18n-boilerplate&gt;&#8217;_</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="frontend.html"
+                        title="next chapter">Flask-canjs-i18n-boilerplate API Documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="frontend.html" title="Flask-canjs-i18n-boilerplate API Documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="‘Source &lt;https://github.com/dorajistyle/flask-canjs-i18n-boilerplate&gt;’_"
+             >previous</a> |</li>
+        <li><a href="index.html">flask-canjs-i18n-boilerplate 0.9 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, dorajistyle(JoongSeob Vito Kim).
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

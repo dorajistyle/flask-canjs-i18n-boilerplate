@@ -1,6 +1,4 @@
 Babel==1.3
-Beaker==1.6.4
-Fabric==1.7.0
 Flask==0.10.1
 Flask-Assets==0.8
 Flask-Babel==0.9
@@ -21,17 +19,14 @@ Jinja2==2.7
 MySQL-python==1.2.4
 SQLAlchemy==0.8.2
 Sphinx==1.1.3
-Twisted==13.1.0
 WTForms==1.0.4
 Werkzeug==0.9.3
-Whoosh==2.5.1
 alembic==0.6.0
 blinker==1.3
 cssmin==0.1.4
 facebook-sdk==0.4.0
 factory-boy==2.1.1
 google-api-python-client==1.1
-gunicorn==17.5
 jsmin==2.0.3
 pyScss==1.1.5
 pyjade==2.0.2
@@ -40,7 +35,6 @@ python-twitter==1.0
 redis==2.7.6
 sphinxcontrib-httpdomain==1.1.8
 uWSGI==1.9.14
-virtualenv==1.10
 oauth2client==1.1
 foursquare==20130707
 

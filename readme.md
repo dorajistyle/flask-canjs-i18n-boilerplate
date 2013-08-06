@@ -19,7 +19,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * Google's crawler friendly url('#!').
 * Generate document easily.(Sphinx)
 * Do testing easily. (nosetests)
-* Do you need more Features? Fork it and add it! :D
+* Do you need more Features? Fork it and improve it! :D
 
 
 ## How it works?

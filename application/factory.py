@@ -15,7 +15,6 @@ from flask import Flask
 from flask_security import SQLAlchemyUserDatastore
 from flask_social import SQLAlchemyConnectionDatastore
 from werkzeug.contrib.fixers import ProxyFix
-from flask_debugtoolbar import DebugToolbarExtension
 
 from core import db, mail, security, social, babel, gravatar
 from helpers import register_blueprints
@@ -43,7 +42,6 @@ def create_app(package_name, package_path, settings_override=None,
     db.init_app(app)
     mail.init_app(app)
     babel.init_app(app)
-    DebugToolbarExtension(app)
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.datastore = user_datastore
     security.init_app(app, user_datastore,

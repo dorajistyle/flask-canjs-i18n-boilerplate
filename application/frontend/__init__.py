@@ -11,6 +11,7 @@ from functools import wraps
 
 from flask import render_template
 from werkzeug.exceptions import InternalServerError, NotFound
+from flask_debugtoolbar import DebugToolbarExtension
 
 from application import factory
 from application.helpers import JSONEncoder
@@ -23,6 +24,9 @@ def create_app(settings_override=None):
 
     # Init assets
     assets.init_app(app)
+
+    # Init debugToolbar
+    DebugToolbarExtension(app)
 
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     app.json_encoder = JSONEncoder

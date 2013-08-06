@@ -22,6 +22,10 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * 더 많은 기능을 윈하신다면, 함께 만들어 가요! :D
 
 
+## 어떻게 동작하나요?
+
+![flask-canjs-i18n-boilerplate](https://f.cloud.github.com/assets/1202809/914493/b584032c-fe3b-11e2-83c0-05b83e8959ba.png)
+
 ## 환경
 
 ### 클라이언트 사이드
@@ -35,12 +39,13 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 
 ### 서버 사이드
 * [Flask](http://flask.pocoo.org/), 가벼운 파이썬 프레임워크.
-* [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), 파이썬용 Jade 템플릿 엔진 플러그인.
-* [Flask-Babel](http://pythonhosted.org/Flask-Babel/), 플라스크용 다국어 플러그인.
-* [Flask-Security](http://pythonhosted.org/Flask-Security/), 플라스크용 로그인 보안 플러그인.
-* [Flask-Social](http://pythonhosted.org/Flask-Social/), Flask-Security에서 Oauth를 지원하는 플러그인.
-* [Flask-Assets](http://elsdoerfer.name/docs/flask-assets/), 자바스크립트와 스타일시트를 관리하는 플라스크용 플러그인.
-* [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/), SQLAlchemy사용을 위한 플라스크용 플러그인.
+* [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), 파이썬용 Jade 템플릿 엔진 확장.
+* [Flask-Babel](http://pythonhosted.org/Flask-Babel/), 플라스크용 다국어 확장.
+* [Flask-Gravatar](https://pypi.python.org/pypi/Flask-Gravatar), 플라스크용 그라바타 확장.
+* [Flask-Security](http://pythonhosted.org/Flask-Security/), 플라스크용 로그인 보안 확장.
+* [Flask-Social](http://pythonhosted.org/Flask-Social/), Flask-Security에서 Oauth를 지원하는 확장.
+* [Flask-Assets](http://elsdoerfer.name/docs/flask-assets/), 자바스크립트와 스타일시트를 관리하는 플라스크용 확장.
+* [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/), SQLAlchemy사용을 위한 플라스크용 확장.
 * [Alembic](http://alembic.readthedocs.org/en/latest/), SQLAlchemy 데이터베이스 마이그레이션 관리 도구.
 
 ### 디버깅과 테스팅

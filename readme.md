@@ -89,9 +89,6 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 ### Run the application
     $ python wsgi.py
 
-### Run the application profile
-    $ python profile.py
-
 ### Generate documents
     $ python generate_documents.py
 

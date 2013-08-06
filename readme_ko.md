@@ -88,7 +88,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 ### 어플리케이션 실행
     $ python wsgi.py
 
-### 어플리케이션 프로파일 실행.
+### 어플리케이션 프로파일 실행
     $ python profile.py
 
 ### 문서 생성

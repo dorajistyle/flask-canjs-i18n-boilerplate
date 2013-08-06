@@ -64,7 +64,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 ### Libraries installation.
     $ pip install -r requirements.txt
 
-### Database migration
+### Database migration.
     $ alembic revision --autogenerate -m "Alembic initilized boilerplate tables."
     $ alembic upgrade head
 
@@ -86,13 +86,13 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 
 ## Usage
 
-### Run the application.
+### Run the application
     $ python wsgi.py
 
-### Run the application profile.
+### Run the application profile
     $ python profile.py
 
-### Generate document
+### Generate documents
     $ python generate_documents.py
 
 ### Tests

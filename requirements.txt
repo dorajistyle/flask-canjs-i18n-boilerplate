@@ -38,3 +38,4 @@ uWSGI==1.9.14
 oauth2client==1.1
 foursquare==20130707
 celery==3.0.21
+py-bcrypt==0.3

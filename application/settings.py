@@ -17,7 +17,11 @@ RELOAD = True
 SECRET_KEY = 'super-secret-key'
 BABEL_DEFAULT_LOCALE = 'ko'
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+# Below three lines are just for temporary database.
+import os
+_basedir = os.path.abspath(os.path.dirname(__file__))
+SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/temp.db')
+# SQLALCHEMY_DATABASE_URI = 'mysql://user:@localhost/schema'
 CELERY_BROKER_URL = 'redis://'
 
 # User paginate

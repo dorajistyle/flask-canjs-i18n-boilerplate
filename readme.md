@@ -61,10 +61,21 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 
 ## Installation
 
-### Libraries installation.
+### Install tools
+* [virtualenv](https://python-guide.readthedocs.org/en/latest/dev/virtualenvs/#virtualenv), It is a tool to create isolated Python environments.
+* [virtualenvwrapper](https://python-guide.readthedocs.org/en/latest/dev/virtualenvs/#virtualenvwrapper), It' provides a set of commands which makes working with virtual environments much more pleasant.
+
+### Clone the project
+    $ git clone https://github.com/dorajistyle/flask-canjs-i18n-boilerplate.git
+    $ cd flask-canjs-i18n-boilerplate.git
+
+### Create virtualenv for the project
+    $ mkvirtualenv flask-canjs-i18n-boilerplate
+
+### Install libraries
     $ pip install -r requirements.txt
 
-### Database migration.
+### Migrate database
     $ alembic revision --autogenerate -m "Alembic initilized boilerplate tables."
     $ alembic upgrade head
 
@@ -76,7 +87,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * application/frontend/static/js/settings.js contain client side settings.
 * ./alembic.ini contain alembic settings.
 
-### Translations
+### Translation
 * Server side translations(Babel) in applications/frontend/translations
 * Client side translations(i18next) in applications/frontend/static/locales
 

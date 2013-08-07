@@ -60,6 +60,17 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 
 ## 설치
 
+### 도구 설치
+* [virtualenv](https://python-guide.readthedocs.org/en/latest/dev/virtualenvs/#virtualenv), 분리된 파이썬 환경을 만들어줍니다.
+* [virtualenvwrapper](https://python-guide.readthedocs.org/en/latest/dev/virtualenvs/#virtualenvwrapper), virtualenv를 보다 편리하게 사용하도록 돕습니다.
+
+### 프로젝트 복제
+    $ git clone https://github.com/dorajistyle/flask-canjs-i18n-boilerplate.git
+    $ cd flask-canjs-i18n-boilerplate.git
+
+### 프로젝트를 위한 virtualenv 생성
+    $ mkvirtualenv flask-canjs-i18n-boilerplate
+
 ### 필요 라이브러리 설치
     $ pip install -r requirements.txt
 

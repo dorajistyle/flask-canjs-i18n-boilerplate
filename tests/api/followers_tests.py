@@ -18,11 +18,11 @@ class FollowersApiTestCase(ApplicationApiTestCase):
     def test_follow(self):
         r = self.xpost('/followers', data='id='+str(self.user2.id))
         self.assertOkJson(r)
-        self.assertIn('"status": true', r.data)
+        self.assertIn('"email": "%s"' % self.user2.email, r.data)
 
     def test_unfollow(self):
         self.xpost('/followers', data='id='+str(self.user2.id))
         r = self.xdelete('/followers/'+str(self.user2.id))
         self.assertOkJson(r)
-        self.assertIn('"status": true', r.data)
+        self.assertIn('"email": "%s"' % self.user2.email, r.data)
 

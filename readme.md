@@ -22,6 +22,10 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * Do you need more Features? Fork it and improve it! :D
 
 
+## Live application
+{http://flask-canjs-i18n-boilerplate.ap01.aws.af.cm/](http://flask-canjs-i18n-boilerplate.ap01.aws.af.cm/)
+
+
 ## How it works?
 
 ![flask-canjs-i18n-boilerplate](https://f.cloud.github.com/assets/1202809/914493/b584032c-fe3b-11e2-83c0-05b83e8959ba.png)

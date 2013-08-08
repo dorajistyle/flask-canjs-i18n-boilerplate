@@ -53,7 +53,7 @@ def login():
     #     print(h)
     # for k in request.form:
     #     print(k)
-    return {'status': status, 'email': email}
+    return {'email': email}
 
 
 @route(bp, '', methods=['DELETE'])

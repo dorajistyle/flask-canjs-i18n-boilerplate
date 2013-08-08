@@ -179,12 +179,8 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
                 can.when(Follower.create(values)).then(function (result) {
                     follow_btn.removeAttr('disabled');
                     $form.data('submitted', false);
-                    if (result.status) {
-                        utils.showSuccessMsg(i18n.t('profile.follow.success', result.email));
-                        read.load(values.id);
-                    } else {
-                        utils.showErrorMsg(i18n.t('profile.follow.failed'));
-                    }
+                    utils.showSuccessMsg(i18n.t('profile.follow.success', result.email));
+                    read.load(values.id);
                 }, function (xhr) {
                     utils.handleStatusWithErrorMsg(xhr, i18n.t('profile.follow.failed'));
                 });
@@ -201,12 +197,8 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
                 can.when(Follower.destroy(values.id)).then(function (result) {
                     follow_btn.removeAttr('disabled');
                     $form.data('submitted', false);
-                    if (result.status) {
-                        utils.showSuccessMsg(i18n.t('profile.unfollow.success', result.email));
-                        read.load(values.id);
-                    } else {
-                        utils.showErrorMsg(i18n.t('profile.unfollow.failed'));
-                    }
+                    utils.showSuccessMsg(i18n.t('profile.unfollow.success', result.email));
+                    read.load(values.id);
                 }, function (xhr) {
                     utils.handleStatusWithErrorMsg(xhr, i18n.t('profile.unfollow.failed'));
                 });
@@ -350,20 +342,16 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
                     User.findOne({id: values.id}, function (user) {
                         user.attr(values);
                         user.save(function (result) {
-                            if (result.status) {
-                                update_btn.removeAttr('disabled');
-                                $form.data('submitted', false);
-                                utils.showSuccessMsg(i18n.t('setting.changePassword.success'));
-                            } else {
-                                update_btn.removeAttr('disabled');
-                                $form.data('submitted', false);
-                                if (result.password_incorrect) {
-                                    utils.showErrorMsg(i18n.t('setting.changePassword.passwordIncorrect'));
-                                    return false;
-                                }
-                                utils.showErrorMsg(i18n.t('setting.changePassword.failed'));
+                            update_btn.removeAttr('disabled');
+                            $form.data('submitted', false);
+                            if (result.password_incorrect) {
+                                utils.showErrorMsg(i18n.t('setting.changePassword.passwordIncorrect'));
+                                return false;
                             }
+                            utils.showSuccessMsg(i18n.t('setting.changePassword.success'));
                         }, function (xhr) {
+                            update_btn.removeAttr('disabled');
+                            $form.data('submitted', false);
                             utils.handleStatusWithErrorMsg(xhr, i18n.t('setting.changePassword.failed'));
                         });
                     });

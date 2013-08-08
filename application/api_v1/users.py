@@ -54,14 +54,12 @@ def update(user_id):
     """
     user = users.get_or_404(user_id)
     password_incorrect = False
-    status = False
     if verify_password(request.form.get('currentPassword'), user.password):
         user.password = encrypt_password(request.form.get('newPassword'))
         users.save(user)
-        status = True
     else:
         password_incorrect = True
-    return {'user': user, 'password_incorrect': password_incorrect, 'status': status}
+    return {'user': user, 'password_incorrect': password_incorrect}
 
 
 @route(bp, '/<user_id>', methods=['DELETE'])

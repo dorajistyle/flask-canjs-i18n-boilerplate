@@ -26,7 +26,8 @@ def create():
         email(following user email)
     """
     user = users.get_or_404(request.form.get('id'))
-    return {'status': users.follow(user), 'email': user.email}
+    users.follow(user)
+    return {'email': user.email}
 
 
 @route(bp, '/<user_id>', methods=['DELETE'])
@@ -42,7 +43,8 @@ def destroy(user_id):
         email(unfollowing user email)
     """
     user = users.get_or_404(user_id)
-    return {'status': users.unfollow(user), 'email': user.email}
+    users.unfollow(user)
+    return {'email': user.email}
 
 
 @route(bp, '', methods=['GET'])

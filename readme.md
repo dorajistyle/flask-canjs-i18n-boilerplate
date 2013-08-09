@@ -84,7 +84,8 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
     $ alembic upgrade head
 
 ### Add administrator user
-You can login with 'admin@github.com', 'password'
+    You can login with 'admin@github.com', 'password'
+
     $ python manage.py init_user
 
 ### Setting

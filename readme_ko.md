@@ -82,6 +82,10 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
     $ alembic revision --autogenerate -m "Alembic initilized boilerplate tables."
     $ alembic upgrade head
 
+### 관리자 추가
+'admin@github.com', 'password'로 로그인 하시면 됩니다.
+    $ python manage.py init_user
+
 ### 설정
 
     설정 값을 올바르게 설정해야 합니다.(데이터베이스, 메일, 소셜 네트워크 정보...)

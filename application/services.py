@@ -7,7 +7,8 @@
     services module
 
 """
-from application.user import UsersService
+from application.user import UsersService, RoleService
 
 #: An instance of the :class:`UsersService` class
+roles = RoleService()
 users = UsersService()

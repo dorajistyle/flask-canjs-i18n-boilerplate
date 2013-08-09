@@ -83,6 +83,10 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
     $ alembic revision --autogenerate -m "Alembic initilized boilerplate tables."
     $ alembic upgrade head
 
+### Add administrator user
+You can login with 'admin@github.com', 'password'
+    $ python manage.py init_user
+
 ### Setting
 
     You should set values properly.(database, mail, social providers...)

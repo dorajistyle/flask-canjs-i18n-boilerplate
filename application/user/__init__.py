@@ -12,12 +12,26 @@ from flask_security.registerable import register_user
 from flask_security import current_user, login_user, AnonymousUser
 
 from application.core import Service, db, DictEncoder, security
-from models import User, Connection, followers
+from models import User, Role, Connection, followers
 from application.settings import USER_FOLLOWERS_PER_PAGE, USER_FOLLOWING_PER_PAGE, USER_PER_PAGE
+
 
 class ConnectionService(Service):
     __model__ = Connection
 
+
+class RoleService(Service):
+    __model__ = Role
+
+    def create_role(self, **kwargs):
+        kwargs = DictEncoder.encode(kwargs)
+        role = security.datastore.create_role(**kwargs)
+        db.session.commit()
+        return role
+
+    def find_or_create_role(self, name):
+        role = security.datastore.find_or_create_role(name)
+        return role
 
 class UsersService(Service):
     __model__ = User
@@ -199,6 +213,11 @@ class UsersService(Service):
             db.session.commit()
             return True
         return False
+
+    def add_role_to_user(self, user, role):
+        status = security.datastore.add_role_to_user(user, role)
+        db.session.commit()
+        return status
 
     def has_facebook_connection(self):
         """

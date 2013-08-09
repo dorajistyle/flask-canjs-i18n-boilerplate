@@ -1,7 +1,13 @@
 define([], function () {
     'use strict';
     var exports = {};
-    exports.i18n_options = {debug: true, resGetPath: 'static/locales/__lng__/__ns__.json'};
+    exports.i18n_options = {debug: true,
+                            getAsync: true,
+                            useLocalStorage: false,
+                            localStorageExpirationTime: 86400000,
+                            fallbackLng: 'en',
+                            resGetPath: 'static/locales/__lng__/__ns__.json'};
+
     exports.use_logger = true;
     exports.spin_options = {
         lines: 7, // The number of lines to draw

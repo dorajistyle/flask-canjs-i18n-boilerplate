@@ -2,4 +2,5 @@
 .webassets-cache
 *.pyc
 *.log
-alembic/versions/*update
+alembic/versions/*
+application/db/*

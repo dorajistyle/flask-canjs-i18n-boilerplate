@@ -1,7 +1,0 @@
-p
-  © a(href='https://github.com/dorajistyle/flask-canjs-i18n-boilerplate', target='_blank', title='Flask-canjs-i18n-boilerplate') Flask-canjs-i18n-boilerplate
-  = this_year
-  = " ("
-  a(href='https://github.com/dorajistyle', target='_blank', title='dorajistyle')
-    = "dorajistyle"
-  )

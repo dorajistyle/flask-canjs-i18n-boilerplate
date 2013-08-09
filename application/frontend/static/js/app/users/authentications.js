@@ -51,14 +51,18 @@ define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'u
                     login_btn.attr('disabled', 'disabled');
                     utils.logDebug("performLogin", JSON.stringify(values));
                     can.when(Authentication.create(values)).then(function (result) {
-                        login_btn.removeAttr('disabled');
-                        $form.data('submitted', false);
-                        can.route.attr({route: 'refresh/navbar', url: document.referrer});
-                        utils.showSuccessMsg(i18n.t('login.welcome', result.email));
-                        utils.logDebug(JSON.stringify(this), JSON.stringify(result));
+                        if (result.status) {
+                            can.route.attr({route: 'refresh/navbar', url: document.referrer});
+                            utils.showSuccessMsg(i18n.t('login.welcome', result.email));
+                            utils.logDebug(JSON.stringify(this), JSON.stringify(result));
+                        } else {
+                            login_btn.removeAttr('disabled');
+                            $form.data('submitted', false);
+                            utils.showErrorMsg(i18n.t('login.failed'));
+                        }
+
                     }, function (xhr) {
-                        utils.showErrorMsg(i18n.t('login.failed'));
-                        utils.handleStatusWithErrorMsg(xhr, i18n.t('login.already'));
+                        utils.handleStatusWithErrorMsg(xhr, i18n.t('login.failed'));
                     });
                 }
             } else {

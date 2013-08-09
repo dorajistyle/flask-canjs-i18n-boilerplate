@@ -47,11 +47,11 @@ body {
 }
 
 .setting-wrapper {
-  label {
-    line-height: 30px;
-  }
-  button.update-user {
-    margin-right: 1em;
+  //label {
+  //  line-height: 30px;
+  //}
+  button.update-user-password {
+    margin-right: 3.2em;
   }
 }
 
@@ -61,7 +61,7 @@ body {
   }
 }
 
-.login-text .hero-unit {
+.login-text .jumbotron {
   background-color: transparent;
 }
 
@@ -76,11 +76,11 @@ body {
 #ajaxProgress {
   bottom: 1em;
   left: 1em;
-  padding-top: 24px;
-  padding-left: 24px;
+  padding-top: 15px;
+  padding-left: 15px;
   border: 1px dashed #000;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   position: fixed;
   z-index: 444;
 }

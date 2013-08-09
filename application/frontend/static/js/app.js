@@ -8,7 +8,7 @@ require.config({
             "vendor/jquery-1.10.1.min"
         ],
         "jquery.bootstrap": [
-            '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min',
+            "//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min",
             "vendor/bootstrap.min"
         ],
         "can": "vendor/can",

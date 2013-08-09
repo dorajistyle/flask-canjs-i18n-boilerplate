@@ -1,4 +1,4 @@
-/* 28, add to 28 selectors generated from '/home/dorajistyle/PycharmProjects/flask-canjs-i18n-boilerplate/application/frontend/static/scss/main.scss' */
+/* 27, add to 27 selectors generated from '/home/dorajistyle/PycharmProjects/flask-canjs-i18n-boilerplate/application/frontend/static/scss/main.scss' */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\000032}}
 body {
   padding-top: 60px;
@@ -41,19 +41,15 @@ body {
   margin-bottom: 5em;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000350}}
-.setting-wrapper label {
-  line-height: 30px;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000353}}
-.setting-wrapper button.update-user {
-  margin-right: 1em;
+.setting-wrapper button.update-user-password {
+  margin-right: 3.2em;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000359}}
 .disconnect-to-facebook-wrapper button {
   margin-top: -2.5em;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000364}}
-.login-text .hero-unit {
+.login-text .jumbotron {
   background-color: transparent;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000368}}
@@ -68,11 +64,11 @@ body {
 #ajaxProgress {
   bottom: 1em;
   left: 1em;
-  padding-top: 24px;
-  padding-left: 24px;
+  padding-top: 15px;
+  padding-left: 15px;
   border: 1px dashed #000;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   position: fixed;
   z-index: 444;
 }

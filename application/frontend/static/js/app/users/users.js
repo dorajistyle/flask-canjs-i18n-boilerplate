@@ -421,7 +421,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
             ev.preventDefault();
             ev.stopPropagation();
             this.isConfirmed = true;
-            this.performDestroy();
+            can.when($('#leaveOurServiceConfirm').modal('hide')).then(this.performDestroy());
             return false;
         },
         '.cancel-confirm click': function (el, ev) {
@@ -437,7 +437,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
          * @memberof users#Destroy
          */
         performCancel: function () {
-            $('#leaveOurServiceConfirm').addClass('hidden');
+//            $('#leaveOurServiceConfirm').addClass('hidden');
         },
 
         /**
@@ -445,7 +445,8 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
          * @memberof users#Destroy
          */
         performConfirm: function () {
-            $('#leaveOurServiceConfirm').removeClass('hidden');
+//            $('#leaveOurServiceConfirm').removeClass('hidden');
+            $('#leaveOurServiceConfirm').modal()
         },
         /**
          * perform Destory action.

@@ -1,10 +1,12 @@
-<form id="updateBasicForm" name="updateBasicForm" method="put">
+<form id="updateBasicForm" name="updateBasicForm" method="put" class="form-horizontal">
+  <fieldset>
     <h4>{{i18n 'setting.basic.title'}}</h4>
     <hr/>
     <input type="hidden" id="id" name="id" value="{{user.id}}"/>
 
-    <div class="email">
-        <label for="email" class="span4">{{i18n 'users.email'}}</label>
-        <input id="email" name="email" readonly type="email" class="email span8" value="{{user.email}}"/>
+    <div class="email form-group col-lg-12">
+        <label for="email" class="col-lg-4">{{i18n 'users.email'}}</label>
+        <input id="email" name="email" readonly type="email" class="email form-control col-lg-8" value="{{user.email}}"/>
     </div>
+  </fieldset>
 </form>

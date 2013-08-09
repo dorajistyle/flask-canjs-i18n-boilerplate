@@ -31,10 +31,9 @@ html.no-js(lang='#{lang}')
         a(href='http://www.google.com/chromeframe/?redirect=true') activate Google Chrome Frame
         | to improve your experience.
     //
-       This code is taken from http://twitter.github.com/bootstrap/examples/hero.html
     | {% include 'header.jade' %}
     .container
-      .row-fluid
+      .row
         | {% block content %}{% endblock %}
     hr
     .container

@@ -18,7 +18,6 @@ css_application = Bundle("scss/main.scss", "scss/http-errors.scss",
 
 #: consolidated css bundle
 css_all = Bundle("css/bootstrap.min.css", css_application,
-                 "css/bootstrap-responsive.min.css",
                  filters="cssmin", output="css/application.min.css")
 
 

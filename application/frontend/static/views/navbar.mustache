@@ -1,17 +1,17 @@
-<div class="row-fluid">
+<div class="row">
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
             <div class="container">
-                <a data-toggle="collapse" data-target=".nav-collapse" class="btn btn-navbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span></a>
-                <a href="/#!" title="{{i18n 'service.name'}}" class="brand">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a href="/#!" title="{{i18n 'service.name'}}" class="navbar-brand">
                     <i class="icon-home icon-white"></i>&nbsp; {{i18n 'service.name'}}
                 </a>
 
-                <div class="nav-collapse collapse">
-                    <ul class="nav pull-right">
+                <div class="nav-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav pull-right">
                         {{#data}}
                             {{^user}}
                                 <li class="active"><a href="/#!login">{{i18n 'navbar.login'}}</a></li>
@@ -23,7 +23,7 @@
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-header">{{i18n 'navbar.myAccount'}}</li>
+                                        <li class="dropdown-header">{{i18n 'navbar.myAccount'}}</li>
                                         <li><a href="/#!profile/{{ id }}">{{i18n 'navbar.profile'}}</a></li>
                                         <li><a href="/#!setting/basic">{{i18n 'navbar.setting'}}</a></li>
                                         <li><a href="/#!logout">{{i18n 'navbar.logout'}}</a></li>
@@ -58,6 +58,5 @@
                     </ul>
                 </div>
             </div>
-        </div>
     </div>
 </div>

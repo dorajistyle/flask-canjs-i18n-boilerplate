@@ -22,6 +22,6 @@ class InitUserCommand(Command):
         kwargs = MultiDict(dict(registrationEmail='admin@github.com', registrationPassword='password'))
         user = users.create_user(**kwargs)
         if users.add_role_to_user(user, role):
-            print 'admin@techstilus.com got admin role successfully.'
+            print 'admin@github.com got admin role successfully.'
             return
         print 'Init user failed.'

@@ -71,11 +71,11 @@ define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'u
          */
         performLogout: function () {
             can.when(Authentication.destroy()).then(function () {
+                utils.deleteCookie('session');
+                utils.deleteCookie('remember_token');
                 can.when(Authentication.findAll()).then(function () {
                     utils.showErrorMsg(i18n.t('logout.error'));
                 }, function (xhr) {
-                    utils.deleteCookie('session');
-                    utils.deleteCookie('remember_token');
                     utils.showSuccessMsg(i18n.t('logout.success'));
                     can.route.attr({route: 'refresh/navbar', url: 'login'});
                 });

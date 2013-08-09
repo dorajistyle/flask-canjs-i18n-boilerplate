@@ -1,48 +1,45 @@
 .navbar.navbar-inverse.navbar-fixed-top
-    .navbar-inner
-        .container
-          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.brand(href='/#!',title="{{ _('service name') }}")
-            i.icon-home.icon-white
-            &nbsp; {{ _('service name')}}
-          .nav-collapse.collapse
-            ul.nav.pull-right
-              if not user
-                li.active
-                  a(href='/#!login') {{ _('Login') }}
-              else
-                li.dropdown
-                  a.dropdown-toggle(href='#', data-toggle='dropdown')
-                    | {{ user.email }}
-                    b.caret
-                  ul.dropdown-menu
-                    li.nav-header {{ _('My Account') }}
-                    li
-                      a(href='/#!profile') {{ _('Profile') }}
-                    li
-                      a(href='/#!setting/basic') {{ _('Setting') }}
-                    li
-                      a(href='/#!logout') {{ _('Logout') }}
+    .container
+      button.navbar-toggle(data-toggle='collapse', data-target='.navbar-responsive-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/#!',title="{{ _('service name') }}")
+        i.icon-home.icon-white
+        &nbsp; {{ _('service name')}}
+      .nav-collapse.collapse.navbar-responsive-collapse
+        ul.nav.navbar-nav.pull-right
+          if not current_user.is_authenticated()
+            li.active
+              a(href='/#!login') {{ _('Login') }}
+          else
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown')
+                | {{ current_user.email }}
+                b.caret
+              ul.dropdown-menu
+                li.dropdown-header {{ _('My Account') }}
+                li
+                  a(href='/#!profile') {{ _('Profile') }}
+                li
+                  a(href='/#!setting/basic') {{ _('Setting') }}
 
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | {{ _('About Us') }}
-                  b.caret
-                ul.dropdown-menu
-                  li
-                    a(href='/#!sitemap') {{ _('Sitemap') }}
-                  li
-                    a(href='/#!how_it_works') {{ _('How it Works') }}
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              | {{ _('About Us') }}
+              b.caret
+            ul.dropdown-menu
+              li
+                a(href='/#!sitemap') {{ _('Sitemap') }}
+              li
+                a(href='/#!how_it_works') {{ _('How it Works') }}
 
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | {{ _('Languages')}}
-                  b.caret
-                ul.dropdown-menu
-                  li
-                    a(href='/locales/en') {{_('English')}}
-                  li
-                    a(href='/locales/ko') {{_('Korean')}}
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              | {{ _('Languages')}}
+              b.caret
+            ul.dropdown-menu
+              li
+                a(href='/locales/en') {{_('English')}}
+              li
+                a(href='/locales/ko') {{_('Korean')}}

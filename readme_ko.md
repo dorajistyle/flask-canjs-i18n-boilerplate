@@ -83,8 +83,8 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
     $ alembic upgrade head
 
 ### 관리자 추가
-    'admin@github.com', 'password'로 로그인 하시면 됩니다.
-    
+'admin@github.com', 'password'로 로그인 하시면 됩니다.
+
     $ python manage.py init_user
 
 ### 설정

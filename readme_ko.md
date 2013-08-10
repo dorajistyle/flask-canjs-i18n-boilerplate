@@ -39,7 +39,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * [Bootstrap](http://twitter.github.io/bootstrap/),  프론트엔드 프레임워크.
 * [mustache](http://mustache.github.io/), 템플릿 엔진.
 * [i18next](http://i18next.com/), 자바스크립트 다국어 도구.
-* [Font Awesome](http://fortawesome.github.io/), 크기 변환등 개별화 가능한 백터 아이콘 모음을 제공합니다.
+* [Font Awesome](http://fortawesome.github.io/Font-Awesome/), 크기 변환등 개별화 가능한 백터 아이콘 모음을 제공합니다.
 * [spin.js](http://fgnass.github.io/spin.js/), 작업중 활동 표시기.
 
 ### 서버 사이드

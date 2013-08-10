@@ -10,6 +10,8 @@ msgstr "Flask-Canjs-i18n-Boilerplate"
 # Header
 msgid "service name"
 msgstr "Our Service"
+msgid "Loading"
+msgstr "loading"
 
 # Flask-Security Messages
 msgid "Your password has been changed."

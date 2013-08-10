@@ -18,7 +18,7 @@ css_application = Bundle("scss/main.scss", "scss/http-errors.scss",
 
 #: consolidated css bundle
 css_all = Bundle("css/bootstrap.min.css", css_application,
-                 filters="cssmin", output="css/application.min.css")
+                 'css/font-awesome.min.css', filters="cssmin", output="css/application.min.css")
 
 
 def init_app(app):

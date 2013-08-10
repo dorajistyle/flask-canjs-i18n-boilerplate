@@ -12,6 +12,7 @@ from application.babel_helper import _
 
 DEBUG = True
 DEBUG_TB_INTERCEPT_REDIRECTS = False
+ASSETS_DEBUG = True
 
 RELOAD = True
 SECRET_KEY = 'super-secret-key'

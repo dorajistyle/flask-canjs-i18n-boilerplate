@@ -63,16 +63,24 @@ require(['can', 'jquery', 'utils', 'i18n', 'settings', 'spin', 'app/components/n
                 Navbar.load();
                 new Routers($('#app'));
                 var target = document.getElementById('ajaxProgress');
-                var spinner = new Spin(settings.spin_options);
+//                var spinner = new Spin(settings.spin_options);
+//                var $document = $(document);
+//                $document.ajaxStart(function () {
+//                    spinner.spin(target);
+//                    $(target).removeClass('hidden');
+//                });
+//                $document.ajaxStop(function () {
+//                    spinner.stop();
+//                    $(target).addClass('hidden');
+//                });
                 var $document = $(document);
                 $document.ajaxStart(function () {
-                    spinner.spin(target);
                     $(target).removeClass('hidden');
                 });
                 $document.ajaxStop(function () {
-                    spinner.stop();
                     $(target).addClass('hidden');
                 });
+
 
                 can.route.ready(true);
             });

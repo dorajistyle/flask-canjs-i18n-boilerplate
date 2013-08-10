@@ -40,7 +40,8 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * [Bootstrap](http://twitter.github.io/bootstrap/), Front-end framework.
 * [mustache](http://mustache.github.io/), Logic-less templates.
 * [i18next](http://i18next.com/), JavaScript translating toolkit.
-* [spin.js](http://fgnass.github.io/spin.js/) Spin.js dynamically creates spinning activity indicators that can be used as resolution-independent replacement for AJAX loading GIFs.
+* [Font Awesome](http://fortawesome.github.io/), It gives you scalable vector icons that can instantly be customized.
+* [spin.js](http://fgnass.github.io/spin.js/), It dynamically creates spinning activity indicators that can be used as resolution-independent replacement for AJAX loading GIFs.
 
 ### Server side
 * [Flask](http://flask.pocoo.org/), Microframework for Python based on Werkzeug, Jinja 2 and good intentions.

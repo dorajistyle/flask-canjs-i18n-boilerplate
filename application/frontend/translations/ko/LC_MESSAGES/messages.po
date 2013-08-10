@@ -10,6 +10,8 @@ msgstr "플라스크-캔js-다국어-보일러플레이트"
 # Header
 msgid "service name"
 msgstr "우리 서비스"
+msgid "Loading"
+msgstr "처리중"
 
 # Flask-Security Messages
 msgid "Your password has been changed."

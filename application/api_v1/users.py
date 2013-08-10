@@ -12,6 +12,8 @@ from flask_security.utils import encrypt_password, verify_password, logout_user
 from application.api_v1 import route, login_required
 from application.services import users
 from application.core import gravatar
+from application.form.users import UpdateForm
+from werkzeug.datastructures import MultiDict
 
 bp = Blueprint('users', __name__, url_prefix='/users')
 
@@ -52,9 +54,15 @@ def update(user_id):
     :param user_id:
     :return: user, password_incorrect, status
     """
+
+    if request.form:
+        form = UpdateForm(MultiDict(request.form))
+    else:
+        form = UpdateForm()
+
     user = users.get_or_404(user_id)
     password_incorrect = False
-    if verify_password(request.form.get('currentPassword'), user.password):
+    if form.validate_on_submit():
         user.password = encrypt_password(request.form.get('newPassword'))
         users.save(user)
     else:

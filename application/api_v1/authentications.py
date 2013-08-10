@@ -14,7 +14,8 @@ from flask_security.utils import verify_password
 
 from application.api_v1 import route, login_required
 from application.services import users
-
+from application.form.authentications import LoginForm
+from werkzeug.datastructures import MultiDict
 
 bp = Blueprint('authentications', __name__, url_prefix='/authentications')
 
@@ -41,19 +42,23 @@ def login():
         email(user's email when status is True.)
     """
     if users.is_authenticated():
-        return {}, 400
-    user = users.first(email=request.form.get('loginEmail'), active=1)
-    if user and verify_password(request.form.get('loginPassword'), user.password):
+        return {'msg': 'login.already'}, 400
+
+    if request.form:
+        form = LoginForm(MultiDict(request.form))
+    else:
+        form = LoginForm()
+
+    if form.validate_on_submit():
         remember = True if request.form.get('rememberMe') else False
-        users.login_user(user, remember)
+        users.login_user(form.user, remember=remember)
     status = users.is_authenticated()
-    email = users.me().email if status else ""
-    # print(verify_password(request.form.get('loginPassword'), user.password))
-    # for h in request.headers:
-    #     print(h)
-    # for k in request.form:
-    #     print(k)
-    return {'status': status, 'email': email}
+    # # print(verify_password(request.form.get('loginPassword'), user.password))
+    # # for h in request.headers:
+    # #     print(h)
+    # # for k in request.form:
+    # #     print(k)
+    return {'status': status, 'email': request.form.get('loginEmail'), 'msg': form.errors[0]}
 
 
 @route(bp, '', methods=['DELETE'])

@@ -178,7 +178,7 @@ define(['jquery', 'loglevel', 'i18n', 'can'], function ($, log, i18n, can) {
                 case 400:
                     // Bad Request
 //                    can.route.attr('route','');
-                    window.location.hash = "#!login";
+                    window.location.hash = "#!";
                     break;
                 case 500:
                     // Internal Server Error

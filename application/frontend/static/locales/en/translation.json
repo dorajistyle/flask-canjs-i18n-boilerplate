@@ -24,7 +24,7 @@
         "email": "Please enter an email address.",
         "content": "Please enter a content.",
         "agreement": "Please confirm the terms and conditions.",
-        "password": "Please enter correct password. Length should be at least 6 charcters.",
+        "password": "Please enter correct password. Length should be between 8 to 20 charcters.",
         "newPasswordConfirm": "‘New Password Confirm’ should be exactly same as ‘New Password’.",
         "contentTooShort": "It's too short. Content should be at least 3 characters."
     },
@@ -51,6 +51,9 @@
         "welcome": "Welcome %s!!!",
         "failed": "Login failed. Please try it again.",
         "already": "You already logged in.",
+        "userNotFound": "You didn't registered yet.",
+        "passwordIncorrect": "Password is incorrect.",
+        "userDisabled": "This account not available.",
         "rememberMe": "Remember me",
         "forgotPassword": "Forgot password",
         "submit": "Login"

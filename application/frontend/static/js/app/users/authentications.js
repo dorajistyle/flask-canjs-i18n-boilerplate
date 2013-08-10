@@ -34,7 +34,7 @@ define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'u
          * @memberof autentications#Create
          */
         validate: function () {
-            return utils.validateEmail('loginEmail') && utils.minLength('loginPassword', 6, 'validation.password');
+            return utils.validateEmail('loginEmail') && utils.minLength('loginPassword', 8, 'validation.password') && utils.maxLength('loginPassword', 20, 'validation.password');
         },
         /**
          * Perform login action.
@@ -51,6 +51,7 @@ define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'u
                     login_btn.attr('disabled', 'disabled');
                     utils.logDebug("performLogin", JSON.stringify(values));
                     can.when(Authentication.create(values)).then(function (result) {
+                        utils.logDebug("performLogin Response", JSON.stringify(result));
                         if (result.status) {
                             can.route.attr({route: 'refresh/navbar', url: document.referrer});
                             utils.showSuccessMsg(i18n.t('login.welcome', result.email));
@@ -58,11 +59,13 @@ define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'u
                         } else {
                             login_btn.removeAttr('disabled');
                             $form.data('submitted', false);
-                            utils.showErrorMsg(i18n.t('login.failed'));
+                            utils.showErrorMsg(i18n.t(result.msg));
                         }
 
                     }, function (xhr) {
-                        utils.handleStatusWithErrorMsg(xhr, i18n.t('login.failed'));
+                       var msg = 'login.failed';
+                       if(xhr.responseJSON) msg = xhr.responseJSON.msg;
+                        utils.handleStatusWithErrorMsg(xhr, i18n.t(msg));
                     });
                 }
             } else {

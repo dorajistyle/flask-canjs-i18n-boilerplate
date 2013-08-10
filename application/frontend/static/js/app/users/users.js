@@ -37,7 +37,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
          * @memberof users#Create
          */
         validate: function () {
-            return utils.validateEmail('registrationEmail') && utils.minLength('registrationPassword', 6, 'validation.password');
+            return utils.validateEmail('registrationEmail') && utils.minLength('registrationPassword', 8, 'validation.password') && utils.maxLength('registrationPassword', 20, 'validation.password');
         },
         /**
          * perform Register action.
@@ -317,9 +317,12 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
          * @memberof users#Update
          */
         validate: function () {
-            return utils.minLength('currentPassword', 6, 'validation.password')
-                && utils.minLength('newPassword', 6, 'validation.password')
-                && utils.minLength('newPasswordConfirm', 6, 'validation.password')
+            return utils.minLength('currentPassword', 8, 'validation.password')
+                && utils.minLength('newPassword', 8, 'validation.password')
+                && utils.minLength('newPasswordConfirm', 8, 'validation.password')
+                && utils.maxLength('currentPassword', 20, 'validation.password')
+                && utils.maxLength('newPassword', 20, 'validation.password')
+                && utils.maxLength('newPasswordConfirm', 20, 'validation.password')
                 && utils.isIdentical('newPassword', 'newPasswordConfirm', 'validation.newPasswordConfirm');
         },
         validateSendtoFB: function () {

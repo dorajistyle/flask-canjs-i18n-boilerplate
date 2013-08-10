@@ -42,10 +42,10 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * [i18next](http://i18next.com/), JavaScript translating toolkit.
 * [Font Awesome](http://fortawesome.github.io/Font-Awesome/), It gives you scalable vector icons that can instantly be customized.
 * [spin.js](http://fgnass.github.io/spin.js/), It dynamically creates spinning activity indicators that can be used as resolution-independent replacement for AJAX loading GIFs.
+* [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), High performance port of Jade-lang for python.
 
 ### Server side
 * [Flask](http://flask.pocoo.org/), Microframework for Python based on Werkzeug, Jinja 2 and good intentions.
-* [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), High performance port of Jade-lang for python.
 * [Flask-Babel](http://pythonhosted.org/Flask-Babel/), Extension to Flask that adds i18n and l10n support to any Flask application.
 * [Flask-Gravatar](https://pypi.python.org/pypi/Flask-Gravatar), It's small and simple integration gravatar into flask.
 * [Flask-Security](http://pythonhosted.org/Flask-Security/),It allows you to quickly add common security mechanisms to your Flask application.

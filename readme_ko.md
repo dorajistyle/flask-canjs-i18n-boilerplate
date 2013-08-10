@@ -41,10 +41,10 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * [i18next](http://i18next.com/), 자바스크립트 다국어 도구.
 * [Font Awesome](http://fortawesome.github.io/Font-Awesome/), 크기 변환등 개별화 가능한 백터 아이콘 모음을 제공합니다.
 * [spin.js](http://fgnass.github.io/spin.js/), 작업중 활동 표시기.
+* [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), 파이썬용 Jade 템플릿 엔진 확장.
 
 ### 서버 사이드
 * [Flask](http://flask.pocoo.org/), 가벼운 파이썬 프레임워크.
-* [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), 파이썬용 Jade 템플릿 엔진 확장.
 * [Flask-Babel](http://pythonhosted.org/Flask-Babel/), 플라스크용 다국어 확장.
 * [Flask-Gravatar](https://pypi.python.org/pypi/Flask-Gravatar), 플라스크용 그라바타 확장.
 * [Flask-Security](http://pythonhosted.org/Flask-Security/), 플라스크용 로그인 보안 확장.

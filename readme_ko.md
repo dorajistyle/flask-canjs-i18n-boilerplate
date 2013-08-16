@@ -40,6 +40,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * [mustache](http://mustache.github.io/), 템플릿 엔진.
 * [i18next](http://i18next.com/), 자바스크립트 다국어 도구.
 * [Font Awesome](http://fortawesome.github.io/Font-Awesome/), 크기 변환등 개별화 가능한 백터 아이콘 모음을 제공합니다.
+* [typeahead.js](https://github.com/twitter/typeahead.js), 텍스트 자동 완성 라이브러리.
 * [spin.js](http://fgnass.github.io/spin.js/), 작업중 활동 표시기.
 * [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), 파이썬용 Jade 템플릿 엔진 확장.
 
@@ -51,6 +52,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * [Flask-Social](http://pythonhosted.org/Flask-Social/), Flask-Security에서 Oauth를 지원하는 확장.
 * [Flask-Assets](http://elsdoerfer.name/docs/flask-assets/), 자바스크립트와 스타일시트를 관리하는 플라스크용 확장.
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/), SQLAlchemy사용을 위한 플라스크용 확장.
+* [Flask-WTF](https://flask-wtf.readthedocs.org/en/latest/), WTForms 통합 확장.
 * [Alembic](http://alembic.readthedocs.org/en/latest/), SQLAlchemy 데이터베이스 마이그레이션 관리 도구.
 
 ### 디버깅과 테스팅

@@ -116,6 +116,15 @@ class Service(object):
         """
         return self.__model__.query.filter(self.__model__.id.in_(ids)).all()
 
+    def search(self, text, limit):
+        """
+        Search models by whoosh.
+        :param text:
+        :param limit:
+        :return:
+        """
+        return self.__model__.query.whoosh_search(text, limit=limit)
+
     def find(self, **kwargs):
         """Returns a list of instances of the service's model filtered by the
         specified key word arguments.

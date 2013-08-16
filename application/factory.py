@@ -39,6 +39,7 @@ def create_app(package_name, package_path, settings_override=None,
     app.config.from_object('application.settings')
     app.config.from_pyfile('settings.cfg', silent=True)
     app.config.from_object(settings_override)
+    db.app = app
     db.init_app(app)
     mail.init_app(app)
     babel.init_app(app)

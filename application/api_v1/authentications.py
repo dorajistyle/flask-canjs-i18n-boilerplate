@@ -53,11 +53,11 @@ def login():
         remember = True if request.form.get('rememberMe') else False
         users.login_user(form.user, remember=remember)
     status = users.is_authenticated()
-    # # print(verify_password(request.form.get('loginPassword'), user.password))
-    # # for h in request.headers:
-    # #     print(h)
-    # # for k in request.form:
-    # #     print(k)
+    # print(verify_password(request.form.get('loginPassword'), user.password))
+    # for h in request.headers:
+    #     print(h)
+    # for k in request.form:
+    #     print(k)
     return {'status': status, 'email': request.form.get('loginEmail'), 'msg': form.errors[0]}
 
 

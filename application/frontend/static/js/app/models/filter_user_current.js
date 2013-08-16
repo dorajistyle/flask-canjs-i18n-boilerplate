@@ -5,14 +5,14 @@ define(['can', 'can/model'], function (can, Model) {
     /**
      * User related
      * @author dorajistyle
-     * @namespace search_user_current
+     * @namespace filter_user_current
      */
 
     /**
      * FilterUserCurrent model.
      *  @constructor
      * @type {*}
-     * @name search_user_current#FilterUserCurrent
+     * @name filter_user_current#FilterUserCurrent
      */
     var FilterUserCurrent = Model({
         findOne: 'GET /api/v1/filters/user/current'

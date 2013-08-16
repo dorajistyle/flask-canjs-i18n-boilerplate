@@ -12,6 +12,7 @@ from flask_wtf import Form as BaseForm
 
 from flask import current_app
 
+
 class Form(BaseForm):
     def __init__(self, *args, **kwargs):
         if current_app.testing:

@@ -1,4 +1,4 @@
-/* 27, add to 27 selectors generated from '/home/dorajistyle/PycharmProjects/flask-canjs-i18n-boilerplate/application/frontend/static/scss/main.scss' */
+/* 28, add to 28 selectors generated from '/home/dorajistyle/PycharmProjects/flask-canjs-i18n-boilerplate/application/frontend/static/scss/main.scss' */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\000032}}
 body {
   padding-top: 60px;
@@ -49,10 +49,15 @@ body {
   margin-top: -2.5em;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000364}}
+.delete-admin {
+  display: none;
+  visibility: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000369}}
 .login-text .jumbotron {
   background-color: transparent;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000373}}
 #messageWrapper {
   bottom: 4em;
   left: 1em;
@@ -60,51 +65,51 @@ body {
   position: fixed;
   z-index: 4444;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000381}}
 #ajaxProgress {
   bottom: 1em;
   left: 1em;
   position: fixed;
   z-index: 444;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000393}}
 .page-header > a {
   text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000395}}
 .page-header > a:active, .page-header > a:hover {
   text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000398}}
 .page-header > a > h1 {
   color: #132537;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003101}}
 .page-header > a:active > h1, .page-header > a:hover > h1 {
   color: #FA3113;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003104}}
 .page-header > a > h1 > small {
   color: #006C80;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003107}}
 .page-header > a:active > h1 > small, .page-header > a:hover > h1 >
 small {
   color: #EBCAB8;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003107}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003112}}
 .pt50 {
   padding-top: 50px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003116}}
 .pt10 {
   padding-top: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003115}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003120}}
 .pt0 {
   padding-top: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003119}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dorajistyle\/PycharmProjects\/flask-canjs-i18n-boilerplate\/application\/frontend\/static\/scss\/main\.scss}line{font-family:\00003124}}
 .center {
   text-align: center;
 }

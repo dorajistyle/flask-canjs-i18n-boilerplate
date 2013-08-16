@@ -38,17 +38,29 @@ class RegistrationForm(Form):
 class UpdateForm(Form):
     """The update form"""
 
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateForm, self).__init__(*args, **kwargs)
+
+    def validate(self):
+        if not super(UpdateForm, self).validate():
+            return False
+        return True
+
+class UpdatePasswordForm(Form):
+    """The update form"""
+
     email = EmailField('email')
     currentPassword = PasswordField('currentPassword', [Required()])
     newPassword = PasswordField('newPassword', [Required(), Length(8, 20), EqualTo('newPasswordConfirm')])
     newPasswordConfirm = PasswordField('newPasswordConfirm')
 
     def __init__(self, *args, **kwargs):
-        super(UpdateForm, self).__init__(*args, **kwargs)
+        super(UpdatePasswordForm, self).__init__(*args, **kwargs)
 
     def validate(self):
 
-        if not super(UpdateForm, self).validate():
+        if not super(UpdatePasswordForm, self).validate():
             return False
         if self.currentPassword.data.strip() == '':
             return False

@@ -27,7 +27,6 @@ def create_app(settings_override=None):
 
     # Init debugToolbar
     DebugToolbarExtension(app)
-
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     app.json_encoder = JSONEncoder
 

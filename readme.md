@@ -41,6 +41,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * [mustache](http://mustache.github.io/), Logic-less templates.
 * [i18next](http://i18next.com/), JavaScript translating toolkit.
 * [Font Awesome](http://fortawesome.github.io/Font-Awesome/), It gives you scalable vector icons that can instantly be customized.
+* [typeahead.js](https://github.com/twitter/typeahead.js),  It is a fast and fully-featured autocomplete library.
 * [spin.js](http://fgnass.github.io/spin.js/), It dynamically creates spinning activity indicators that can be used as resolution-independent replacement for AJAX loading GIFs.
 * [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), High performance port of Jade-lang for python.
 
@@ -52,6 +53,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * [Flask-Social](http://pythonhosted.org/Flask-Social/), Oauth provider login and APIs for use with Flask-Security
 * [Flask-Assets](http://elsdoerfer.name/docs/flask-assets/), Flask-Assets helps you to integrate webassets into your Flask application.
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/), Extension for Flask that adds support for SQLAlchemy.
+* [Flask-WTF](https://flask-wtf.readthedocs.org/en/latest/), It offers simple integration with WTForms.
 * [Alembic](http://alembic.readthedocs.org/en/latest/), Alembic is a lightweight database migration tool for usage with the SQLAlchemy Database Toolkit for Python.
 
 ### Debugging & Testing

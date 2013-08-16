@@ -16,7 +16,8 @@ define(['jquery', 'can', 'app/models/filter_user_current', 'can/view/mustache'],
             },
             'refresh/navbar route': function (param) {
                 this.load();
-                window.location.hash = param.url;
+                window.location.hash = '#!'+param.url;
+                window.location.pathname = "/";
             }
         });
         var navbar = new NavBar();

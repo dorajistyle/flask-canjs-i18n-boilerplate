@@ -57,6 +57,7 @@ class JsonSerializer(object):
     __json_public__ = None
     __json_hidden__ = None
     __json_modifiers__ = None
+    __json_temp__ = None
     __mixin_public__ = None
 
     def get_field_names(self):
@@ -67,6 +68,7 @@ class JsonSerializer(object):
         field_names = self.get_field_names()
         public = self.__json_public__ or field_names
         hidden = self.__json_hidden__ or []
+        temp = self.__json_temp__ or []
         modifiers = self.__json_modifiers__ or dict()
         mixin_public = self.__mixin_public__ or []
 
@@ -77,6 +79,8 @@ class JsonSerializer(object):
         for key, modifier in modifiers.items():
             value = getattr(self, key)
             rv[key] = modifier(value, self)
+        for key in temp:
+            rv[key] = getattr(self, key)
         for key in hidden:
             rv.pop(key, None)
         for key in mixin_public:

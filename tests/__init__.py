@@ -10,8 +10,8 @@ from unittest import TestCase
 
 from application.core import db
 
-from .factories import UserFactory, RoleFactory
 from .utils import FlaskTestCaseMixin
+from .factories.fixtures import user_fixtures
 
 
 class ApplicationTestCase(TestCase):
@@ -24,9 +24,7 @@ class ApplicationAppTestCase(FlaskTestCaseMixin, ApplicationTestCase):
         raise NotImplementedError
 
     def _create_fixtures(self):
-        self.role = RoleFactory()
-        self.user = UserFactory()
-        self.user2 = UserFactory()
+        user_fixtures(self)
 
     def setUp(self):
         super(ApplicationAppTestCase, self).setUp()

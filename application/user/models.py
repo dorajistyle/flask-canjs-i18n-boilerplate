@@ -9,7 +9,6 @@
 """
 
 from flask.ext.security import UserMixin, RoleMixin
-
 from application.core import db
 from application.helpers import JsonSerializer
 
@@ -20,15 +19,18 @@ roles_users = db.Table('roles_users',
 
 followers = db.Table('followers',
                      db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
-                     db.Column('following_id', db.Integer, db.ForeignKey('user.id'))
-)
+                     db.Column('following_id', db.Integer, db.ForeignKey('user.id')))
 
 
-class Role(db.Model, RoleMixin):
+class RoleJsonSerializer(JsonSerializer):
+    __json_public__ = ['id', 'name', 'description']
+
+
+class Role(RoleJsonSerializer, db.Model, RoleMixin):
     """Role model"""
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
-    description = db.Column(db.String(255))
+    description = db.Column(db.String(255), default='')
 
 
 class UserJsonSerializer(JsonSerializer):
@@ -37,6 +39,7 @@ class UserJsonSerializer(JsonSerializer):
 
 class User(UserJsonSerializer, db.Model, UserMixin):
     """User model"""
+    # __searchable__ = ['email']
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
@@ -54,6 +57,8 @@ class User(UserJsonSerializer, db.Model, UserMixin):
     following = db.relationship('User', secondary=followers, primaryjoin=(followers.c.follower_id == id),
                                 secondaryjoin=(followers.c.following_id == id),
                                 backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+
+
 
 
 class Connection(db.Model):

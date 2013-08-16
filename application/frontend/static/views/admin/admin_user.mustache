@@ -1,0 +1,133 @@
+<h2>{{i18n 'admin.user.title'}}</h2>
+        <input id="searchUser" name="searchUser" type="text"
+               class="search-user form-control pull-right col-lg-6" tabindex="1"/>
+<hr/>
+<table class='table'>
+    <thead>
+    <tr class="row">
+        <th class="col-lg-1"></th>
+        <th class="col-lg-6">{{i18n 'admin.user.email'}}</th>
+        <th class="col-lg-3 center">{{i18n 'admin.user.roles'}}</th>
+        <th class="col-lg-1 center">{{i18n 'admin.user.active'}}</th>
+        <th class="col-lg-1 center"></th>
+    </tr>
+    </thead>
+    <!--<tfoot>-->
+    <!--<tr>-->
+        <!--<td>count</td>-->
+        <!--<td>1</td>-->
+    <!--</tr>-->
+    <!--</tfoot>-->
+    <tbody>
+    {{#users}}
+    <tr class="row">
+        <td class="col-lg-1"><input name='selectUser' type="radio" class="select-user" value="{{active}}" data-id="{{id}}"></td>
+        <td class="col-lg-6">{{email}}</td>
+        <td class="col-lg-3 center" id="roleItems{{id}}" data-id="{{id}}">
+            {{#if roles}}
+            <ul class="list-unstyled">
+                {{#roles}}
+                    <li>
+                         <span class='role-name'>{{name}}</span>&nbsp;<i data-id="{{id}}" class="icon-remove-sign delete-role-from-user-confirm"></i></li>
+                {{/roles}}
+            </ul>
+            {{/if}}
+            {{^roles}}
+                -
+            {{/roles}}
+        </td>
+        <td class="col-lg-1 center"><label><input type="checkbox" class="toggle-active" data-id="{{id}}"
+                {{#active}}
+                    checked
+                {{/active}}
+                /></label></td>
+        <td class="col-lg-1 center">
+                <i class="delete-user-confirm icon-remove icon-large" data-id='{{id}}'></i>
+        </td>
+    </tr>
+    {{/users}}
+    </tbody>
+</table>
+<ul class="pager">
+  {{#has_prev}}
+    <li class="previous"><a href="/#!admin/user/{{prev_page}}">&larr; {{i18n 'page.previous'}}</a></li>
+  {{/has_prev}}
+  {{#has_next}}
+    <li class="next"><a href="/#!admin/user/{{next_page}}">{{i18n 'page.next'}} &rarr;</a></li>
+  {{/has_next}}
+</ul>
+
+<form id="adminUserForm" name="adminUserForm" method="put" class="form-horizontal hidden">
+    <h4>{{i18n 'admin.user.formTitle'}}</h4>
+    <input id="id" name="id" type="hidden"/>
+    <div class="user-email-wrapper form-group col-lg-12">
+        <label for="adminUserEmail" class="col-lg-4">{{i18n 'admin.user.email'}}</label>
+        <input id="adminUserEmail" name="adminUserEmail" type="text"
+               class="user-email form-control col-lg-12" tabindex="2" disabled="disabled"/>
+    </div>
+    <div class="user-roles-wrapper form-group col-lg-12">
+        <label for="adminUserRoles" class="col-lg-4">{{i18n 'admin.user.roles'}}</label>
+        <select id="adminUserRoles" name="adminUserRoles"
+               class="user-roles form-control col-lg-12">
+       </select>
+    </div>
+    <div class="role-name-label-wrapper form-group col-lg-12">
+        <label for="roleName" class="col-lg-4">{{i18n 'admin.user.searchRole'}}</label>
+
+    </div>
+    <div class="add-role-wrapper form-group col-lg-12">
+        <input id="roleName" name="roleName" type="text"
+               class="role-name form-control col-lg-8" tabindex="3"/>
+        <button type="submit" class="btn btn-primary add-role-to-user pull-right col-lg-4" tabindex="4">
+            {{i18n 'admin.user.submit'}}
+        </button>
+    </div>
+</form>
+
+<div class="modal" id="deleteRoleFromUserConfirm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close cancel-confirm" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{i18n 'admin.user.role.confirmDelete.title'}}</h4>
+                </div>
+                <div class="modal-body">
+                    {{i18n 'admin.user.role.confirmDelete.content'}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal"
+                            class="btn cancel-confirm">{{i18n 'admin.user.role.confirmDelete.close'}}</button>
+                    <button type="button"
+                            class="btn delete-role-from-user-final btn-inverse">{{i18n 'admin.user.role.confirmDelete.submit'}}</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+<div class="modal" id="deleteUserConfirm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close cancel-confirm" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{i18n 'admin.user.confirmDelete.title'}}</h4>
+                </div>
+                <div class="modal-body">
+                    {{i18n 'admin.user.confirmDelete.content'}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal"
+                            class="btn cancel-confirm">{{i18n 'admin.user.confirmDelete.close'}}</button>
+                    <button type="button"
+                            class="btn delete-user-final btn-inverse">{{i18n 'admin.user.confirmDelete.submit'}}</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->

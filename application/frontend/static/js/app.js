@@ -7,21 +7,25 @@ require.config({
             "//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min",
             "vendor/jquery-1.10.1.min"
         ],
+        "can": "vendor/can",
+        "i18n": "vendor/i18next.amd.withJQuery-1.6.3.min",
+        "spin": "vendor/spin.min",
         "jquery.bootstrap": [
             "//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min",
             "vendor/bootstrap.min"
         ],
-        "can": "vendor/can",
-        "i18n": "vendor/i18next.amd.withJQuery-1.6.3.min",
-        "spin": "vendor/spin.min",
+        "jquery.typeahead": "vendor/typeahead.min",
         shim: {
+            "jquery.typeahead": {
+                deps: ["jquery"],
+                exports: '$.fn.typeahead'
+            },
             "jquery.bootstrap": {
                 deps: ["jquery"],
-                exports: "$.fn.popover"
+                exports: '$.fn.bootstrap'
             },
             "utils": {
-                deps: ["jquery"],
-                exports: "$.fn.popover"
+                deps: ["jquery"]
             },
             enforceDefine: true
         }
@@ -32,11 +36,13 @@ require.config({
  * @requires util
  * @requires i18n
  * @requires can
- * @requires app/feedbacks
+ * @requires settings
+ * @requires spin
+ * @requires app/components/navbar
+ * @requires app/routers
  * @requires can/view/mustache
- * @requires bootstrap
  */
-require(['can', 'jquery', 'utils', 'i18n', 'settings', 'spin', 'app/components/navbar', 'app/routers', 'can/view/mustache'],
+requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'spin', 'app/components/navbar', 'app/routers', 'can/view/mustache'],
     function (can, $, utils, i18n, settings, Spin, Navbar, Routers) {
         'use strict';
 
@@ -61,7 +67,7 @@ require(['can', 'jquery', 'utils', 'i18n', 'settings', 'spin', 'app/components/n
                         : str;
                 });
                 Navbar.load();
-                new Routers($('#app'));
+                new Routers(document.getElementById('appWrapper'));
                 var target = document.getElementById('ajaxProgress');
 //                var spinner = new Spin(settings.spin_options);
 //                var $document = $(document);

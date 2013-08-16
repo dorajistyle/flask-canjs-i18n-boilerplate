@@ -1,4 +1,4 @@
-define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/filter_user_current', 'app/models/connection_facebook', 'app/models/follower', 'app/models/following', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'], function (can, User, FilterUserEmail, FilterUserCurrent, Facebook, Follower, Following, utils, i18n, $) {
+define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/connection_facebook', 'app/models/follower', 'app/models/following', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'], function (can, User, FilterUserCurrent, Facebook, Follower, Following, utils, i18n, $, _bootstrap) {
     'use strict';
 
 
@@ -6,97 +6,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
      * Instance of User Contorllers.
      * @private
      */
-    var create, read, update, destroy;
-
-     /**
-     *
-     * @private
-     * @author dorajistyle
-     * @param {string} target
-     * @name users#Create
-     * @constructor
-     */
-    var Create = can.Control({
-        init: function () {
-            utils.logInfo('*User/Create', 'Initialized');
-        },
-        '.register-user click': function (el, ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            this.performRegister();
-            return false;
-        },
-        '#registrationEmail focusout': function (el, ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            this.checkEmailAlreadyTaken();
-            return false;
-        },
-        /**
-         * Validate a form.
-         * @memberof users#Create
-         */
-        validate: function () {
-            return utils.validateEmail('registrationEmail') && utils.minLength('registrationPassword', 8, 'validation.password') && utils.maxLength('registrationPassword', 20, 'validation.password');
-        },
-        /**
-         * perform Register action.
-         * @memberof users#Create
-         */
-        performRegister: function () {
-            if (this.validate()) {
-                var form = this.element.find('#registrationForm');
-                var values = can.deparam(form.serialize());
-                var $form = $(form);
-                if (!$form.data('submitted')) {
-                    $form.data('submitted', true);
-                    var register_btn = this.element.find('.register-user');
-                    register_btn.attr('disabled', 'disabled');
-                    can.when(User.create(values)).then(function (result) {
-                        utils.logDebug('register', JSON.stringify(result));
-                        register_btn.removeAttr('disabled');
-                        $form.data('submitted', false);
-                        if (result.status) {
-                            utils.showSuccessMsg(i18n.t('registration.welcome', result.email));
-                            can.route.attr({route: 'refresh/navbar', url: ''});
-                        } else {
-                            utils.showErrorMsg(i18n.t('registration.failed'));
-                        }
-
-                    }, function (xhr) {
-                        register_btn.removeAttr('disabled');
-                        $form.data('submitted', false);
-                        utils.handleStatusWithErrorMsg(xhr, i18n.t('registration.failed'));
-                    });
-                }
-            } else {
-                utils.showMessages();
-            }
-        },
-        /**
-         * Check a email that is already taken.
-         * @memberof users#Create
-         */
-        checkEmailAlreadyTaken: function () {
-            if (utils.validateEmail('registrationEmail', true)) {
-                var $registration_email = $('#registrationEmail');
-                FilterUserEmail.findOne({email: $registration_email.val()}, function (result) {
-                        if (result.status) {
-                            utils.showWarningMsg(i18n.t('registration.already', result.email));
-                            $registration_email.val('');
-                            return false;
-                        } else {
-                            utils.showSuccessMsg(i18n.t('registration.available', result.email));
-                        }
-                        return true;
-                    }
-                );
-            } else {
-                utils.clearMessages();
-                return true;
-            }
-        }
-    });
+    var read, update, destroy;
 
     /**
      * Control for User Profile
@@ -341,7 +251,6 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
                     $form.data('submitted', true);
                     var update_btn = this.element.find('.update-user-password');
                     update_btn.attr('disabled', 'disabled');
-                    utils.logInfo('*User/Update values', values.id);
                     User.findOne({id: values.id}, function (user) {
                         user.attr(values);
                         user.save(function (result) {
@@ -415,6 +324,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
             utils.logInfo('*User/Destroy', 'Initialized');
         },
         '.leave-our-service-confirm click': function (el, ev) {
+            utils.logInfo('*User/Destroy', 'Confirm Clicked in users');
             ev.preventDefault();
             ev.stopPropagation();
             this.performConfirm();
@@ -461,7 +371,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
             var $form = $(form);
             if (!$form.data('submitted')) {
                 $form.data('submitted', true);
-                var destroy_btn = this.element.find('.leave-our-service');
+                var destroy_btn = this.element.find('.leave-our-service-final');
                 destroy_btn.attr('disabled', 'disabled');
                 can.when(User.destroy(values.id)).then(function () {
                     utils.showSuccessMsg(i18n.t('setting.leaveOurService.success'));
@@ -488,11 +398,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
     var Router = can.Control({
         defaults: {}
     }, {
-        init: function (target) {
-            create = new Create(target);
-            read = new Read(target);
-            update = new Update(target);
-            destroy = new Destroy(target);
+        init: function () {
             utils.logInfo('*Users/Router', 'Initialized')
         },
         'profile route': function () {
@@ -501,12 +407,16 @@ define(['can', 'app/models/user', 'app/models/filter_user_email', 'app/models/fi
             });
         },
         'profile/:id route': function (data) {
+            read = new Read(utils.getFreshApp());
             read.load(data.id);
         },
         'setting route': function () {
             can.route.attr('tab', 'basic');
         },
         'setting/:tab route': function (data) {
+            var $app = utils.getFreshApp();
+            update = new Update($app);
+            destroy = new Destroy($app);
             update.load(data.tab);
         }
     });

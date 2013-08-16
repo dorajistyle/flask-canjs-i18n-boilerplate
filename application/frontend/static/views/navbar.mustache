@@ -24,6 +24,9 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="dropdown-header">{{i18n 'navbar.myAccount'}}</li>
+                                        {{#is_admin}}
+                                            <li><a href="/#!admin/role">{{i18n 'navbar.admin'}}</a></li>
+                                        {{/is_admin}}
                                         <li><a href="/#!profile/{{ id }}">{{i18n 'navbar.profile'}}</a></li>
                                         <li><a href="/#!setting/basic">{{i18n 'navbar.setting'}}</a></li>
                                         <li><a href="/#!logout">{{i18n 'navbar.logout'}}</a></li>

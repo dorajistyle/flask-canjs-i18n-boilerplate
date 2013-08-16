@@ -5,14 +5,14 @@ define(['can', 'can/model'], function (can, Model) {
     /**
      * User related
      * @author dorajistyle
-     * @namespace follower
+     * @namespace following
      */
 
     /**
      * User model.
      *  @constructor
      * @type {*}
-     * @name following#User
+     * @name following#Following
      */
     var Following = Model({
         findAll: 'GET /api/v1/following'

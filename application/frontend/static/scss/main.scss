@@ -61,6 +61,11 @@ body {
   }
 }
 
+.delete-admin {
+  display: none;
+  visibility: hidden;
+}
+
 .login-text .jumbotron {
   background-color: transparent;
 }

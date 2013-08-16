@@ -6,6 +6,7 @@
         "login": "Login",
         "logout": "Logout",
         "myAccount": "My Account",
+        "admin": "Admin",
         "profile": "Profile",
         "setting": "Setting",
         "aboutUs": "About Us",
@@ -14,6 +15,10 @@
         "languages": "Languages",
         "english": "English",
         "korean": "한글"
+    },
+    "page": {
+        "previous": "Previous",
+        "next": "Next"
     },
     "main": {
         "title": "Welcome!!",
@@ -62,6 +67,81 @@
         "success": "Goodbye. See you again.",
         "alreadyDone": "You already logged out.",
         "error": "Logout uncompleted. Please try it again."
+    },
+    "admin": {
+        "title": "Admin Tools",
+        "role":{
+            "title": "Roles",
+            "name": "Name",
+            "description": "Description",
+            "enterName": "Enter name",
+            "enterDescription": "Enter description",
+            "formTitle": "Create role",
+            "submit": "Create role",
+            "showNewForm": "I want to create a new Role",
+            "nameValidation": "Name should not be blank.",
+            "create": {
+                "success": "Role created successfully.",
+                "failed": "The role not created."
+            },
+            "update": {
+                "title": "Update role",
+                "success": "Role updated successfully.",
+                "failed": "The role not updated."
+            },
+            "confirm": {
+                "title": "Delete Role",
+                "content": "Do you really want to delete this role?",
+                "close": "Close",
+                "submit": "Delete the role"
+            },
+            "delete": {
+                "success": "Role deleted successfully.",
+                "failed": "The role not deleted."
+            }
+        },
+        "user":{
+            "title": "User",
+            "email": "Email",
+            "roles": "Roles",
+            "hasRole": "--  User has __count__ role.  --",
+            "hasRole_plural": "--  User has  __count__  roles.  --",
+            "active": "Active",
+            "formTitle": "Add Role to User",
+            "searchRole": "Search Role",
+            "submit": "Add the role",
+            "addRole": {
+                "success": "Role added to user successfully.",
+                "failed": "The role not added to user."
+            },
+            "confirmDelete": {
+                "title": "Delete user.",
+                "content": "Do you really want to delete this user?",
+                "close": "Close",
+                "submit": "Delete the user."
+            },
+            "role": {
+              "confirmDelete": {
+                "title": "Delete role from user.",
+                "content": "Do you really want to delete this role from user?",
+                "close": "Close",
+                "submit": "Delete the role from user."
+              },
+              "delete": {
+                "success": "Role deleted from user successfully.",
+                "failed": "The role not deleted from user."
+              }
+            },
+            "toggleActive": {
+                "success": "User's activate status changed successfully.",
+                "failed": "User's active status not changed."
+            },
+            "delete": {
+                "success": "Role deleted from user successfully.",
+                "failed": "The role not deleted from user."
+            }
+
+        }
     },
     "users": {
         "profile": "Profile",

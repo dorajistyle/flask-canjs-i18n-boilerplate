@@ -16,7 +16,7 @@ from flask_security import current_user
 from application import factory
 from application.helpers import JSONEncoder
 from application.core import ApplicationError
-
+from application.whoosh_index import init_whoosh_index
 
 def create_app(settings_override=None, register_security_blueprint=False):
     """Returns the Service API application instance
@@ -26,10 +26,9 @@ def create_app(settings_override=None, register_security_blueprint=False):
 
     app = factory.create_app(__name__, __path__, settings_override,
                              register_security_blueprint=register_security_blueprint)
-
+    # init_whoosh_index()
     # Set the default JSON encoder
     app.json_encoder = JSONEncoder
-
     # Register custom error handlers
     app.errorhandler(ApplicationError)(on_application_error)
     app.errorhandler(404)(on_404)

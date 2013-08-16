@@ -1,4 +1,4 @@
-define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'utils', 'i18n', 'jquery'], function (can, Authentication, FilterUserCurrent, utils, i18n, $) {
+define(['can', 'app/models/authentication', 'app/models/user', 'app/models/filter_user_email', 'app/models/filter_user_current', 'utils', 'i18n', 'jquery'], function (can, Authentication, User, FilterUserEmail, FilterUserCurrent, utils, i18n, $) {
     'use strict';
     /**
      * Control for new propose
@@ -8,8 +8,8 @@ define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'u
      * @name authentications#Create
      * @constructor
      */
-    var create;
-    var Create = can.Control({
+    var create_auth, create_user;
+    var CreateAuth = can.Control({
         init: function () {
             utils.logInfo('*Authentications/Create', 'Initialized');
 
@@ -53,7 +53,7 @@ define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'u
                     can.when(Authentication.create(values)).then(function (result) {
                         utils.logDebug("performLogin Response", JSON.stringify(result));
                         if (result.status) {
-                            can.route.attr({route: 'refresh/navbar', url: document.referrer});
+                            can.route.attr({route: 'refresh/navbar', url: ''});
                             utils.showSuccessMsg(i18n.t('login.welcome', result.email));
                             utils.logDebug(JSON.stringify(this), JSON.stringify(result));
                         } else {
@@ -92,6 +92,96 @@ define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'u
         }
     });
 
+     /**
+     *
+     * @private
+     * @author dorajistyle
+     * @param {string} target
+     * @name users#Create
+     * @constructor
+     */
+    var CreateUser = can.Control({
+        init: function () {
+            utils.logInfo('*User/Create', 'Initialized');
+        },
+        '.register-user click': function (el, ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.performRegister();
+            return false;
+        },
+        '#registrationEmail focusout': function (el, ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            this.checkEmailAlreadyTaken();
+            return false;
+        },
+        /**
+         * Validate a form.
+         * @memberof users#Create
+         */
+        validate: function () {
+            return utils.validateEmail('registrationEmail') && utils.minLength('registrationPassword', 8, 'validation.password') && utils.maxLength('registrationPassword', 20, 'validation.password');
+        },
+        /**
+         * perform Register action.
+         * @memberof users#Create
+         */
+        performRegister: function () {
+            if (this.validate()) {
+                var form = this.element.find('#registrationForm');
+                var values = can.deparam(form.serialize());
+                var $form = $(form);
+                if (!$form.data('submitted')) {
+                    $form.data('submitted', true);
+                    var register_btn = this.element.find('.register-user');
+                    register_btn.attr('disabled', 'disabled');
+                    can.when(User.create(values)).then(function (result) {
+                        utils.logDebug('register', JSON.stringify(result));
+                        register_btn.removeAttr('disabled');
+                        $form.data('submitted', false);
+                        if (result.status) {
+                            utils.showSuccessMsg(i18n.t('registration.welcome', result.email));
+                            can.route.attr({route: 'refresh/navbar', url: ''});
+                        } else {
+                            utils.showErrorMsg(i18n.t('registration.failed'));
+                        }
+
+                    }, function (xhr) {
+                        register_btn.removeAttr('disabled');
+                        $form.data('submitted', false);
+                        utils.handleStatusWithErrorMsg(xhr, i18n.t('registration.failed'));
+                    });
+                }
+            } else {
+                utils.showMessages();
+            }
+        },
+        /**
+         * Check a email that is already taken.
+         * @memberof users#Create
+         */
+        checkEmailAlreadyTaken: function () {
+            if (utils.validateEmail('registrationEmail', true)) {
+                var $registration_email = $('#registrationEmail');
+                FilterUserEmail.findOne({email: $registration_email.val()}, function (result) {
+                        if (result.status) {
+                            utils.showWarningMsg(i18n.t('registration.already', result.email));
+                            $registration_email.val('');
+                            return false;
+                        } else {
+                            utils.showSuccessMsg(i18n.t('registration.available', result.email));
+                        }
+                        return true;
+                    }
+                );
+            } else {
+                utils.clearMessages();
+                return true;
+            }
+        }
+    });
+
     /**
      * Router for authentication.
      * @author dorajistyle
@@ -104,14 +194,17 @@ define(['can', 'app/models/authentication', 'app/models/filter_user_current', 'u
         defaults: {}
     }, {
         init: function (target) {
-            create = new Create(target);
             utils.logInfo('*Authentications/Router', 'Initialized')
         },
         'login route': function () {
-            create.show();
+            var $app = utils.getFreshApp();
+            create_auth = new CreateAuth($app);
+            create_user = new CreateUser($app);
+            create_auth.show();
         },
         'logout route': function () {
-            create.performLogout();
+            create_auth = new CreateAuth(utils.getFreshApp());
+            create_auth.performLogout();
         }
     });
 

@@ -12,7 +12,7 @@ define(['can', 'can/model'], function (can, Model) {
      * User model.
      *  @constructor
      * @type {*}
-     * @name follower#User
+     * @name follower#Follower
      */
     var Follower = Model({
         create: 'POST /api/v1/followers',

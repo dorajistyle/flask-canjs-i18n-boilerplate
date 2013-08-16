@@ -10,7 +10,7 @@ define(['can', 'can/model'], function (can, Model) {
 
     /**
      * User model.
-     *  @constructor
+     * @constructor
      * @type {*}
      * @name users#User
      */

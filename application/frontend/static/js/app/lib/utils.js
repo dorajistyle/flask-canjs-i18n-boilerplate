@@ -1,4 +1,4 @@
-define(['jquery', 'loglevel', 'i18n', 'can'], function ($, log, i18n, can) {
+define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
     /**
      * A set for general purpose utilities.
      * @author dorajistyle
@@ -114,7 +114,7 @@ define(['jquery', 'loglevel', 'i18n', 'can'], function ($, log, i18n, can) {
          * @param type
          */
         showMessage: function (msg, type) {
-            $msg_box = $('#message' + type);
+            var $msg_box = $('#message' + type);
             $msg_box.html(msg);
             $msg_box.fadeIn(200).removeClass('hidden').delay(500).fadeOut(800);
         },
@@ -165,6 +165,53 @@ define(['jquery', 'loglevel', 'i18n', 'can'], function ($, log, i18n, can) {
          */
         clearMessages: function () {
             messages.length = 0;
+        },
+        /**
+         * Return Template engine for typeahead
+         * @returns {{}}
+         */
+        getEngine: function () {
+           var Mustache = {};
+           Mustache.compile = function (template) {
+                var compile = can.view.mustache(template),
+                    render = {
+                        render: function (ctx) {
+                            return compile.render(ctx);
+                        }
+                    };
+                return render;
+           };
+           return Mustache;
+        },
+        /**
+         * Change hash to route if hash is not identical to current hash.
+         * @param route
+         * @returns {boolean}
+         */
+        isHashNow: function (route){
+          if(window.location.hash == '#!'+route){
+              return true;
+          }
+          window.location.hash='#!'+route;
+          window.location.pathname = "/";
+          return false;
+        },
+        /**
+         * Refresh app div.
+         * @param target
+         * @param name
+         */
+        getFreshApp: function (){
+          return this.getFreshDiv('app');
+        },
+        /**
+         * Refresh div.
+         * @param name
+         * @returns {HTMLElement}
+         */
+        getFreshDiv: function (name){
+          $('#'+name).replaceWith('<div id="'+name+'"></div>');
+          return $('#'+name);
         },
         /**
          * handle http status codes.

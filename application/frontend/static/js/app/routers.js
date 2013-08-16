@@ -1,4 +1,4 @@
-define(['can', 'app/users/router', 'app/models/filter_user_current', 'app/models/user', 'utils'], function (can, Users, FilterUserCurrent, User, utils) {
+define(['can', 'app/users/router','app/admin/router', 'app/models/filter_user_current', 'app/models/user', 'utils'], function (can, Users, Admin, FilterUserCurrent, User, utils) {
     'use strict';
 
     /**
@@ -22,23 +22,22 @@ define(['can', 'app/users/router', 'app/models/filter_user_current', 'app/models
                 can.route.attr({route: 'refresh/navbar', url: '#!setting/connection'});
                 return false;
             }
-            var element = this.element;
+            this.show();
+        },
+        show: function () {
             User.findAll({}, function (data) {
                 utils.logDebug('data', JSON.stringify(data));
-                element.html(can.view('/static/views/main.mustache', {
+                $(utils.getFreshApp()).html(can.view('/static/views/main.mustache', {
                     users: data.users
                 }));
                utils.refreshTitle();
             })
-
-        },
-        show: function () {
-
         }
     });
 
     var Routers = function (target) {
         new Users(target);
+        new Admin(target);
         new Main(target);
     };
 

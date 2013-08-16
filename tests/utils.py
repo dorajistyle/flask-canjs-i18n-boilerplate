@@ -100,7 +100,6 @@ class FlaskTestCaseMixin(object):
     def xdelete(self, *args, **kwargs):
         return self._jrequest(self.client.delete, *args, **self._xform_data(kwargs))
 
-
     def getCookies(self, response):
         cookies = {}
         for value in response.headers.get_all("Set-Cookie"):

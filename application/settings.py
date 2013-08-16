@@ -8,9 +8,13 @@
     It contains setting for flask and extensions.
 
 """
+import os
 from application.babel_helper import _
+_basedir = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
+RELOAD = True
+SECRET_KEY = 'super-secret-key'
 
 # Flask-DebugToolbar
 DEBUG_TB_INTERCEPT_REDIRECTS = False
@@ -21,14 +25,15 @@ ASSETS_DEBUG = True
 # Flask-WTF
 CSRF_ENABLED = False
 
+# Flask-WhooshAlchemy
+WHOOSH_BASE = os.path.join(_basedir, '../search_index')
+MAX_SEARCH_RESULTS = 30
 
-RELOAD = True
-SECRET_KEY = 'super-secret-key'
+# Flask-Babel
 BABEL_DEFAULT_LOCALE = 'ko'
 
 # Below three lines are just for temporary database.
-import os
-_basedir = os.path.abspath(os.path.dirname(__file__))
+
 SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/temp.db')
 # SQLALCHEMY_DATABASE_URI = 'mysql://user:@localhost/schema'
 CELERY_BROKER_URL = 'redis://'
@@ -37,6 +42,10 @@ CELERY_BROKER_URL = 'redis://'
 USER_FOLLOWERS_PER_PAGE = 2
 USER_FOLLOWING_PER_PAGE = 2
 USER_PER_PAGE = 20
+FILTER_USER_LIMIT = 20
+
+# Role paginate
+ROLE_PER_PAGE = 20
 
 # Flask-Mail Setting
 MAIL_DEFAULT_SENDER = 'no-reply@myservice.com'

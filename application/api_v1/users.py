@@ -72,19 +72,6 @@ def find_all():
 def update(user_id):
     """
     Update user information.
-    def test_get_current_user(self):
-        r = self.jget('/users')
-        self.assertOkJson(r)
-
-    def test_get_user(self):
-        r = self.jget('/users/%s' % self.user.id)
-        self.assertOkJson(r)
-
-    def test_delete_user(self):
-
-        print("auth : %s")
-        r = self.xdelete('/users/%s' % self.user.id)
-        self.assertOkJson(r)
     @login_required
 
     :param user_id:

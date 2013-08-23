@@ -1,4 +1,6 @@
-define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/filter_user_current', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'], function (can, Roles, Users, FilterUserCurrent, utils, i18n, $, _bootstrap) {
+define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/filter_user_current',
+    'app/share/tab', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
+    function (can, Roles, Users, FilterUserCurrent, Tab, utils, i18n, $) {
     'use strict';
 
 
@@ -6,7 +8,7 @@ define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/filter_user_cur
      * Instance of Admin Contorllers.
      * @private
      */
-    var admin, roles, users;
+    var admin, tab, roles, users;
 
     /**
      * Control for Admin
@@ -40,41 +42,25 @@ define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/filter_user_cur
             }));
         },
         /**
-         * Show
-         * @param name
-         */
-        showTab: function (name) {
-            $('#adminWrapper > div').addClass('hidden');
-            $('#' + name).removeClass('hidden');
-        },
-        /**
          * Select tab
          * @param tab_name
          */
         selectTab: function (tab_name, page) {
             if (!tab_name) tab_name = 'basic';
-            $('#adminNav > ul > li').removeClass('active');
-            $('#adminNav > ul > li.' + tab_name + '-tab').addClass('active');
+            tab.activeTab(tab_name);
             switch (tab_name) {
                 case 'role':
                     roles.load(page);
-                    this.showTab('admin-' + tab_name);
+                    tab.showTab(tab_name);
                     break;
                 case 'user':
                     users.load(page);
-                    this.showTab('admin-' + tab_name);
+                    tab.showTab(tab_name);
                     break;
                 default:
-                    this.showTab('admin-role');
+                    tab.showTab('role');
                     break;
             }
-        },
-        '#adminNav > ul > li > a click': function (el, ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            var target = ev.target;
-            window.location.hash = '#!admin/'+target.getAttribute('class');
-            return false;
         }
     });
 
@@ -90,7 +76,9 @@ define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/filter_user_cur
         defaults: {}
    }, {
        init: function () {
-           admin = new Admin(utils.getFreshApp());
+           var $app = utils.getFreshApp();
+           tab = new Tab($app,{route: 'admin'});
+           admin = new Admin($app);
            roles = new Roles();
            users = new Users();
            utils.logInfo('*admin/Router', 'Initialized')

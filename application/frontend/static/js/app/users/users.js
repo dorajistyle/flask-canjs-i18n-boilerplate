@@ -1,4 +1,6 @@
-define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/connection_facebook', 'app/models/follower', 'app/models/following', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'], function (can, User, FilterUserCurrent, Facebook, Follower, Following, utils, i18n, $, _bootstrap) {
+define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/connection_facebook', 'app/models/follower', 'app/models/following',
+    'app/share/tab', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
+    function (can, User, FilterUserCurrent, Facebook, Follower, Following, Tab, utils, i18n, $) {
     'use strict';
 
 
@@ -6,7 +8,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/
      * Instance of User Contorllers.
      * @private
      */
-    var read, update, destroy;
+    var tab, read, update, destroy;
 
     /**
      * Control for User Profile
@@ -174,24 +176,18 @@ define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/
                 has_facebook_connection: this.has_facebook_connection
             }));
         },
-        showTab: function (name) {
-            $('#settingWrapper > div').addClass('hidden');
-            $('#' + name).removeClass('hidden');
-
-        },
         selectTab: function (tab_name) {
             if (!tab_name) tab_name = 'basic';
-            $('#settingNav > ul > li').removeClass('active');
-            $('#settingNav > ul > li.' + tab_name + '-tab').addClass('active');
+            tab.activeTab(tab_name);
             switch (tab_name) {
                 case 'basic':
                 case 'change-password':
                 case 'connection':
                 case 'leave-our-service':
-                    this.showTab('setting-' + tab_name);
+                    tab.showTab(tab_name);
                     break;
                 default:
-                    this.showTab('setting-basic');
+                    tab.showTab('basic');
                     break;
             }
         },
@@ -211,15 +207,6 @@ define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/
             ev.preventDefault();
             ev.stopPropagation();
             this.performDisconnectToFacebook();
-            return false;
-        },
-        '#settingNav > ul > li > a click': function (el, ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            var target = ev.target;
-//         $parent.addClass('active');
-            can.route.attr('tab', target.getAttribute('class'));
-//         this.selectTab(target.getAttribute('class'));
             return false;
         },
         /**
@@ -416,6 +403,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/
         'setting/:tab route': function (data) {
             var $app = utils.getFreshApp();
             update = new Update($app);
+            tab = new Tab($app,{route: 'setting'});
             destroy = new Destroy($app);
             update.load(data.tab);
         }

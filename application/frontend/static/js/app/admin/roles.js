@@ -1,4 +1,4 @@
-define(['can', 'app/models/role', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'], function (can, Role, utils, i18n, $, _bootstrap) {
+define(['can', 'app/models/role', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'], function (can, Role, utils, i18n, $) {
     'use strict';
 
 

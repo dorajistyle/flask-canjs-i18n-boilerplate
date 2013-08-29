@@ -91,7 +91,7 @@ requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar'
                     var code = e.keyCode || e.which;
                     if (code == 13) {
                         e.preventDefault();
-                        $(':submit').not('.hidden').click();
+                        $(this).closest('form').find(':submit').click();
                         return false;
                     }
                 });

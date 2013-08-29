@@ -16,7 +16,7 @@ from flask_security import SQLAlchemyUserDatastore
 from flask_social import SQLAlchemyConnectionDatastore
 from werkzeug.contrib.fixers import ProxyFix
 
-from core import db, mail, security, social, babel, gravatar
+from core import db, mail, security, social, babel, gravatar, cache
 from helpers import register_blueprints
 from middleware import HTTPMethodOverrideMiddleware
 from models import User, Role, Connection
@@ -43,6 +43,8 @@ def create_app(package_name, package_path, settings_override=None,
     db.init_app(app)
     mail.init_app(app)
     babel.init_app(app)
+    # Init cache
+    cache.init_app(app)
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.datastore = user_datastore
     security.init_app(app, user_datastore,

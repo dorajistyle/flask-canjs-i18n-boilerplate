@@ -50,11 +50,13 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * [Flask-Babel](http://pythonhosted.org/Flask-Babel/), Extension to Flask that adds i18n and l10n support to any Flask application.
 * [Flask-Gravatar](https://pypi.python.org/pypi/Flask-Gravatar), It's small and simple integration gravatar into flask.
 * [Flask-Security](http://pythonhosted.org/Flask-Security/),It allows you to quickly add common security mechanisms to your Flask application.
-* [Flask-Social](http://pythonhosted.org/Flask-Social/), Oauth provider login and APIs for use with Flask-Security
+* [Flask-Social](http://pythonhosted.org/Flask-Social/), Oauth provider login and APIs for use with Flask-Security.
 * [Flask-Assets](http://elsdoerfer.name/docs/flask-assets/), Flask-Assets helps you to integrate webassets into your Flask application.
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/), Extension for Flask that adds support for SQLAlchemy.
 * [Flask-WTF](https://flask-wtf.readthedocs.org/en/latest/), It offers simple integration with WTForms.
+* [Flask-Cache](http://pythonhosted.org/Flask-Cache/), It helps you to integrate cache into your Flask appication.
 * [Alembic](http://alembic.readthedocs.org/en/latest/), Alembic is a lightweight database migration tool for usage with the SQLAlchemy Database Toolkit for Python.
+* [Celery](http://www.celeryproject.org/), Celery is an asynchronous task queue/job queue based on distributed message passing.
 
 ### Debugging & Testing
 * [flask-debugtoolbar](http://flask-debugtoolbar.readthedocs.org/en/latest/), It is a port of the excellent django-debug-toolbar for Flask applications.
@@ -117,6 +119,11 @@ You can login with 'admin@github.com' and 'password'.
 
 ### Tests
     $ nosetests
+
+    You can use test script as well.
+
+    $ python run_nosetests.py
+
 
 
 

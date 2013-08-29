@@ -53,7 +53,9 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * [Flask-Assets](http://elsdoerfer.name/docs/flask-assets/), 자바스크립트와 스타일시트를 관리하는 플라스크용 확장.
 * [Flask-SQLAlchemy](http://pythonhosted.org/Flask-SQLAlchemy/), SQLAlchemy사용을 위한 플라스크용 확장.
 * [Flask-WTF](https://flask-wtf.readthedocs.org/en/latest/), WTForms 통합 확장.
+* [Flask-Cache](http://pythonhosted.org/Flask-Cache/), 캐쉬 사용을 도와주는 플라스크용 확장.
 * [Alembic](http://alembic.readthedocs.org/en/latest/), SQLAlchemy 데이터베이스 마이그레이션 관리 도구.
+* [Celery](http://www.celeryproject.org/), 분산 메시지 전달 기반의 비동기 작업 queue/job 큐.
 
 ### 디버깅과 테스팅
 * [flask-debugtoolbar](http://flask-debugtoolbar.readthedocs.org/en/latest/), django-debug-toolbar를 플라스크 용으로 포팅한 디버깅 툴바.
@@ -117,6 +119,9 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 ### 테스트
     $ nosetests
 
+    아래의 테스트 스크립트를 이용하셔도 됩니다.
+
+    $ python run_nosetests.py
 
 ________________________
 

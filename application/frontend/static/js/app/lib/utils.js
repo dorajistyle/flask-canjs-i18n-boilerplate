@@ -193,7 +193,7 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
               return true;
           }
           window.location.hash='#!'+route;
-          window.location.pathname = "/";
+//          window.location.pathname = "/";
           return false;
         },
         /**

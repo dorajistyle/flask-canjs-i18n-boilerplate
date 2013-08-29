@@ -32,7 +32,7 @@ define(['can', 'utils', 'jquery', 'jquery.bootstrap'],
             ev.stopPropagation();
             var target = ev.target;
             window.location.hash = '#!'+this.options.route+'/'+target.getAttribute('class');
-            window.location.pathname = "/";
+//            window.location.pathname = "/";
             return false;
         }
     });

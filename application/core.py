@@ -14,6 +14,7 @@ from flask_security import Security
 from flask_social import Social
 from flask.ext.babel import Babel
 from flask.ext.gravatar import Gravatar
+from flask_cache import Cache
 
 #: Flask-SQLAlchemy extension instance
 db = SQLAlchemy()
@@ -33,7 +34,8 @@ babel = Babel()
 #: Flask-Gravatar extension instance
 gravatar = Gravatar()
 
-
+#: Flask-Cache extension instance
+cache = Cache()
 
 class ApplicationError(Exception):
     """Base application error class."""

@@ -1,5 +1,5 @@
 /*global define*/
-define(['can', 'can/model'], function (can, Model) {
+define(['can', 'app/models/model'], function (can, Model) {
     'use strict';
 
     /**

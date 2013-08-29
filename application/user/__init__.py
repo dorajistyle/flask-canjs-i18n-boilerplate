@@ -13,7 +13,7 @@ from flask_security import current_user, login_user, AnonymousUser
 
 from application.core import Service, db, DictEncoder, security
 from models import User, Role, Connection, followers
-from application.settings import USER_FOLLOWERS_PER_PAGE, USER_FOLLOWING_PER_PAGE, \
+from application.properties import USER_FOLLOWERS_PER_PAGE, USER_FOLLOWING_PER_PAGE, \
     USER_PER_PAGE, ROLE_PER_PAGE, FILTER_USER_LIMIT
 
 

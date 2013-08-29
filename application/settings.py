@@ -36,16 +36,18 @@ BABEL_DEFAULT_LOCALE = 'ko'
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/temp.db')
 # SQLALCHEMY_DATABASE_URI = 'mysql://user:@localhost/schema'
+
+# Celery
 CELERY_BROKER_URL = 'redis://'
+CELERY_RESULT_BACKEND = 'amqp://'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Seoul'
+CELERY_ENABLE_UTC = True
 
-# User paginate
-USER_FOLLOWERS_PER_PAGE = 2
-USER_FOLLOWING_PER_PAGE = 2
-USER_PER_PAGE = 20
-FILTER_USER_LIMIT = 20
+# Flask-Cache Cache Type
+CACHE_TYPE = 'simple'
 
-# Role paginate
-ROLE_PER_PAGE = 20
 
 # Flask-Mail Setting
 MAIL_DEFAULT_SENDER = 'no-reply@myservice.com'

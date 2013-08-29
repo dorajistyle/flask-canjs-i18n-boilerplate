@@ -7,11 +7,11 @@
     main frontend module
 
 """
-from flask import Blueprint, render_template, jsonify, request, redirect
+from flask import Blueprint, render_template, jsonify, request, redirect, current_app
 from flask_security import login_user
 from flask_social.views import connect
 from flask.ext.babel import refresh
-from application.core import babel
+from application.core import babel, cache
 from application.services import users
 from application.frontend import route
 from application.api_v1 import login_required
@@ -28,6 +28,11 @@ def change_locales(locale):
     return redirect('/', 302)
 
 
+@cache.cached(timeout=86400, key_prefix='content')
+def get_content():
+    current_app.logger.debug("get contents called")
+    return render_template('main.jade', lang=babel.app.config['BABEL_DEFAULT_LOCALE'])
+
 @route(bp, '/')
 def index():
     """
@@ -35,7 +40,7 @@ def index():
 
     :return:
     """
-    return render_template('main.jade', lang=babel.app.config['BABEL_DEFAULT_LOCALE'])
+    return get_content()
 
 
 @route(bp, '/users', methods=['POST'])

@@ -42,8 +42,8 @@ require.config({
  * @requires app/routers
  * @requires can/view/mustache
  */
-requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'spin', 'app/components/navbar', 'app/routers', 'can/view/mustache'],
-    function (can, $, utils, i18n, settings, Spin, Navbar, Routers) {
+requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar', 'app/routers', 'can/view/mustache'],
+    function (can, $, utils, i18n, settings, Navbar, Routers) {
         'use strict';
 
         $(document).ready(function () {
@@ -87,6 +87,14 @@ requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'spin', 'app/components
                     $(target).addClass('hidden');
                 });
 
+                $document.on("keypress", 'form', function (e) {
+                    var code = e.keyCode || e.which;
+                    if (code == 13) {
+                        e.preventDefault();
+                        $(':submit').not('.hidden').click();
+                        return false;
+                    }
+                });
 
                 can.route.ready(true);
             });

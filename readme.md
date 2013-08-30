@@ -122,7 +122,7 @@ You can login with 'admin@github.com' and 'password'.
 You should install Nodejs and RequireJS.
 If you want detail document, Click [RequireJS Optimizer](http://requirejs.org/docs/optimization.html).
 
-    $ optimize_statc.sh
+    $ optimize_static.sh
 
 ### Tests
     $ nosetests

@@ -16,7 +16,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from application import factory
 from application.helpers import JSONEncoder
 from application.frontend import assets
-
+from application.properties import STATIC_FOLDER, STATIC_FOLDER_DEBUG
 
 def create_app(settings_override=None):
     """Returns the main application instance"""
@@ -24,6 +24,11 @@ def create_app(settings_override=None):
 
     # Init assets
     assets.init_app(app)
+
+    # Set static folder
+    app.static_folder = STATIC_FOLDER
+    if app.debug:
+        app.static_folder = STATIC_FOLDER_DEBUG
 
     # Init debugToolbar
     DebugToolbarExtension(app)

@@ -1,3 +1,7 @@
+# Static Folder Path
+STATIC_FOLDER = 'static-build'
+STATIC_FOLDER_DEBUG = 'static'
+
 # User paginate
 USER_FOLLOWERS_PER_PAGE = 2
 USER_FOLLOWING_PER_PAGE = 2

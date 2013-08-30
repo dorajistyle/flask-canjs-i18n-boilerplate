@@ -36,6 +36,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 ### Client side
 * [Canjs](http://canjs.com/), Client-side JavaScript Framework.
 * [RequireJS](http://requirejs.org/), JavaScript file and module loader.
+* [RequireJS Optimizer](http://requirejs.org/docs/optimization.html), Optimization tool of RequireJS.
 * [Initializr](http://www.initializr.com/), HTML5 templates generator.
 * [Bootstrap](http://twitter.github.io/bootstrap/), Front-end framework.
 * [mustache](http://mustache.github.io/), Logic-less templates.
@@ -117,12 +118,19 @@ You can login with 'admin@github.com' and 'password'.
 ### Generate documents
     $ python generate_documents.py
 
+### Optimize static folder
+    You should install Nodejs and RequireJS.
+    If you want detail document, Click [RequireJS Optimizer](http://requirejs.org/docs/optimization.html).
+
+    $ optimize_statc.sh
+
 ### Tests
     $ nosetests
 
     You can use test script as well.
 
     $ python run_nosetests.py
+
 
 
 

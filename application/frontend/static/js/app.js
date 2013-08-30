@@ -14,21 +14,21 @@ require.config({
             "//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min",
             "vendor/bootstrap.min"
         ],
-        "jquery.typeahead": "vendor/typeahead.min",
-        shim: {
-            "jquery.typeahead": {
-                deps: ["jquery"],
-                exports: '$.fn.typeahead'
-            },
-            "jquery.bootstrap": {
-                deps: ["jquery"],
-                exports: '$.fn.bootstrap'
-            },
-            "utils": {
-                deps: ["jquery"]
-            },
-            enforceDefine: true
-        }
+        "jquery.typeahead": "vendor/typeahead.min"
+    },
+    shim: {
+          "jquery.typeahead": {
+              deps: ["jquery"],
+              exports: '$.fn.typeahead'
+          },
+          "jquery.bootstrap": {
+              deps: ["jquery"],
+              exports: '$.fn.bootstrap'
+          },
+          "utils": {
+              deps: ["jquery"]
+          },
+          enforceDefine: true
     }
 });
 /**

@@ -35,6 +35,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 ### 클라이언트 사이드
 * [Canjs](http://canjs.com/), 클라이언트 사이드 자바스크립트 프레임워크.
 * [RequireJS](http://requirejs.org/), 자바스크립트 파일•모듈 로더.
+* [RequireJS Optimizer](http://requirejs.org/docs/optimization.html), RequireJS 최적화 도구.
 * [Initializr](http://www.initializr.com/),  HTML5 템플릿.
 * [Bootstrap](http://twitter.github.io/bootstrap/),  프론트엔드 프레임워크.
 * [mustache](http://mustache.github.io/), 템플릿 엔진.
@@ -115,6 +116,11 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 
 ### 문서 생성
     $ python generate_documents.py
+
+### 정적 폴더 최적화
+Nodejs 와 RequireJS가 설치되어 있어야 합니다..
+더 자세한 문서를 원하신다면 다음을 클릭하세요. [RequireJS Optimizer](http://requirejs.org/docs/optimization.html).
+    $ optimize_statc.sh
 
 ### 테스트
     $ nosetests

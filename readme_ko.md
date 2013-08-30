@@ -120,6 +120,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 ### 정적 폴더 최적화
 Nodejs 와 RequireJS가 설치되어 있어야 합니다..
 더 자세한 문서를 원하신다면 다음을 클릭하세요. [RequireJS Optimizer](http://requirejs.org/docs/optimization.html).
+
     $ optimize_statc.sh
 
 ### 테스트

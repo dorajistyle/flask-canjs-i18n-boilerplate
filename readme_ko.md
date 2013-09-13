@@ -44,7 +44,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * [Font Awesome](http://fortawesome.github.io/Font-Awesome/), 크기 변환등 개별화 가능한 백터 아이콘 모음을 제공합니다.
 * [typeahead.js](https://github.com/twitter/typeahead.js), 텍스트 자동 완성 라이브러리.
 * [spin.js](http://fgnass.github.io/spin.js/), 작업중 활동 표시기.
-* [Placeholders.js](http://jamesallardice.github.io/Placeholders.js/), 자바스크립트를 통해 HTML5의 placeholder 속성을 사용 할 수 있게 해줍니다.
+* [Placeholders.js](http://jamesallardice.github.io/Placeholders.js/), 자바스크립트를 통해 HTML5의 placeholder 속성을 사용 할 수 있게 함.
 * [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), 파이썬용 Jade 템플릿 엔진 확장.
 
 ### 서버 사이드
@@ -120,7 +120,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
     $ python generate_documents.py
 
 ### 정적 폴더 최적화
-Nodejs 와 RequireJS가 설치되어 있어야 합니다..
+Nodejs 와 RequireJS가 설치되어 있어야 합니다.
 더 자세한 문서를 원하신다면 다음을 클릭하세요. [RequireJS Optimizer](http://requirejs.org/docs/optimization.html).
 
     $ optimize_static.sh

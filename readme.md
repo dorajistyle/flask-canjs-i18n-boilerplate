@@ -19,6 +19,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * Google's crawler friendly url('#!').
 * Generate document easily.(Sphinx)
 * Do testing easily. (nosetests)
+* Cross Browser Compatibility (IE8, IE9, IE10, Firefox, Chrome, Opera..)
 * Do you need more Features? Fork it and improve it! :D
 
 
@@ -44,6 +45,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * [Font Awesome](http://fortawesome.github.io/Font-Awesome/), It gives you scalable vector icons that can instantly be customized.
 * [typeahead.js](https://github.com/twitter/typeahead.js),  It is a fast and fully-featured autocomplete library.
 * [spin.js](http://fgnass.github.io/spin.js/), It dynamically creates spinning activity indicators that can be used as resolution-independent replacement for AJAX loading GIFs.
+* [Placeholders.js](http://jamesallardice.github.io/Placeholders.js/), It is a JavaScript polyfill for the HTML5 placeholder attribute.
 * [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), High performance port of Jade-lang for python.
 
 ### Server side

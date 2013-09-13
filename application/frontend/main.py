@@ -28,7 +28,7 @@ def change_locales(locale):
     return redirect('/', 302)
 
 
-@cache.cached(timeout=86400, key_prefix='content')
+# @cache.cached(timeout=86400, key_prefix='content')
 def get_content():
     current_app.logger.debug("get contents called")
     return render_template('main.jade', lang=babel.app.config['BABEL_DEFAULT_LOCALE'])

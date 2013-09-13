@@ -1,9 +1,15 @@
-!!! 5
 if not lang
   lang = 'ko'
+!!! 5
+//if lt IE 7
+  <html class='no-js lt-ie9 lt-ie8 lt-ie7' lang='#{lang}'>
+//if IE 7
+  <html class='no-js lt-ie9 lt-ie8' lang='#{lang}'>
+//if IE 8
+  <html class='no-js lt-ie9' lang='#{lang}'>
+//[if gt IE 8]><!
 html.no-js(lang='#{lang}')
-//
-    <![endif]
+  //<![endif]
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
@@ -19,17 +25,14 @@ html.no-js(lang='#{lang}')
     link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/static/img/apple/apple-touch-icon-72x72-precomposed.png')
     link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/static/img/apple/apple-touch-icon-114x114-precomposed.png')
     link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/static/img/apple/apple-touch-icon-144x144-precomposed.png')
-    script(src='/static/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js')
+    script(src='/static/js/vendor/html5-3.6-respond-1.1.0.min.js')
   body
-    //if lt IE 7
+    //if lt IE 8
       p.chromeframe
-        | You are using an
-        strong outdated
-        | browser. Please
-        a(href='http://browsehappy.com/') upgrade your browser
-        | or
-        a(href='http://www.google.com/chromeframe/?redirect=true') activate Google Chrome Frame
-        | to improve your experience.
+        {{ _('You are using an') }} <strong>{{ _('outdated') }}</strong> {{ _('browser') }}.
+        {{ _('Please') }} <a href='http://browsehappy.com/' title='{{ _('upgrade your browser') }}' target='_blank'>{{ _('upgrade your browser') }}</a> {{ _('or') }}
+        <a href='http://www.google.com/chromeframe/?redirect=true' title='{{ _('activate Google Chrome Frame') }}' target='_blank'>{{ _('activate Google Chrome Frame') }}</a>
+        {{ _('to improve your experience') }}.
     //
     | {% include 'header.jade' %}
     .container

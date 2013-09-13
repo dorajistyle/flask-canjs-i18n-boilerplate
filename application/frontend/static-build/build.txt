@@ -75,4 +75,5 @@ js/app/admin/users.js
 js/app/admin/admin.js
 js/app/admin/router.js
 js/app/routers.js
+js/vendor/Placeholders.min.js
 js/vendor/../app.js

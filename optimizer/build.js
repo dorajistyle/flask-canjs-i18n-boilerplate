@@ -10,6 +10,7 @@
         "can": "can",
         "i18n": "i18next.amd.withJQuery-1.6.3.min",
         "spin": "spin.min",
+        "placeholders": "Placeholders.min",
         "jquery.bootstrap": "bootstrap.min",
         "jquery.typeahead": "typeahead.min",
         "settings": "../settings" 

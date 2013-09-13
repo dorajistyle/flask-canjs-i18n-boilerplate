@@ -32,6 +32,23 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
             return value != null ? value[1] : undefined;
         },
         /**
+         * Get id data from event target.
+         * @param ev
+         * @returns {*}
+         */
+        getId: function (ev) {
+          return this.getData(ev, 'id');
+        },
+        /**
+         * Get data from event target.
+         * @param ev
+         * @param name
+         * @returns {*|jQuery}
+         */
+        getData: function(ev, name) {
+          return $(ev.target).data(name);
+        },
+        /**
          * Refresh page title to h1#pageTitle's content.
          */
         refreshTitle: function() {

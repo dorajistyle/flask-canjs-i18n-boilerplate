@@ -20,9 +20,6 @@ SECRET_KEY = 'super-secret-key'
 # Flask-DebugToolbar
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
-# Flask-Assets
-ASSETS_DEBUG = True
-
 # Flask-WTF
 CSRF_ENABLED = False
 

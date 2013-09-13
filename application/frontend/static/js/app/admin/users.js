@@ -97,7 +97,7 @@ define(['jquery', 'can', 'app/models/user', 'app/models/role', 'app/models/user_
         '.select-user click': function (el, ev) {
 //            ev.preventDefault();
 //            ev.stopPropagation();
-            this.user_id = ev.target.dataset.id;
+            this.user_id = utils.getId(ev);
             this.showForm();
 //            return false;
         },
@@ -199,8 +199,8 @@ define(['jquery', 'can', 'app/models/user', 'app/models/role', 'app/models/user_
         '.delete-role-from-user-confirm click': function (el, ev) {
             ev.preventDefault();
             ev.stopPropagation();
-            this.role_id = ev.target.dataset.id;
-            this.user_id = ev.target.parentNode.parentNode.parentNode.dataset.id;
+            this.role_id = utils.getId(ev);
+            this.user_id = $(ev.target.parentNode.parentNode.parentNode).data('id');
             this.performConfirm();
             return false;
         },
@@ -267,7 +267,7 @@ define(['jquery', 'can', 'app/models/user', 'app/models/role', 'app/models/user_
         '.toggle-active click': function (el, ev) {
             ev.preventDefault();
             ev.stopPropagation();
-            this.user_id = ev.target.dataset.id;
+            this.user_id = utils.getId(ev);
             this.active = ev.target.checked ? 1 : 0;
             this.performToggleActive();
             return false;
@@ -306,7 +306,7 @@ define(['jquery', 'can', 'app/models/user', 'app/models/role', 'app/models/user_
         '.delete-user-confirm click': function (el, ev) {
             ev.preventDefault();
             ev.stopPropagation();
-            this.user_id = ev.target.dataset.id;
+            this.user_id = utils.getId(ev);
             this.performConfirm();
             return false;
         },

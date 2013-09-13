@@ -134,7 +134,7 @@ define(['can', 'app/models/role', 'utils', 'i18n', 'jquery', 'jquery.bootstrap']
         '.select-role click': function (el, ev) {
 //            ev.preventDefault();
 //            ev.stopPropagation();
-            this.role_id = ev.target.dataset.id;
+            this.role_id = utils.getId(ev);
             this.showForm();
 //            return false;
         },
@@ -218,7 +218,7 @@ define(['can', 'app/models/role', 'utils', 'i18n', 'jquery', 'jquery.bootstrap']
         '.delete-role-confirm click': function (el, ev) {
             ev.preventDefault();
             ev.stopPropagation();
-            this.role_id = ev.target.dataset.id;
+            this.role_id = utils.getId(ev);
             this.performConfirm();
             return false;
         },

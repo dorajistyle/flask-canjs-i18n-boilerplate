@@ -6,6 +6,22 @@
 # Base
 msgid "title"
 msgstr "Flask-Canjs-i18n-Boilerplate"
+msgid "You are using an"
+msgstr "You are using an"
+msgid "outdated"
+msgstr "outdated"
+msgid "browser"
+msgstr "browser"
+msgid "Please"
+msgstr "Please"
+msgid "upgrade your browser"
+msgstr "upgrade your browser"
+msgid "or"
+msgstr "or"
+msgid "activate Google Chrome Frame"
+msgstr "activate Google Chrome Frame"
+msgid "to improve your experience"
+msgstr "to improve your experience"
 
 # Header
 msgid "service name"

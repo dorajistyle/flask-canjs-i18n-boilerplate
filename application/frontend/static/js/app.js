@@ -10,6 +10,7 @@ require.config({
         "can": "vendor/can",
         "i18n": "vendor/i18next.amd.withJQuery-1.6.3.min",
         "spin": "vendor/spin.min",
+        "placeholders": "vendor/Placeholders.min",
         "jquery.bootstrap": [
             "//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min",
             "vendor/bootstrap.min"
@@ -42,7 +43,7 @@ require.config({
  * @requires app/routers
  * @requires can/view/mustache
  */
-requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar', 'app/routers', 'can/view/mustache'],
+requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar', 'app/routers', 'can/view/mustache','placeholders'],
     function (can, $, utils, i18n, settings, Navbar, Routers) {
         'use strict';
 
@@ -91,7 +92,7 @@ requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar'
                     var code = e.keyCode || e.which;
                     if (code == 13) {
                         e.preventDefault();
-                        $(this).closest('form').find(':submit').click();
+                        $(this).closest('form').find(':submit').not('.hidden').click();
                         return false;
                     }
                 });

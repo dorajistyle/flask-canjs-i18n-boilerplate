@@ -41,3 +41,4 @@ foursquare==20130707
 celery==3.0.21
 celery-with-redis==3.0
 py-bcrypt==0.3
+gunicorn==18.0

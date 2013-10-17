@@ -40,7 +40,7 @@ define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/
          * @memberof users#Read
          */
         show: function () {
-            utils.logDebug('*User/Read.show data', JSON.stringify(this.user));
+            utils.logJson('*User/Read.show data', this.user);
 
 
             this.following = this.following_data.following;

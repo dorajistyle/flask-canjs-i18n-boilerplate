@@ -34,6 +34,7 @@ BABEL_DEFAULT_LOCALE = 'ko'
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/temp.db')
 # SQLALCHEMY_DATABASE_URI = 'mysql://user:@localhost/schema'
+CELERY_BROKER_URL = 'redis://'
 
 # Celery
 CELERY_BROKER_URL = 'redis://'

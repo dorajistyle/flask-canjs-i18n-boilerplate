@@ -15,7 +15,8 @@ require.config({
             "//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min",
             "vendor/bootstrap.min"
         ],
-        "jquery.typeahead": "vendor/typeahead.min"
+        "jquery.typeahead": "vendor/typeahead.min",
+        "jquery.ba-bbq": "vendor/jquery.ba-bbq.min"
     },
     shim: {
           "jquery.typeahead": {
@@ -43,7 +44,7 @@ require.config({
  * @requires app/routers
  * @requires can/view/mustache
  */
-requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar', 'app/routers', 'can/view/mustache','placeholders'],
+requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar', 'app/routers', 'can/view/mustache','placeholders', 'jquery.ba-bbq'],
     function (can, $, utils, i18n, settings, Navbar, Routers) {
         'use strict';
 

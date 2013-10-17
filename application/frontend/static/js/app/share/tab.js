@@ -31,7 +31,7 @@ define(['can', 'utils', 'jquery', 'jquery.bootstrap'],
             ev.preventDefault();
             ev.stopPropagation();
             var target = ev.target;
-            window.location.hash = '#!'+this.options.route+'/'+target.getAttribute('class');
+            window.location.hash = '#!'+this.options.route+'/'+$(target).attr('class');
 //            window.location.pathname = "/";
             return false;
         }

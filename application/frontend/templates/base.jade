@@ -20,6 +20,9 @@ html.no-js(lang='#{lang}')
     {% assets "css_all" -%}
     link(rel='stylesheet', href='#{ ASSET_URL }')
     {%- endassets %}
+    //if IE 7
+      <link rel="stylesheet" href="/static/css/bootstrap-ie7.min.css">
+      <link rel="stylesheet" href="/static/css/font-awesome-ie7.min.css">
     link(rel='apple-touch-icon-precomposed', href='/static/img/apple/apple-touch-icon-precomposed.png')
     link(rel='apple-touch-icon-precomposed', sizes='57x57', href='/static/img/apple/apple-touch-icon-57x57-precomposed.png')
     link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/static/img/apple/apple-touch-icon-72x72-precomposed.png')

@@ -3,6 +3,10 @@ css/application.min.css
 ----------------
 css/application.min.css
 
+css/bootstrap-ie7.min.css
+----------------
+css/bootstrap-ie7.min.css
+
 css/bootstrap.css
 ----------------
 css/bootstrap.css
@@ -10,6 +14,10 @@ css/bootstrap.css
 css/bootstrap.min.css
 ----------------
 css/bootstrap.min.css
+
+css/font-awesome-ie7.min.css
+----------------
+css/font-awesome-ie7.min.css
 
 css/font-awesome.min.css
 ----------------
@@ -76,4 +84,5 @@ js/app/admin/admin.js
 js/app/admin/router.js
 js/app/routers.js
 js/vendor/Placeholders.min.js
+js/vendor/jquery.ba-bbq.min.js
 js/vendor/../app.js

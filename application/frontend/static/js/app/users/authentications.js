@@ -49,13 +49,12 @@ define(['can', 'app/models/authentication', 'app/models/user', 'app/models/filte
                     $form.data('submitted', true);
                     var login_btn = this.element.find('.perform-login');
                     login_btn.attr('disabled', 'disabled');
-                    utils.logDebug("performLogin", JSON.stringify(values));
+                    utils.logJson("performLogin", values);
                     can.when(Authentication.create(values)).then(function (result) {
-                        utils.logDebug("performLogin Response", JSON.stringify(result));
+                        utils.logJson("performLogin Response", result);
                         if (result.status) {
                             can.route.attr({route: 'refresh/navbar', url: ''});
                             utils.showSuccessMsg(i18n.t('login.welcome', result.email));
-                            utils.logDebug(JSON.stringify(this), JSON.stringify(result));
                         } else {
                             login_btn.removeAttr('disabled');
                             $form.data('submitted', false);
@@ -137,7 +136,7 @@ define(['can', 'app/models/authentication', 'app/models/user', 'app/models/filte
                     var register_btn = this.element.find('.register-user');
                     register_btn.attr('disabled', 'disabled');
                     can.when(User.create(values)).then(function (result) {
-                        utils.logDebug('register', JSON.stringify(result));
+                        utils.logJson('register', result);
                         register_btn.removeAttr('disabled');
                         $form.data('submitted', false);
                         if (result.status) {

@@ -19,7 +19,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * 구글 크롤러 친화적 url('#!').
 * 간편한 개발 문서 제작.(Sphinx)
 * 쉬운 테스팅. (nosetests)
-* 다양한 브라우저 호환 (IE8, IE9, IE10, Firefox, Chrome, Opera..)
+* 다양한 브라우저 호환 (IE7, IE8, IE9, IE10, Firefox, Chrome, Opera..)
 * 더 많은 기능을 윈하신다면, 함께 만들어 가요! :D
 
 
@@ -39,13 +39,16 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * [RequireJS Optimizer](http://requirejs.org/docs/optimization.html), RequireJS 최적화 도구.
 * [Initializr](http://www.initializr.com/),  HTML5 템플릿.
 * [Bootstrap](http://twitter.github.io/bootstrap/),  프론트엔드 프레임워크.
+* [Bootstrap-ie7](https://github.com/coliff/bootstrap-ie7), 부트스트랩 3에서 IE7을 지원을 도움.
 * [mustache](http://mustache.github.io/), 템플릿 엔진.
 * [i18next](http://i18next.com/), 자바스크립트 다국어 도구.
-* [Font Awesome](http://fortawesome.github.io/Font-Awesome/), 크기 변환등 개별화 가능한 백터 아이콘 모음을 제공합니다.
+* [Font Awesome](http://fortawesome.github.io/Font-Awesome/), 크기 변환등 개별화 가능한 백터 아이콘 모음을 제공.
 * [typeahead.js](https://github.com/twitter/typeahead.js), 텍스트 자동 완성 라이브러리.
 * [spin.js](http://fgnass.github.io/spin.js/), 작업중 활동 표시기.
 * [Placeholders.js](http://jamesallardice.github.io/Placeholders.js/), 자바스크립트를 통해 HTML5의 placeholder 속성을 사용 할 수 있게 함.
 * [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), 파이썬용 Jade 템플릿 엔진 확장.
+* [jQuery](http://jquery.com/), 작고 빠르고 유용한 자바스크립트 라이브러리.
+* [jQuery BBQ](http://benalman.com/projects/jquery-bbq-plugin/), HTML5 hashchange 이벤트 사용을 도와줌.
 
 ### 서버 사이드
 * [Flask](http://flask.pocoo.org/), 가벼운 파이썬 프레임워크.

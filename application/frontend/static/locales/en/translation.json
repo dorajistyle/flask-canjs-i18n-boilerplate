@@ -2,6 +2,11 @@
     "service": {
         "name": "Our Service"
     },
+    "utils": {
+        "stringify":{
+            "notSupport": "JSON stringify function supports modern browser(greater than IE7) only."
+        }
+    },
     "navbar": {
         "login": "Login",
         "logout": "Logout",

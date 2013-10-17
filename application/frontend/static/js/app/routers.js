@@ -26,7 +26,7 @@ define(['can', 'app/users/router','app/admin/router', 'app/models/filter_user_cu
         },
         show: function () {
             User.findAll({}, function (data) {
-                utils.logDebug('data', JSON.stringify(data));
+                utils.logJson('data', data);
                 $(utils.getFreshApp()).html(can.view('/static/views/main.mustache', {
                     users: data.users
                 }));

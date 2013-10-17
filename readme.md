@@ -19,7 +19,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * Google's crawler friendly url('#!').
 * Generate document easily.(Sphinx)
 * Do testing easily. (nosetests)
-* Cross Browser Compatibility (IE8, IE9, IE10, Firefox, Chrome, Opera..)
+* Cross Browser Compatibility (IE7, IE8, IE9, IE10, Firefox, Chrome, Opera..)
 * Do you need more Features? Fork it and improve it! :D
 
 
@@ -40,6 +40,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * [RequireJS Optimizer](http://requirejs.org/docs/optimization.html), Optimization tool of RequireJS.
 * [Initializr](http://www.initializr.com/), HTML5 templates generator.
 * [Bootstrap](http://twitter.github.io/bootstrap/), Front-end framework.
+* [Bootstrap-ie7](https://github.com/coliff/bootstrap-ie7), Bootstrap 3 for IE7.
 * [mustache](http://mustache.github.io/), Logic-less templates.
 * [i18next](http://i18next.com/), JavaScript translating toolkit.
 * [Font Awesome](http://fortawesome.github.io/Font-Awesome/), It gives you scalable vector icons that can instantly be customized.
@@ -47,6 +48,8 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 * [spin.js](http://fgnass.github.io/spin.js/), It dynamically creates spinning activity indicators that can be used as resolution-independent replacement for AJAX loading GIFs.
 * [Placeholders.js](http://jamesallardice.github.io/Placeholders.js/), It is a JavaScript polyfill for the HTML5 placeholder attribute.
 * [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), High performance port of Jade-lang for python.
+* [jQuery](http://jquery.com/), It is a fast, small, and feature-rich JavaScript library.
+* [jQuery BBQ](http://benalman.com/projects/jquery-bbq-plugin/), It leverages the HTML5 hashchange event to allow simple, yet powerful bookmarkable #hash history.
 
 ### Server side
 * [Flask](http://flask.pocoo.org/), Microframework for Python based on Werkzeug, Jinja 2 and good intentions.

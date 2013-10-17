@@ -47,7 +47,6 @@ define(['jquery', 'can', 'app/models/user', 'app/models/role', 'app/models/user_
         load: function(page) {
             User.findAll({page: page, extra: 'roles'}, function (users_data) {
                 Role.findAll({}, function (roles_data) {
-//                    utils.logDebug('load',JSON.stringify(users_data));
                     var template_data = new can.Observe({
                         users: users_data.users,
                         has_prev: users_data.has_prev,
@@ -144,7 +143,7 @@ define(['jquery', 'can', 'app/models/user', 'app/models/role', 'app/models/user_
                 });
 
                 can.when(User.findOne({id: create_user_role.user_id, extra: 'roles'})).then(function (result) {
-                    utils.logDebug('load',JSON.stringify(result));
+                    utils.logJson('load',result);
                     $form.removeClass('hidden');
                     email.val(result.user.email);
 
@@ -280,7 +279,7 @@ define(['jquery', 'can', 'app/models/user', 'app/models/role', 'app/models/user_
         performToggleActive: function () {
                 utils.logDebug('performToggleActive',toggle_active_user.active);
                 can.when(User.update(toggle_active_user.user_id,{active: toggle_active_user.active})).then(function (result) {
-                    utils.logDebug('performToggleActive',JSON.stringify(result));
+                    utils.logJson('performToggleActive',result);
                     utils.showSuccessMsg(i18n.t('admin.user.toggleActive.success'));
                     if(utils.isHashNow('admin/user/1')) show_user.reload();
                 }, function (xhr) {

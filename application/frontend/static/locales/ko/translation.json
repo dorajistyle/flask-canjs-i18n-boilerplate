@@ -2,6 +2,11 @@
     "service": {
         "name": "우리 서비스"
     },
+    "utils": {
+        "stringify":{
+            "notSupport": "JSON stringify 함수는 최신 브라우져(인터넷 익스플로러 8 이상) 에서만 지원합니다."
+        }
+    },
     "navbar": {
         "login": "로그인",
         "logout": "로그아웃",

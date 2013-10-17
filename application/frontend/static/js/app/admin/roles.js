@@ -95,7 +95,7 @@ define(['can', 'app/models/role', 'utils', 'i18n', 'jquery', 'jquery.bootstrap']
                     var create_btn = this.element.find('.create-role');
                     create_btn.attr('disabled', 'disabled');
                     can.when(Role.create(values)).then(function (result) {
-                        utils.logDebug('register', JSON.stringify(result));
+                        utils.logJson('register', result);
                         create_btn.removeAttr('disabled');
                         $form.data('submitted', false);
                         if(utils.isHashNow('admin/role/1')) show_role.reload();
@@ -161,7 +161,7 @@ define(['can', 'app/models/role', 'utils', 'i18n', 'jquery', 'jquery.bootstrap']
                 $create_btn.addClass('hidden');
                 $update_btn.removeClass('hidden');
                 can.when(Role.findOne({id: update_role.role_id})).then(function (result) {
-                    utils.logDebug('load',JSON.stringify(result));
+                    utils.logJson('load',result);
                     name.val(result.role.name);
                     description.val(result.role.description);
                 });
@@ -180,9 +180,9 @@ define(['can', 'app/models/role', 'utils', 'i18n', 'jquery', 'jquery.bootstrap']
                     $form.data('submitted', true);
                     var update_btn = this.element.find('.create-role');
                     update_btn.attr('disabled', 'disabled');
-                    utils.logDebug('updateRole', JSON.stringify(values));
+                    utils.logJson('updateRole', values);
                     can.when(Role.update(update_role.role_id, {name: values.name, description: values.description})).then(function (result) {
-                        utils.logDebug('register', JSON.stringify(result));
+                        utils.logJson('register', result);
                         update_btn.removeAttr('disabled');
                         $form.data('submitted', false);
                         if(utils.isHashNow('admin/role/1')) show_role.reload();

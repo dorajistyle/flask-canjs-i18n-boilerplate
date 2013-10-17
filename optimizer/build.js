@@ -13,6 +13,7 @@
         "placeholders": "Placeholders.min",
         "jquery.bootstrap": "bootstrap.min",
         "jquery.typeahead": "typeahead.min",
+        "jquery.ba-bbq": "jquery.ba-bbq.min",
         "settings": "../settings" 
     },
     dir: '../application/frontend/static-build',

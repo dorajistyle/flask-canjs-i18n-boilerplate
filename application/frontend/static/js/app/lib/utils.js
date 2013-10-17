@@ -31,6 +31,25 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
             var value = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
             return value != null ? value[1] : undefined;
         },
+
+        /**
+         * Check user's browser that less than IE8.
+         * @returns {*|jQuery}
+         */
+        isLessThanIE8: function () {
+            return $('html').hasClass('lt-ie8');
+        },
+
+        /**
+         * stringify JSON if browser greater than IE7.
+         * @param obj
+         * @returns {*}
+         */
+        stringify: function (obj) {
+            if(this.isLessThanIE8()) return i18n.t('utils.stringify.notSupport');
+            return JSON.stringify(obj);
+        },
+
         /**
          * Get id data from event target.
          * @param ev
@@ -123,6 +142,16 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
          */
         logError: function (target, msg) {
             log.error(target + ' : ', msg);
+        },
+
+        /**
+         * Log JSON object as debug level message into console.
+         * It works only after enable logger. {@link module:utils/enableLog}
+         * @param target
+         * @param obj JSON object
+         */
+        logJson: function (target, obj) {
+            log.debug(target + ' : ', this.stringify(obj));
         },
 
         /**

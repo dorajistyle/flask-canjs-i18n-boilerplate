@@ -27,6 +27,10 @@ require.config({
               deps: ["jquery"],
               exports: '$.fn.bootstrap'
           },
+          "jquery.ba-bbq": {
+            deps: ["jquery"],
+            exports: '$.fn.ba-bbq'
+          },
           "utils": {
               deps: ["jquery"]
           },

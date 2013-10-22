@@ -1,4 +1,5 @@
-define(['can', 'app/users/router','app/admin/router', 'app/models/filter_user_current', 'app/models/user', 'utils'], function (can, Users, Admin, FilterUserCurrent, User, utils) {
+define(['can', 'app/users/router', 'app/setting/router', 'app/admin/router', 'app/models/user/filter_user_current', 'app/models/user/user', 'app/components/navbar', 'utils'],
+    function (can, Users, Setting, Admin, FilterUserCurrent, User, Navbar, utils) {
     'use strict';
 
     /**
@@ -19,7 +20,8 @@ define(['can', 'app/users/router','app/admin/router', 'app/models/filter_user_cu
         },
         'route': function () {
             if (can.route.attr('_') == '_') {
-                can.route.attr({route: 'refresh/navbar', url: '#!setting/connection'});
+                Navbar.load();
+                utils.replaceHash('setting/connection');
                 return false;
             }
             this.show();
@@ -37,6 +39,7 @@ define(['can', 'app/users/router','app/admin/router', 'app/models/filter_user_cu
 
     var Routers = function (target) {
         new Users(target);
+        new Setting(target);
         new Admin(target);
         new Main(target);
     };

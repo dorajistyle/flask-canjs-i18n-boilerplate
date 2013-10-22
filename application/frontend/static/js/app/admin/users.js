@@ -1,4 +1,4 @@
-define(['jquery', 'can', 'app/models/user', 'app/models/role', 'app/models/user_role', 'utils', 'i18n', 'jquery.bootstrap', 'jquery.typeahead'], function ($, can, User, Role, UserRole, utils, i18n) {
+define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/models/user/user_role', 'utils', 'i18n', 'jquery.bootstrap', 'jquery.typeahead'], function ($, can, User, Role, UserRole, utils, i18n) {
     'use strict';
 
     /**

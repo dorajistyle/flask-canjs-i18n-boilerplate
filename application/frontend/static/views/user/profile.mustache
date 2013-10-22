@@ -20,7 +20,7 @@
             {{#following_flag.has_next}}
                 <li>
                     <div class="show-more-following-wrapper">
-                        <button type="button" class="btn btn-mini show-more-following" tabindex="2">
+                        <button type="button" class="btn btn-default btn-mini show-more-following" tabindex="2">
                             {{i18n 'profile.following.more'}}
                         </button>
                     </div>
@@ -39,7 +39,7 @@
             {{#followers_flag.has_next}}
                 <li>
                     <div class="show-more-followers-wrapper">
-                        <button type="button" class="btn btn-mini show-more-followers" tabindex="2">
+                        <button type="button" class="btn btn-default btn-mini show-more-followers" tabindex="2">
                             {{i18n 'profile.followers.more'}}
                         </button>
                     </div>
@@ -58,7 +58,7 @@
                     {{/is_following}}
                     {{#is_following}}
                         <div class="perform-unfollow-wrapper">
-                            <button type="button" class="btn perform-unfollow pull-right" tabindex="2">
+                            <button type="button" class="btn btn-default perform-unfollow pull-right" tabindex="2">
                                 {{i18n 'profile.unfollow.title'}}
                             </button>
                         </div>

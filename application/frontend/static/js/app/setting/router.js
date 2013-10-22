@@ -1,4 +1,4 @@
-define(['can', 'app/users/authentications', 'app/users/profile'], function (can, Authentications, Profile) {
+define(['can', 'app/setting/setting'], function (can, Setting) {
     'use strict';
 
     /**
@@ -11,8 +11,7 @@ define(['can', 'app/users/authentications', 'app/users/profile'], function (can,
      */
 
     var Routers = function (target) {
-        new Authentications(target);
-        new Profile(target);
+        new Setting(target);
     };
 
 

@@ -1,6 +1,6 @@
-define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/connection_facebook', 'app/models/follower', 'app/models/following',
-    'app/share/tab', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
-    function (can, User, FilterUserCurrent, Facebook, Follower, Following, Tab, utils, i18n, $) {
+define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'app/models/user/connection_facebook', 'app/models/user/follower', 'app/models/user/following',
+    'app/share/tab', 'app/components/navbar', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
+    function (can, User, FilterUserCurrent, Facebook, Follower, Following, Tab, Navbar, utils, i18n, $) {
     'use strict';
 
 
@@ -362,7 +362,8 @@ define(['can', 'app/models/user', 'app/models/filter_user_current', 'app/models/
                 destroy_btn.attr('disabled', 'disabled');
                 can.when(User.destroy(values.id)).then(function () {
                     utils.showSuccessMsg(i18n.t('setting.leaveOurService.success'));
-                    can.route.attr({route: 'refresh/navbar', url: ''});
+                    Navbar.load();
+                    utils.replaceHash('');
                 }, function (xhr) {
                     destroy_btn.removeAttr('disabled');
                     $form.data('submitted', false);

@@ -76,6 +76,14 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
           if($page_title != null) title = $page_title.innerHTML + ' - ';
           document.title = title + i18n.t('service.name');
         },
+         /**
+         * Replace hash to route
+         * @param route
+         */
+        replaceHash: function (route){
+          window.location.hash='#!'+route;
+//          window.location.pathname = "/";
+        },
         /**
          * Enable javascript logger.
          *

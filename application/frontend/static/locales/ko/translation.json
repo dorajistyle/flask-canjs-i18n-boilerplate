@@ -174,7 +174,7 @@
         "basic": {
             "title": "일반"
         },
-        "changePassword": {
+        "password": {
             "title": "암호 변경",
             "currentPassword": "지금 암호",
             "newPassword": "새 암호",
@@ -182,7 +182,7 @@
             "enterCurrentPassword": "지금 암호를 입력하세요.",
             "enterNewPassword": "새 암호를 입력하세요.",
             "enterNewPasswordConfirm": "새 암호를 다시 한번 입력하세요.",
-            "success": "정보가 갱신되었습니다.",
+            "done": "정보가 갱신되었습니다.",
             "failed": "정보 갱신에 실패했습니다.",
             "passwordIncorrect": "암호가 올바르지 않습니다. 올바른 암호를 입력해 주세요.",
             "submit": "저장하기"

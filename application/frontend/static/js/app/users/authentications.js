@@ -1,4 +1,5 @@
-define(['can', 'app/models/authentication', 'app/models/user', 'app/models/filter_user_email', 'app/models/filter_user_current', 'utils', 'i18n', 'jquery'], function (can, Authentication, User, FilterUserEmail, FilterUserCurrent, utils, i18n, $) {
+define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/models/user/filter_user_email', 'app/models/user/filter_user_current', 'app/components/navbar', 'utils', 'i18n', 'jquery'],
+    function (can, Authentication, User, FilterUserEmail, FilterUserCurrent, Navbar, utils, i18n, $) {
     'use strict';
     /**
      * Control for new propose
@@ -53,7 +54,8 @@ define(['can', 'app/models/authentication', 'app/models/user', 'app/models/filte
                     can.when(Authentication.create(values)).then(function (result) {
                         utils.logJson("performLogin Response", result);
                         if (result.status) {
-                            can.route.attr({route: 'refresh/navbar', url: ''});
+                            Navbar.load();
+                            utils.replaceHash('');
                             utils.showSuccessMsg(i18n.t('login.welcome', result.email));
                         } else {
                             login_btn.removeAttr('disabled');
@@ -83,7 +85,8 @@ define(['can', 'app/models/authentication', 'app/models/user', 'app/models/filte
                     utils.showErrorMsg(i18n.t('logout.error'));
                 }, function (xhr) {
                     utils.showSuccessMsg(i18n.t('logout.success'));
-                    can.route.attr({route: 'refresh/navbar', url: 'login'});
+                    Navbar.load();
+                    utils.replaceHash('login');
                 });
             }, function (xhr) {
                 utils.handleStatusWithErrorMsg(xhr, i18n.t('logout.alreadyDone'));
@@ -141,7 +144,8 @@ define(['can', 'app/models/authentication', 'app/models/user', 'app/models/filte
                         $form.data('submitted', false);
                         if (result.status) {
                             utils.showSuccessMsg(i18n.t('registration.welcome', result.email));
-                            can.route.attr({route: 'refresh/navbar', url: ''});
+                            Navbar.load();
+                            utils.replaceHash('');
                         } else {
                             utils.showErrorMsg(i18n.t('registration.failed'));
                         }

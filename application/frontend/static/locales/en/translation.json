@@ -179,7 +179,7 @@
         "basic": {
             "title": "Basic"
         },
-        "changePassword": {
+        "password": {
             "title": "Change Password",
             "currentPassword": "Current Password",
             "newPassword": "New Password",
@@ -187,7 +187,7 @@
             "enterCurrentPassword": "Please enter your current password.",
             "enterNewPassword": "Please enter new password.",
             "enterNewPasswordConfirm": "Please enter your new password again.",
-            "success": "User information is updated.",
+            "done": "User information is updated.",
             "failed": "User information is not updated.",
             "passwordIncorrect": "You entered incorrect password. Please enter correct password.",
             "submit": "Save changes"

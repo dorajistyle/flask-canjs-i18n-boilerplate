@@ -1,4 +1,4 @@
-define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/filter_user_current',
+define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/user/filter_user_current',
     'app/share/tab', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
     function (can, Roles, Users, FilterUserCurrent, Tab, utils, i18n, $) {
     'use strict';

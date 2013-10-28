@@ -1,8 +1,8 @@
 /*!
- * CanJS - 1.1.7
+ * CanJS - 2.0.0
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 24 Jul 2013 00:23:28 GMT
+ * Wed, 16 Oct 2013 20:40:41 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -21,21 +21,6 @@ define(["can/util/library", "can/util/string"], function( can ){
 	
 
 	can.extend(can, { 
-		/**
-		 * @function can.deparam
-		 * @parent can.util.function
-		 * Takes a string of name value pairs and returns a Object literal that represents those params.
-		 * 
-		 * @param {String} params a string like <code>"foo=bar&person[age]=3"</code>
-		 * @return {Object} A JavaScript Object that represents the params:
-		 * 
-		 *     {
-		 *       foo: "bar",
-		 *       person: {
-		 *         age: "3"
-		 *       }
-		 *     }
-		 */
 		deparam: function(params){
 		
 			var data = {},

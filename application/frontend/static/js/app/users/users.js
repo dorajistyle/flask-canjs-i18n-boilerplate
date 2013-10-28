@@ -18,7 +18,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
      * @name users#Read
      * @constructor
      */
-    var Read = can.Control({
+    var Read = can.Control.extend({
         init: function () {
             utils.logInfo('*User/Read', 'Initialized');
         },
@@ -149,7 +149,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
      * @name users#Update
      * @constructor
      */
-    var Update = can.Control({
+    var Update = can.Control.extend({
         init: function () {
             utils.logInfo('*User/Update', 'Initialized');
         },
@@ -305,7 +305,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
      * @name users#Destroy
      * @constructor
      */
-    var Destroy = can.Control({
+    var Destroy = can.Control.extend({
         init: function () {
             this.isConfirmed = false;
             utils.logInfo('*User/Destroy', 'Initialized');
@@ -383,7 +383,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
      * @name users#Router
      * @constructor
      */
-    var Router = can.Control({
+    var Router = can.Control.extend({
         defaults: {}
     }, {
         init: function () {

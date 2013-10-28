@@ -8,7 +8,7 @@ define(['can', 'app/models/user/role', 'utils', 'i18n', 'jquery', 'jquery.bootst
      */
     var create_role, update_role, destroy_role, show_role;
 
-    var ShowRole = can.Control({
+    var ShowRole = can.Control.extend({
         init: function () {
             utils.logInfo('*admin.roles/ShowRole', 'Initialized');
         },
@@ -49,7 +49,7 @@ define(['can', 'app/models/user/role', 'utils', 'i18n', 'jquery', 'jquery.bootst
      * @name admin#CreateRole
      * @constructor
      */
-    var CreateRole = can.Control({
+    var CreateRole = can.Control.extend({
         init: function () {
             utils.logInfo('*admin.roles/CreateRole', 'Initialized');
         },
@@ -121,7 +121,7 @@ define(['can', 'app/models/user/role', 'utils', 'i18n', 'jquery', 'jquery.bootst
      * @name admin#UpdateRole
      * @constructor
      */
-    var UpdateRole = can.Control({
+    var UpdateRole = can.Control.extend({
         init: function () {
             utils.logInfo('*admin.roles/UpdateRole', 'Initialized');
         },
@@ -210,7 +210,7 @@ define(['can', 'app/models/user/role', 'utils', 'i18n', 'jquery', 'jquery.bootst
      * @name admin#DestroyRole
      * @constructor
      */
-    var DestroyRole = can.Control({
+    var DestroyRole = can.Control.extend({
         init: function () {
             this.isConfirmed = false;
             utils.logInfo('*admin/DestroyRole', 'Initialized');
@@ -278,7 +278,7 @@ define(['can', 'app/models/user/role', 'utils', 'i18n', 'jquery', 'jquery.bootst
      * @name admin#Router
      * @constructor
      */
-    var Router = can.Control({
+    var Router = can.Control.extend({
         defaults: {}
     }, {
         init: function () {

@@ -17,7 +17,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
      * @name users#Read
      * @constructor
      */
-    var Read = can.Control({
+    var Read = can.Control.extend({
         init: function () {
             utils.logInfo('*User/Read', 'Initialized');
         },
@@ -150,7 +150,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
      * @name users#Profile_Router
      * @constructor
      */
-    var Router = can.Control({
+    var Router = can.Control.extend({
         defaults: {}
     }, {
         init: function () {

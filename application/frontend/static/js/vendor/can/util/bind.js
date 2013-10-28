@@ -1,8 +1,8 @@
 /*!
- * CanJS - 1.1.7
+ * CanJS - 2.0.0
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 24 Jul 2013 00:23:28 GMT
+ * Wed, 16 Oct 2013 20:40:41 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -42,7 +42,11 @@ define(["can/util/library"], function(can){
 		// Remove the event handler
 		can.removeEvent.apply(this, arguments);
 
-		this._bindings--;
+		if(this._bindings == null) {
+			this._bindings = 0;
+		} else {
+			this._bindings--;
+		}
 		// If there are no longer any bindings and
 		// there is a bindteardown method, call it.
 		if(!this._bindings){

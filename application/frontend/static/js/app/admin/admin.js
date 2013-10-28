@@ -18,7 +18,7 @@ define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/user/filter_use
      * @name admin#Admin
      * @constructor
      */
-    var Admin = can.Control({
+    var Admin = can.Control.extend({
         init: function () {
             utils.logInfo('*admin/Admin', 'Initialized');
         },
@@ -72,7 +72,7 @@ define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/user/filter_use
      * @name users#Router
      * @constructor
      */
-   var Router = can.Control({
+   var Router = can.Control.extend({
         defaults: {}
    }, {
        init: function () {

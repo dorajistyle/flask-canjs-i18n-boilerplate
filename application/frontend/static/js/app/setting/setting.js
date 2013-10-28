@@ -19,7 +19,7 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
      * @name setting#Setting
      * @constructor
      */
-    var Setting = can.Control({
+    var Setting = can.Control.extend({
         init: function () {
             utils.logInfo('*setting/Setting', 'Initialized');
         },
@@ -87,7 +87,7 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
      * @name users#Update_Router
      * @constructor
      */
-    var Router = can.Control({
+    var Router = can.Control.extend({
         defaults: {}
     }, {
         init: function () {

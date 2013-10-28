@@ -17,16 +17,15 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current',
      * @name users#Basic
      * @constructor
      */
-    var Basic = can.Control({
+    var Basic = can.Control.extend({
         init: function () {
             utils.logInfo('*User/Basic', 'Initialized');
         },
-        load: function (tab) {
+        load: function (page) {
             FilterUserCurrent.findOne({}, function (result) {
                 utils.logJson('users#Basic load',result);
                 basic.user_data = result.user;
                     basic.show();
-//                    basic.selectTab(tab);
                     basic.initForm();
                     utils.refreshTitle();
             },function (xhr) {
@@ -119,7 +118,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current',
      * @name setting#Basic_Router
      * @constructor
      */
-     var Router = can.Control({
+     var Router = can.Control.extend({
         defaults: {}
         }, {
             init: function () {

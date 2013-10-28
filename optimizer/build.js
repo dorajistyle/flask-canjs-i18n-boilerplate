@@ -14,13 +14,13 @@
         "jquery.bootstrap": "bootstrap.min",
         "jquery.typeahead": "typeahead.min",
         "jquery.ba-bbq": "jquery.ba-bbq.min",
-        "settings": "../settings" 
+        "settings": "../settings"
     },
     dir: '../application/frontend/static-build',
     optimize: "uglify2",
-    optimizeCss: "standard",
+    optimizeCss: "standard.keepLines",
     removeCombined: true,
-    preserveLicenseComments: false,
+    preserveLicenseComments: true,
     modules: [
         {
             name: '../app'

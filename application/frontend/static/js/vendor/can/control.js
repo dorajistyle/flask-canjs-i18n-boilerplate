@@ -1,8 +1,8 @@
 /*!
- * CanJS - 1.1.7
+ * CanJS - 2.0.0
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 24 Jul 2013 00:23:28 GMT
+ * Wed, 16 Oct 2013 20:40:41 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -147,7 +147,7 @@ define(["can/util/library", "can/construct"], function( can ) {
 			if ( options || ! paramReplacer.test( methodName )) {
 				// If we have options, run sub to replace templates `{}` with a
 				// value from the options or the window
-				var convertedName = options ? can.sub(methodName, [options, window]) : methodName;
+				var convertedName = options ? can.sub(methodName, this._lookup(options)) : methodName;
 				if(!convertedName) {
 					return null;
 				}
@@ -168,6 +168,9 @@ define(["can/util/library", "can/construct"], function( can ) {
 					delegate : arr ? convertedName[0] : undefined
 				};
 			}
+		},
+		_lookup: function(options){
+			return [options, window]
 		},
 		// An object of `{eventName : function}` pairs that Control uses to 
 		// hook up events auto-magically.
@@ -403,14 +406,14 @@ define(["can/util/library", "can/construct"], function( can ) {
 			 *       }  
 			 *     })
 			 *     
-			 *     new Greeting("#greeting",{messgae: "I understand this.options"})
+			 *     new Greeting("#greeting",{message: "I understand this.options"})
 			 * 
 			 * The options argument passed when creating the control
 			 * is merged with [can.Control.defaults defaults] in
 			 * [can.Control.prototype.setup setup].
 			 * 
 			 * In the following example, if no message property is provided,
-			 * the defaults' messgae property is used.
+			 * the defaults' message property is used.
 			 * 
 			 *     var Greeting = can.Control.extend({
 			 *       defaults: {
@@ -461,7 +464,7 @@ define(["can/util/library", "can/construct"], function( can ) {
 			 * ## Wrapped NodeList
 			 * 
 			 * `this.element` is a wrapped NodeList of one HTMLELement (or window).  This
-			 * is for convience in libraries like jQuery where all methods operate only on a
+			 * is for convenience in libraries like jQuery where all methods operate only on a
 			 * NodeList.  To get the raw HTMLElement, write:
 			 * 
 			 *     this.element[0] //-> HTMLElement
@@ -591,7 +594,7 @@ define(["can/util/library", "can/construct"], function( can ) {
 		 *       task: new Task({ completed: 'true' }) 
 		 *     });
 		 * 
-		 * To update the taskstriker's task, add a task method that updates
+		 * To update the `taskstriker`'s task, add a task method that updates
 		 * this.options and rebinds the event handlers for the new task like:
 		 * 
 		 *     TaskStriker = can.Control({
@@ -622,7 +625,7 @@ define(["can/util/library", "can/construct"], function( can ) {
 		 * ## Adding new events
 		 * 
 		 * If events need to be bound to outside of the control and templated event handlers
-		 * are not sufficent, you can call this.on to bind or delegate programatically:
+		 * are not sufficient, you can call this.on to bind or delegate programmatically:
 		 * 
 		 *     init: function() {
 		 *        // calls somethingClicked( el, ev )
@@ -664,9 +667,9 @@ define(["can/util/library", "can/construct"], function( can ) {
 	
 				// Setup to be destroyed...  
 				// don't bind because we don't want to remove it.
-				can.bind.call(element,"destroyed", destroyCB);
+				can.bind.call(element,"removed", destroyCB);
 				bindings.push(function( el ) {
-					can.unbind.call(el,"destroyed", destroyCB);
+					can.unbind.call(el,"removed", destroyCB);
 				});
 				return bindings.length;
 			}
@@ -699,7 +702,7 @@ define(["can/util/library", "can/construct"], function( can ) {
 		 * be calling this unless in use with [can.Control::on].
 		 */
 		off : function(){
-			var el = this.element[0]
+			var el = this.element[0];
 			each(this._bindings || [], function( value ) {
 				value(el);
 			});

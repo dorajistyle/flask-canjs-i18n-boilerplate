@@ -7,7 +7,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
      */
     var create_user_role, destroy_user, show_user, destroy_user_role, toggle_active_user;
 
-    var ShowUser = can.Control({
+    var ShowUser = can.Control.extend({
         init: function () {
             utils.logInfo('*admin/ShowUser', 'Initialized');
 
@@ -86,7 +86,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
      * @name admin#CreateUser
      * @constructor
      */
-    var CreateUserRole = can.Control({
+    var CreateUserRole = can.Control.extend({
         init: function () {
             utils.logInfo('*admin/CreateUser', 'Initialized');
         },
@@ -190,7 +190,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
     });
 
 
-    var DestroyUserRole = can.Control({
+    var DestroyUserRole = can.Control.extend({
         init: function () {
             this.isConfirmed = false;
             utils.logInfo('*admin/DestroyRole', 'Initialized');
@@ -258,7 +258,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
      * @name admin#DestroyUser
      * @constructor
      */
-    var ToggleActiveUser = can.Control({
+    var ToggleActiveUser = can.Control.extend({
         init: function () {
             this.isConfirmed = false;
             utils.logInfo('*admin/ToggleActiveUser', 'Initialized');
@@ -297,7 +297,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
      * @name admin#DestroyUser
      * @constructor
      */
-    var DestroyUser = can.Control({
+    var DestroyUser = can.Control.extend({
         init: function () {
             this.isConfirmed = false;
             utils.logInfo('*admin/DestroyUser', 'Initialized');
@@ -365,7 +365,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
      * @name admin#Router
      * @constructor
      */
-    var Router = can.Control({
+    var Router = can.Control.extend({
         defaults: {}
     }, {
         init: function () {

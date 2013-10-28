@@ -1,6 +1,6 @@
 define(['jquery', 'can', 'app/models/user/filter_user_current', 'can/view/mustache'],
     function ($, can, FilterUserCurrent) {
-        var NavBar = can.Control({
+        var NavBar = can.Control.extend({
             init: function () {
             },
             load: function () {

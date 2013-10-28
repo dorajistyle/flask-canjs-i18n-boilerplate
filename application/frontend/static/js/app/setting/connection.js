@@ -18,15 +18,14 @@ define(['can', 'app/models/user/connection_facebook',
      * @name setting#Connection
      * @constructor
      */
-    var Connection = can.Control({
+    var Connection = can.Control.extend({
         init: function () {
             utils.logInfo('*Setting/Connection', 'Initialized');
         },
-        load: function (tab) {
+        load: function (page) {
             Facebook.findAll({}, function (facebook){
                 connection.has_facebook_connection = facebook.has_facebook_connection;
                 connection.show();
-                connection.selectTab(tab);
                 utils.refreshTitle();
             },function (xhr) {
                 utils.handleStatus(xhr);
@@ -102,7 +101,7 @@ define(['can', 'app/models/user/connection_facebook',
      * @name setting#Connection_Router
      * @constructor
      */
-     var Router = can.Control({
+     var Router = can.Control.extend({
         defaults: {}
         }, {
             init: function () {

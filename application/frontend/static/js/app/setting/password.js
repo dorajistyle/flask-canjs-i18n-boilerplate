@@ -18,16 +18,15 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'u
      * @name setting#Password
      * @constructor
      */
-    var Password = can.Control({
+    var Password = can.Control.extend({
         init: function () {
             utils.logInfo('*User/Password', 'Initialized');
         },
-        load: function (tab) {
+        load: function (page) {
             FilterUserCurrent.findOne({}, function (result) {
                 utils.logJson('setting#Password load',result);
                 password.user_data = result;
                 password.show();
-                password.selectTab(tab);
                 utils.refreshTitle();
             },function (xhr) {
                 utils.handleStatus(xhr);
@@ -103,7 +102,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'u
      * @name setting#Password_Router
      * @constructor
      */
-     var Router = can.Control({
+     var Router = can.Control.extend({
         defaults: {}
         }, {
             init: function () {

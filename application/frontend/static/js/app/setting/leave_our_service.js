@@ -18,7 +18,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
      * @name users#Destroy
      * @constructor
      */
-    var Destroy = can.Control({
+    var Destroy = can.Control.extend({
         init: function () {
             this.isConfirmed = false;
             utils.logInfo('*User/Destroy', 'Initialized');
@@ -29,7 +29,6 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
                 utils.logJson('users#Destory load',result);
                 destroy.user_data = result.user;
                     destroy.show();
-                    destroy.initForm();
                     utils.refreshTitle();
             },function (xhr) {
                 utils.handleStatus(xhr);
@@ -119,7 +118,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
      * @name setting#Destory_Router
      * @constructor
      */
-     var Router = can.Control({
+     var Router = can.Control.extend({
         defaults: {}
         }, {
             init: function () {

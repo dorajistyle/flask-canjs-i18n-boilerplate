@@ -12,7 +12,7 @@ define(['can', 'app/users/router', 'app/setting/router', 'app/admin/router', 'ap
      */
 
 
-    var Main = can.Control({
+    var Main = can.Control.extend({
         defaults: {}
     }, {
         init: function () {

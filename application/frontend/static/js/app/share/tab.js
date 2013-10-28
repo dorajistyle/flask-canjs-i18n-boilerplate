@@ -10,7 +10,7 @@ define(['can', 'utils', 'jquery', 'jquery.bootstrap'],
      * @name share#Tab
      * @constructor
      */
-    var Tab = can.Control({
+    var Tab = can.Control.extend({
         init: function () {
             this.options.navid = '#'+this.options.route+'Nav';
             utils.logInfo('*share/Tab', 'Initialized');

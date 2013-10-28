@@ -10,7 +10,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
      * @constructor
      */
     var create_auth, create_user;
-    var CreateAuth = can.Control({
+    var CreateAuth = can.Control.extend({
         init: function () {
             utils.logInfo('*Authentications/Create', 'Initialized');
 
@@ -102,7 +102,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
      * @name users#Create
      * @constructor
      */
-    var CreateUser = can.Control({
+    var CreateUser = can.Control.extend({
         init: function () {
             utils.logInfo('*User/Create', 'Initialized');
         },
@@ -193,7 +193,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
      * @name authentications#Router
      * @constructor
      */
-    var Router = can.Control({
+    var Router = can.Control.extend({
         defaults: {}
     }, {
         init: function (target) {

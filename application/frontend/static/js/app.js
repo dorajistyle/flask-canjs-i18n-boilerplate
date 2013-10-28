@@ -27,10 +27,9 @@ require.config({
               deps: ["jquery"],
               exports: '$.fn.bootstrap'
           },
-//          "jquery.ba-bbq": {
-//            deps: ["jquery"],
-//            exports: '$.fn.ba-bbq'
-//          },
+          "jquery.ba-bbq": {
+            deps: ["jquery"]
+          },
           "utils": {
               deps: ["jquery"]
           },
@@ -60,12 +59,10 @@ requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar'
                 : i18n_option.lng = 'ko';
             settings.use_logger ? utils.enableLog() : utils.disableLog();
             can.when(i18n.init(i18n_option)).then(function () {
-                can.route.ready(false);
-
                 // View helper for pluralizing strings
-                can.Mustache.registerHelper('feedbackPlural', function (str, attr) {
-                    return str + (attr.call(this.feedbacks) !== 1 ? 's' : '');
-                });
+//                can.Mustache.registerHelper('feedbackPlural', function (str, attr) {
+//                    return str + (attr.call(this.feedbacks) !== 1 ? 's' : '');
+//                });
 
                 can.Mustache.registerHelper('i18n', function (str, options) {
                     return i18n != undefined
@@ -101,8 +98,7 @@ requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar'
                         return false;
                     }
                 });
-
-                can.route.ready(true);
+                can.route.ready();
             });
         });
     });

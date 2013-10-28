@@ -34,7 +34,7 @@ def find_one(user_id):
 
     if request.values.get('extra', None) is not None:
         users.set_json_temp(str(request.values.get('extra')).split(','))
-        if not users.is_admin():
+        if not users.has_admin():
             users.set_json_hidden(['password', 'last_login_ip', 'current_login_ip', 'roles'])
 
     user = users.get_or_404(user_id)
@@ -61,7 +61,7 @@ def find_all():
 
     if request.values.get('extra', None) is not None:
         users.set_json_temp(str(request.values.get('extra')).split(','))
-        if not users.is_admin():
+        if not users.has_admin():
             users.set_json_hidden(['password', 'last_login_ip', 'current_login_ip', 'roles'])
 
     return {'users': user_items, 'has_prev': has_prev, 'has_next': has_next, 'current_page': page}
@@ -86,7 +86,7 @@ def update(user_id):
     else:
         form = UpdateForm()
     user = users.get_or_404(user_id)
-    if users.is_admin() or users.user_equals_me(user):
+    if users.has_admin() or users.user_equals_me(user):
         password_incorrect = False
         if form.validate_on_submit():
             if isinstance(form, UpdatePasswordForm):
@@ -117,7 +117,7 @@ def destroy(user_id):
         if not current_app.testing:
             logout_user()
         return {}
-    if users.is_admin():
+    if users.has_admin():
         users.delete_user(user)
         return {}
     else:

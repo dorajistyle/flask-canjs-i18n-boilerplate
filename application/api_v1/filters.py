@@ -53,5 +53,5 @@ def filter_user_current():
 
     """
     if users.is_authenticated():
-        return {'user': users.me(), 'is_admin': users.is_admin()}
+        return {'user': users.me(), 'has_admin': users.has_admin()}
     return {}

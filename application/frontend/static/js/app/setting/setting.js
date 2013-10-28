@@ -25,15 +25,19 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
         },
         load: function (tab, page) {
             FilterUserCurrent.findOne({}, function (result) {
-                if(!setting.is_reload) {
-                  setting.show();
-                  utils.logDebug('Setting load', 'it is performed');
-                  setting.is_reload = true;
-                  utils.refreshTitle();
+                if(!result.user) {
+                    utils.replaceHash('');
+                } else {
+                    if(!setting.is_reload) {
+                      setting.show();
+                      utils.logDebug('Setting load', 'it is performed');
+                      setting.is_reload = true;
+                      utils.refreshTitle();
+                    }
+                    setting.selectTab(tab, page);
                 }
-                setting.selectTab(tab, page);
             },function (xhr) {
-                utils.isHashNow('');
+                utils.replaceHash('');
             });
         },
         /**
@@ -92,6 +96,8 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
     }, {
         init: function () {
             utils.logInfo('*Users/Setting/Router', 'Initialized');
+        },
+         allocate: function () {
             var $app = utils.getFreshApp();
             tab = new Tab($app,{route: 'setting'});
             setting = new Setting($app);
@@ -104,7 +110,7 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
             can.route.attr('tab', 'basic');
         },
         'setting/:tab route': function (data) {
-            this.init();
+            utils.allocate(this, setting);
             setting.load(data.tab);
         }
     });

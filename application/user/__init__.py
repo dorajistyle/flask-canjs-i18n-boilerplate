@@ -277,7 +277,7 @@ class UsersService(Service):
             return True
         return False
 
-    def is_admin(self):
+    def has_admin(self):
         """
         Check that current user is admin.
         :return:

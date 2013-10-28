@@ -24,13 +24,18 @@ define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/user/filter_use
         },
         load: function (tab, page) {
             FilterUserCurrent.findOne({}, function (result) {
-                if(!result.is_admin) window.location.hash = '/#!';
-                if(!admin.is_reload) {
-                  admin.show();
-                  admin.is_reload = true;
-                  utils.refreshTitle();
+                if(!result.has_admin) {
+                    utils.replaceHash('');
+                }  else {
+                    if(!admin.is_reload) {
+                      admin.show();
+                      admin.is_reload = true;
+                      utils.refreshTitle();
+                    }
+                    admin.selectTab(tab, page);
                 }
-                admin.selectTab(tab, page);
+            },function (xhr) {
+                utils.replaceHash('');
             });
         },
         /**
@@ -76,24 +81,26 @@ define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/user/filter_use
         defaults: {}
    }, {
        init: function () {
+           utils.logInfo('*admin/Router', 'Initialized')
+       },
+       allocate: function () {
            var $app = utils.getFreshApp();
            tab = new Tab($app,{route: 'admin'});
            admin = new Admin($app);
            roles = new Roles();
            users = new Users();
-           utils.logInfo('*admin/Router', 'Initialized')
        },
        'admin route': function () {
-           window.location.hash='#!admin/role'
+           can.route.attr('tab', 'role');
        },
        'admin/:tab/:page route': function (data) {
-           if(admin == undefined) {
-             this.init();
+          if(admin.is_reload === undefined) {
+             utils.allocate(this, admin);
            }
            admin.load(data.tab, data.page);
        },
        'admin/:tab route': function (data) {
-           this.init();
+            utils.allocate(this, admin);
            admin.is_reload = false;
            admin.load(data.tab);
        }

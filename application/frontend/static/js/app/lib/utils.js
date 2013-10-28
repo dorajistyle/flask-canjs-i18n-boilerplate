@@ -82,7 +82,16 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
          */
         replaceHash: function (route){
           window.location.hash='#!'+route;
+//          this.logError('hash',window.location.hash);
 //          window.location.pathname = "/";
+        },
+        /**
+         * Allocate the view if view is undefined.
+         * @param router
+         * @param allocate
+         */
+        allocate: function (router, control) {
+            if(control === undefined || control.element === null ) router.allocate();
         },
         /**
          * Enable javascript logger.

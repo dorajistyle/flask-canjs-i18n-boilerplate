@@ -12,7 +12,7 @@ import os
 from application.babel_helper import _
 _basedir = os.path.abspath(os.path.dirname(__file__))
 
-DEBUG = False
+DEBUG = True
 RELOAD = True
 SECRET_KEY = 'super-secret-key'
 

@@ -24,7 +24,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 
 
 ## 써보기
-[http://flask-canjs-i18n-boilerplate.ap01.aws.af.cm/](http://flask-canjs-i18n-boilerplate.ap01.aws.af.cm/)
+[http://flask-canjs-i18n-boilerplate.hp.af.cm/](http://flask-canjs-i18n-boilerplate.hp.af.cm/)
 
 
 ## 어떻게 동작하나요?

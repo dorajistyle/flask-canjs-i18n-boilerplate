@@ -24,7 +24,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 
 
 ## Live application
-[http://flask-canjs-i18n-boilerplate.ap01.aws.af.cm/](http://flask-canjs-i18n-boilerplate.ap01.aws.af.cm/)
+[http://flask-canjs-i18n-boilerplate.hp.af.cm/](http://flask-canjs-i18n-boilerplate.hp.af.cm/)
 
 
 ## How it works?

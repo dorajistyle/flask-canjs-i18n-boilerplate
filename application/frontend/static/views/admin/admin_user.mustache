@@ -28,7 +28,7 @@
             <ul class="list-unstyled">
                 {{#roles}}
                     <li>
-                         <span class='role-name'>{{name}}</span>&nbsp;<i data-id="{{id}}" class="icon-remove-sign delete-role-from-user-confirm"></i></li>
+                         <span class='role-name'>{{name}}</span>&nbsp;<i data-id="{{id}}" class="fa fa-times-circle delete-role-from-user-confirm"></i></li>
                 {{/roles}}
             </ul>
             {{/if}}
@@ -42,7 +42,7 @@
                 {{/active}}
                 /></label></td>
         <td class="col-lg-1 center">
-                <i class="delete-user-confirm icon-remove icon-large" data-id='{{id}}'></i>
+                <i class="delete-user-confirm fa fa-times fa-lg" data-id='{{id}}'></i>
         </td>
     </tr>
     {{/users}}

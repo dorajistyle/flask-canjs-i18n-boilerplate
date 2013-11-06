@@ -1,8 +1,4 @@
 
-css/application.min.css
-----------------
-css/application.min.css
-
 css/bootstrap-ie7.min.css
 ----------------
 css/bootstrap-ie7.min.css

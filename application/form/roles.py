@@ -8,7 +8,8 @@
 
 """
 
-from flask_wtf import Required, TextField
+from wtforms import TextField
+from wtforms.validators import Required
 from application.form import Form
 
 

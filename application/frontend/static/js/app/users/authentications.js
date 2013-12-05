@@ -20,7 +20,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
          * @memberof authentications#Create
          */
         show: function () {
-            this.element.html(can.view('/static/views/user/login.mustache', {}));
+            this.element.html(can.view('/static/views/user/login.mustache', {registration_message : create_auth.registration_message}));
             utils.refreshTitle();
         },
 
@@ -138,6 +138,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
                     $form.data('submitted', true);
                     var register_btn = this.element.find('.register-user');
                     register_btn.attr('disabled', 'disabled');
+                    if(create_user.provider_id != undefined) values.provider_id = create_user.provider_id;
                     can.when(User.create(values)).then(function (result) {
                         utils.logJson('register', result);
                         register_btn.removeAttr('disabled');
@@ -199,14 +200,25 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
         init: function (target) {
             utils.logInfo('*Authentications/Router', 'Initialized')
         },
-        'login route': function () {
+        allocate: function() {
             var $app = utils.getFreshApp();
             create_auth = new CreateAuth($app);
             create_user = new CreateUser($app);
+        },
+        'login route': function () {
+            this.allocate();
+            create_auth.show();
+        },
+        'login/provider/:id route': function (data) {
+            this.allocate();
+            create_user.provider_id = data.id;
+            create_auth.registration_message = i18n.t('user.view.oauth.ifYouRegister') +
+                i18n.t('user.view.oauth.'+create_user.provider_id) +
+                i18n.t('user.view.oauth.willConnectAutomatically');
             create_auth.show();
         },
         'logout route': function () {
-            create_auth = new CreateAuth(utils.getFreshApp());
+            this.allocate();
             create_auth.performLogout();
         }
     });

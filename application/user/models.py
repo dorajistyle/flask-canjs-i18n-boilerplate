@@ -53,12 +53,10 @@ class User(UserJsonSerializer, db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
     connections = db.relationship('Connection', lazy='dynamic',
-                                  backref=db.backref('user', lazy='joined'), cascade="all")
+                                  backref=db.backref('user'), cascade="all")
     following = db.relationship('User', secondary=followers, primaryjoin=(followers.c.follower_id == id),
                                 secondaryjoin=(followers.c.following_id == id),
                                 backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
-
-
 
 
 class Connection(db.Model):
@@ -69,6 +67,7 @@ class Connection(db.Model):
     provider_user_id = db.Column(db.String(255))
     access_token = db.Column(db.String(255))
     secret = db.Column(db.String(255))
+    full_name = db.Column(db.String(255))
     display_name = db.Column(db.String(255))
     profile_url = db.Column(db.String(512))
     image_url = db.Column(db.String(512))

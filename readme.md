@@ -25,7 +25,7 @@ Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [artic
 
 ## Live application
 [http://flask-canjs-i18n-boilerplate.hp.af.cm/](http://flask-canjs-i18n-boilerplate.hp.af.cm/)
-
+* Facebook connection not available. Because Facebook said 'Site URL has been been identified as malicious and/or abusive'.
 
 ## How it works?
 

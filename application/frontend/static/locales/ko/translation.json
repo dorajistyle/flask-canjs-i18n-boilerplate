@@ -143,11 +143,26 @@
             }
         }
     },
-    "users": {
+    "user": {
         "profile": "프로필",
         "setting": "설정",
         "email": "이메일",
-        "id": "아이디"
+        "id": "아이디",
+        "view": {
+           "oauth": {
+               "ifYouRegister": "등록을 하신다면, ",
+               "facebook": "페이스북",
+               "willConnectAutomatically": "에 자동으로 연결됩니다.",
+               "registration": {
+               "prefix": "",
+               "postfix": "으로 등록"
+               },
+               "login": {
+                   "prefix": "",
+                   "postfix": "으로 로그인"
+               }
+           }
+        }
     },
     "profile": {
         "title": "프로필",

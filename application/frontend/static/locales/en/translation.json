@@ -148,11 +148,26 @@
 
         }
     },
-    "users": {
+    "user": {
         "profile": "Profile",
         "setting": "Setting",
         "email": "Email",
-        "id": "id"
+        "id": "id",
+        "view": {
+           "oauth": {
+               "ifYouRegister": "If you register, ",
+               "facebook": "Facebook",
+               "willConnectAutomatically": " will connect automatically.",
+               "registration": {
+               "prefix": "Register with ",
+               "postfix": ""
+               },
+               "login": {
+                   "prefix": "Login with ",
+                   "postfix": ""
+               }
+           }
+        }
     },
     "profile": {
         "title": "Profile",

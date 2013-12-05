@@ -7,9 +7,9 @@
     main frontend module
 
 """
-from flask import Blueprint, render_template, jsonify, request, redirect, current_app
+from flask import Blueprint, render_template, jsonify, request, redirect, current_app, session
 from flask_security import login_user
-from flask_social.views import connect
+from flask_social.views import connect, connect_handler
 from flask.ext.babel import refresh
 from application.core import babel, cache
 from application.services import users
@@ -17,6 +17,7 @@ from application.frontend import route
 from application.api_v1 import login_required
 from application.form.users import RegistrationForm
 from werkzeug.datastructures import MultiDict
+from flask_social.utils import get_provider_or_404
 
 bp = Blueprint('main', __name__)
 
@@ -42,7 +43,6 @@ def index():
     """
     return get_content()
 
-
 @route(bp, '/users', methods=['POST'])
 def registration():
     """
@@ -50,9 +50,21 @@ def registration():
 
     :return:
     """
-
-    if request.form:
-        form = RegistrationForm(MultiDict(request.form))
+    provider_id = request.form.get('provider_id', None)
+    data = request.form
+    data = MultiDict()
+    for k in request.form:
+        data.add(k, request.form.get(k, None))
+    print("provider_id : "+str(provider_id))
+    if provider_id:
+        data.pop('provider_id')
+        provider = get_provider_or_404(provider_id)
+        connection_values = session.get('failed_login_connection', None)
+    else:
+        provider = None
+        connection_values = None
+    if data:
+        form = RegistrationForm(MultiDict(data))
     else:
         form = RegistrationForm()
 
@@ -60,12 +72,42 @@ def registration():
         return jsonify(), 400
 
     if form.validate_on_submit():
-        user = users.create_user(**request.form)
+        user = users.create_user(**data)
+        # See if there was an attempted social login prior to registering
+        # and if so use the provider connect_handler to save a connection
+        connection_values = session.pop('failed_login_connection', None)
+        if connection_values and provider_id:
+            connection_values['user_id'] = user.id
+            connect_handler(connection_values, provider)
         if user:
             login_user(user)
     status = users.is_authenticated()
     email = users.me().email if status else ""
     return jsonify(status=status, email=email)
+
+#@route(bp, '/users', methods=['POST'])
+#def registration():
+#    """
+#    Register user.
+#
+#    :return:
+#    """
+#
+#    if request.form:
+#        form = RegistrationForm(MultiDict(request.form))
+#    else:
+#        form = RegistrationForm()
+#
+#    if users.is_authenticated():
+#        return jsonify(), 400
+#
+#    if form.validate_on_submit():
+#        user = users.create_user(**request.form)
+#        if user:
+#            login_user(user)
+#    status = users.is_authenticated()
+#    email = users.me().email if status else ""
+#    return jsonify(status=status, email=email)
 
 
 @route(bp, '/connections/facebook', methods=['GET'])

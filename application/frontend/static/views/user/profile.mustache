@@ -1,12 +1,12 @@
 <h1 id="pageTitle">{{i18n 'profile.title'}}</h1>
 
 {{#user_data}}
-    <div class="user-wrapper well col-lg-4">
+    <div class="user-wrapper well col-md-4">
     <ul class="list-unstyled">
         {{#user}}
             <li><img alt="{{email}}" src={{gravatar}}/></li>
-            <li>{{i18n 'users.email'}} : {{email}}</li>
-            <li>{{i18n 'users.id'}} : {{id}}</li>
+            <li>{{i18n 'user.email'}} : {{email}}</li>
+            <li>{{i18n 'user.id'}} : {{id}}</li>
             <li>{{i18n 'profile.following.title'}} : {{following_cnt}}</li>
             {{#if following}}
                 <li>

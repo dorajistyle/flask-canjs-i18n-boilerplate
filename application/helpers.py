@@ -11,9 +11,9 @@
 import pkgutil
 import importlib
 
-from flask import Blueprint
+from flask import Blueprint, request
 from flask.json import JSONEncoder as BaseJSONEncoder
-
+from urlparse import urljoin
 
 def register_blueprints(app, package_name, package_path):
     """Register all Blueprint instances on the specified Flask application found
@@ -32,6 +32,14 @@ def register_blueprints(app, package_name, package_path):
                 app.register_blueprint(item)
             rv.append(item)
     return rv
+
+def make_external(url):
+    """
+    Make internal url to external url.
+    @param url:
+    @return:
+    """
+    return urljoin(request.url_root, url)
 
 
 class JSONEncoder(BaseJSONEncoder):

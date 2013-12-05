@@ -1,17 +1,17 @@
 | {% macro render_field_with_errors(field) %}
-div.form-group.col-lg-6
-  label(class="col-lg-4", for="{{ field.name }}") {{ _(field.label.text) }}
-  input(name="{{ field.name }}", id="{{ field.name }}", type="text", class="form-control col-lg-8", value="{{field.value}}")
-  .col-lg-12
+div.form-group.col-md-6
+  label(class="col-md-4", for="{{ field.name }}") {{ _(field.label.text) }}
+  input(name="{{ field.name }}", id="{{ field.name }}", type="text", class="form-control col-md-8", value="{{field.value}}")
+  .col-md-12
     | {% if field.errors %}
-  ul.col-lg-12
+  ul.col-md-12
     | {% for error in field.errors %}
     li {{ error }}
     | {% endfor %}
   | {% endif %}
 | {% endmacro %}
 | {% macro render_field(field) %}
-div.form-group.col-lg-12
+div.form-group.col-md-12
   input(name='{{ field.name }}', type='{{ field.name }}', id='{{ field.id }}', value='{{ _(field.label.text) }}', class='btn btn-info')
 //  {{ field(**kwargs)|safe }}
 | {% endmacro %}

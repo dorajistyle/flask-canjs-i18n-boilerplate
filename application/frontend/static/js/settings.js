@@ -6,7 +6,7 @@ define([], function () {
                             useLocalStorage: false,
                             localStorageExpirationTime: 86400000,
                             fallbackLng: 'en',
-                            resGetPath: 'static/locales/__lng__/__ns__.json'};
+                            resGetPath: '/static/locales/__lng__/__ns__.json'};
 
     exports.use_logger = true;
     exports.spin_options = {

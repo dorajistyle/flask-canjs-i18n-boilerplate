@@ -9,7 +9,8 @@
 """
 
 from flask_security.utils import verify_password
-from flask_wtf import PasswordField, Length, Email, Required, EqualTo
+from wtforms import PasswordField
+from wtforms.validators import Length, Email, Required, EqualTo
 from flask_wtf.html5 import EmailField
 
 from application.services import users

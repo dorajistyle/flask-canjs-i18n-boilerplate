@@ -25,7 +25,7 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 
 ## 써보기
 [http://flask-canjs-i18n-boilerplate.hp.af.cm/](http://flask-canjs-i18n-boilerplate.hp.af.cm/)
-
+* Facebook 연결은 동작하지 않습니다. 페이스북에서 서버 URL을 위험한 사이트 URL로 인식해서 그렇습니다.
 
 ## 어떻게 동작하나요?
 

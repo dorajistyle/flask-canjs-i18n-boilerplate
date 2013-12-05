@@ -13,7 +13,6 @@ from application.babel_helper import _
 _basedir = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = False
-RELOAD = True
 SECRET_KEY = 'super-secret-key'
 
 
@@ -21,7 +20,8 @@ SECRET_KEY = 'super-secret-key'
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 # Flask-WTF
-CSRF_ENABLED = False
+#CSRF_ENABLED = False
+WTF_CSRF_ENABLED = False
 
 # Flask-WhooshAlchemy
 WHOOSH_BASE = os.path.join(_basedir, '../search_index')

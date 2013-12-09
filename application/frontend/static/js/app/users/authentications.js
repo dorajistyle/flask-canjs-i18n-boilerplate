@@ -1,5 +1,5 @@
-define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/models/user/filter_user_email', 'app/models/user/filter_user_current', 'app/components/navbar', 'utils', 'i18n', 'jquery'],
-    function (can, Authentication, User, FilterUserEmail, FilterUserCurrent, Navbar, utils, i18n, $) {
+define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/models/user/user_email', 'app/components/navbar', 'utils', 'i18n', 'jquery'],
+    function (can, Authentication, User, UserEmail, Navbar, utils, i18n, $) {
     'use strict';
     /**
      * Control for new propose
@@ -168,7 +168,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
         checkEmailAlreadyTaken: function () {
             if (utils.validateEmail('registrationEmail', true)) {
                 var $registration_email = $('#registrationEmail');
-                FilterUserEmail.findOne({email: $registration_email.val()}, function (result) {
+                UserEmail.findOne({email: $registration_email.val()}, function (result) {
                         if (result.status) {
                             utils.showWarningMsg(i18n.t('registration.already', result.email));
                             $registration_email.val('');

@@ -1,6 +1,6 @@
 define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connection', 'app/setting/leave_our_service'
-    , 'app/models/user/filter_user_current', 'app/share/tab', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
-    function (can, Basic, Password, Connection, LeaveOurService, FilterUserCurrent, Tab, utils, i18n, $) {
+    , 'app/models/user/user_current', 'app/share/tab', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
+    function (can, Basic, Password, Connection, LeaveOurService, UserCurrent, Tab, utils, i18n, $) {
     'use strict';
 
 
@@ -24,7 +24,7 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
             utils.logInfo('*setting/Setting', 'Initialized');
         },
         load: function (tab, page) {
-            FilterUserCurrent.findOne({}, function (result) {
+            UserCurrent.findOne({}, function (result) {
                 if(!result.user) {
                     utils.replaceHash('');
                 } else {
@@ -33,7 +33,10 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
                       utils.logDebug('Setting load', 'it is performed');
                       setting.is_reload = true;
                       utils.refreshTitle();
+                      utils.setWrapperInfo(setting, 'settingWrapper');
                     }
+                    setting.user = result.user;
+                    utils.replaceWrapper(setting, 'settingWrapper');
                     setting.selectTab(tab, page);
                 }
             },function (xhr) {
@@ -59,11 +62,11 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
             tab.activeTab(tab_name);
             switch (tab_name) {
                 case 'basic':
-                    basic.load();
+                    basic.load(setting.user);
                     tab.showTab(tab_name);
                     break;
                 case 'password':
-                    password.load();
+                    password.load(setting.user);
                     tab.showTab(tab_name);
                     break;
                 case 'connection':
@@ -71,7 +74,7 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
                     tab.showTab(tab_name);
                     break;
                 case 'leave-our-service':
-                    leave_our_service.load();
+                    leave_our_service.load(setting.user);
                     tab.showTab(tab_name);
                     break;
                 default:

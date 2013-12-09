@@ -108,12 +108,13 @@ define(['can', 'app/models/user/connection_facebook',
                 connection = undefined;
                 utils.logInfo('*setting/Connection/Router', 'Initialized');
             },
+            allocate: function () {
+                var $app = utils.getFreshDiv('setting-connection');
+                connection = new Connection($app);
+            },
             load: function(page) {
                 utils.logDebug('*setting/Connection/Router', 'loaded');
-                if(connection == undefined) {
-                    var $app = utils.getFreshDiv('setting-connection');
-                    connection = new Connection($app);
-                }
+                utils.allocate(this, connection);
                 connection.load(page);
             }
         });

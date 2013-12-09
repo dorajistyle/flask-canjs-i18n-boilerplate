@@ -1,5 +1,5 @@
-define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'app/components/navbar', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
-    function (can, User, FilterUserCurrent, Navbar, utils, i18n, $) {
+define(['can', 'app/models/user/user', 'app/components/navbar', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
+    function (can, User, Navbar, utils, i18n, $) {
     'use strict';
 
 
@@ -24,15 +24,9 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
             utils.logInfo('*User/Destroy', 'Initialized');
         },
 
-        load: function (tab) {
-            FilterUserCurrent.findOne({}, function (result) {
-                utils.logJson('users#Destory load',result);
-                destroy.user_data = result.user;
-                    destroy.show();
-                    utils.refreshTitle();
-            },function (xhr) {
-                utils.handleStatus(xhr);
-            });
+        load: function () {
+            destroy.show();
+            utils.refreshTitle();
         },
         /**
          * Show Setting view.
@@ -125,13 +119,15 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
                 destroy = undefined;
                 utils.logInfo('*setting/Destory/Router', 'Initialized');
             },
-            load: function(page) {
+            allocate: function () {
+                var $app = utils.getFreshDiv('setting-leave-our-service');
+                destroy = new Destroy($app);
+            },
+            load: function(user) {
                 utils.logDebug('*setting/Destory/Router', 'loaded');
-                if(destroy == undefined) {
-                    var $app = utils.getFreshDiv('setting-leave-our-service');
-                    destroy = new Destroy($app);
-                }
-                destroy.load(page);
+                utils.allocate(this, destroy);
+                destroy.user_data = user;
+                destroy.load();
             }
         });
 

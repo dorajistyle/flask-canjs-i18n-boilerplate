@@ -1,5 +1,5 @@
-define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'app/models/user/follower', 'app/models/user/following', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
-    function (can, User, FilterUserCurrent, Follower, Following, utils, i18n, $) {
+define(['can', 'app/models/user/user', 'app/models/user/user_current', 'app/models/user/follower', 'app/models/user/following', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
+    function (can, User, UserCurrent, Follower, Following, utils, i18n, $) {
     'use strict';
 
 
@@ -157,7 +157,7 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'a
             utils.logInfo('*Users/Profile/Router', 'Initialized')
         },
         'profile route': function () {
-            FilterUserCurrent.findOne({}, function (result) {
+            UserCurrent.findOne({}, function (result) {
                 can.route.attr('id', result.user.id);
             });
         },

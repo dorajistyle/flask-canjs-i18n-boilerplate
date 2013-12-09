@@ -289,14 +289,15 @@ define(['can', 'app/models/user/role', 'utils', 'i18n', 'jquery', 'jquery.bootst
             utils.logInfo('*admin/Router', 'Initialized')
 
         },
+        allocate: function () {
+            var $app = utils.getFreshDiv('admin-role');
+            show_role = new ShowRole($app);
+            create_role = new CreateRole($app);
+            update_role = new UpdateRole($app);
+            destroy_role = new DestroyRole($app);
+        },
         load: function(page) {
-            if(show_role == undefined) {
-                var $app = utils.getFreshDiv('admin-role');
-                show_role = new ShowRole($app);
-                create_role = new CreateRole($app);
-                update_role = new UpdateRole($app);
-                destroy_role = new DestroyRole($app);
-            }
+            utils.allocate(this, show_role);
             if(show_role.roles_data == undefined || page == undefined){
                 show_role.load(page);
                 return false;

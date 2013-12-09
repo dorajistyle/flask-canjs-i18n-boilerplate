@@ -37,6 +37,11 @@ class UserJsonSerializer(JsonSerializer):
     __json_public__ = ['id', 'email', 'active']
 
 
+class UserAdminJsonSerializer(JsonSerializer):
+    """Json Serializer for admin user"""
+    __json_public__ = ['id', 'email', 'active', 'roles']
+
+
 class User(UserJsonSerializer, db.Model, UserMixin):
     """User model"""
     # __searchable__ = ['email']
@@ -57,6 +62,10 @@ class User(UserJsonSerializer, db.Model, UserMixin):
     following = db.relationship('User', secondary=followers, primaryjoin=(followers.c.follower_id == id),
                                 secondaryjoin=(followers.c.following_id == id),
                                 backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+
+
+class UserAdmin(UserAdminJsonSerializer, User):
+    """User with Roles model for admin"""
 
 
 class Connection(db.Model):

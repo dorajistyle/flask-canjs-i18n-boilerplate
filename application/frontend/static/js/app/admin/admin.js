@@ -1,6 +1,6 @@
-define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/user/filter_user_current',
+define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/user/user_current',
     'app/share/tab', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
-    function (can, Roles, Users, FilterUserCurrent, Tab, utils, i18n, $) {
+    function (can, Roles, Users, UserCurrent, Tab, utils, i18n, $) {
     'use strict';
 
 
@@ -23,7 +23,7 @@ define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/user/filter_use
             utils.logInfo('*admin/Admin', 'Initialized');
         },
         load: function (tab, page) {
-            FilterUserCurrent.findOne({}, function (result) {
+            UserCurrent.findOne({}, function (result) {
                 if(!result.has_admin) {
                     utils.replaceHash('');
                 }  else {

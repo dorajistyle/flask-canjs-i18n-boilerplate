@@ -1,5 +1,5 @@
-define(['can', 'app/users/router', 'app/setting/router', 'app/admin/router', 'app/models/user/filter_user_current', 'app/models/user/user', 'app/components/navbar', 'utils'],
-    function (can, Users, Setting, Admin, FilterUserCurrent, User, Navbar, utils) {
+define(['can', 'app/users/router', 'app/setting/router', 'app/admin/router', 'app/models/user/user', 'app/components/navbar', 'utils'],
+    function (can, Users, Setting, Admin, User, Navbar, utils) {
     'use strict';
 
     /**

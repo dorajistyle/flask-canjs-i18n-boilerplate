@@ -5,18 +5,19 @@ define(['can', 'app/models/model', 'app/models/api_path'], function (can, Model,
     /**
      * User related
      * @author dorajistyle
-     * @namespace following
+     * @namespace user_current
      */
 
     /**
-     * User model.
+     * UserCurrent model.
      *  @constructor
      * @type {*}
-     * @name following#Following
+     * @name user_current#UserCurrent
      */
-    var Following = Model({
-        findAll: 'GET '+API+'/following'
+    var UserCurrent = Model({
+        findOne: 'GET '+API+'/users/current'
     }, {
     });
-    return Following;
+
+    return UserCurrent;
 });

@@ -97,6 +97,12 @@ class Service(object):
         db.session.commit()
         return model
 
+    def paginate(self, page, per_page):
+        """Returns a paginate containing all instances of the service's model.
+        """
+        pagenated = self.__model__.query.paginate(page, per_page, False)
+        return pagenated.items, pagenated.has_prev, pagenated.has_next
+
     def all(self):
         """Returns a generator containing all instances of the service's model.
         """

@@ -12,7 +12,7 @@ from flask_security.registerable import register_user
 from flask_security import current_user, login_user, AnonymousUser
 
 from application.core import Service, db, DictEncoder, security
-from models import User, Role, Connection, followers
+from models import *
 from application.properties import USER_FOLLOWERS_PER_PAGE, USER_FOLLOWING_PER_PAGE, \
     USER_PER_PAGE, ROLE_PER_PAGE, FILTER_USER_LIMIT
 
@@ -84,6 +84,10 @@ class RoleService(Service):
         return role.users.count()
 
 
+class UsersAdminService(Service):
+    __model__ = UserAdmin
+
+
 class UsersService(Service):
     __model__ = User
 
@@ -91,6 +95,7 @@ class UsersService(Service):
         super(UsersService, self).__init__(*args, **kwargs)
         self.connections = ConnectionService()
         self.roles = RoleService()
+        self.users_admin = UsersAdminService()
 
     # def _preprocess_params(self, kwargs):
     #     kwargs = super(UsersService, self)._preprocess_params(kwargs)
@@ -174,7 +179,7 @@ class UsersService(Service):
         :return:
         """
         me = self.me()
-        return user is me
+        return user == me
 
     def is_anonymous(self):
         """

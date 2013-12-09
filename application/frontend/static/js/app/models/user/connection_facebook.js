@@ -1,5 +1,5 @@
 /*global define*/
-define(['can', 'app/models/model'], function (can, Model) {
+define(['can', 'app/models/model', 'app/models/api_path'], function (can, Model, API) {
     'use strict';
 
     /**
@@ -15,9 +15,9 @@ define(['can', 'app/models/model'], function (can, Model) {
      * @name connection#Facebook
      */
     var Facebook = Model({
-        create: 'POST /api/v1/connections/facebook',
-        destroy: 'DELETE /api/v1/connections/facebook',
-        findAll: 'GET /api/v1/connections/facebook'
+        create: 'POST '+API+'/connections/facebook',
+        destroy: 'DELETE '+API+'/connections/facebook',
+        findAll: 'GET '+API+'/connections/facebook'
     }, {
     });
 

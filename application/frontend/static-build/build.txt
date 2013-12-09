@@ -63,12 +63,13 @@ js/vendor/loglevel.min.js
 js/vendor/i18next.amd.withJQuery-1.6.3.min.js
 js/app/lib/utils.js
 js/settings.js
-js/app/models/user/filter_user_current.js
-js/app/components/navbar.js
 js/app/models/model.js
+js/app/models/api_path.js
+js/app/models/user/user_current.js
+js/app/components/navbar.js
 js/app/models/user/authentication.js
 js/app/models/user/user.js
-js/app/models/user/filter_user_email.js
+js/app/models/user/user_email.js
 js/app/users/authentications.js
 js/app/models/user/follower.js
 js/app/models/user/following.js
@@ -85,6 +86,7 @@ js/app/setting/setting.js
 js/app/setting/router.js
 js/app/models/user/role.js
 js/app/admin/roles.js
+js/app/models/user/user_admin.js
 js/app/models/user/user_role.js
 js/vendor/typeahead.min.js
 js/app/admin/users.js

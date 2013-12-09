@@ -86,6 +86,27 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
 //          window.location.pathname = "/";
         },
         /**
+         * Set wrapper information of control.
+         * @param control
+         * @param wrapper_name
+         */
+        setWrapperInfo: function (control, wrapper_name) {
+          var $wrapper = $('#'+wrapper_name);
+          control.wrapper = $wrapper.html();
+          control.wrapper_id = $wrapper.prop('id');
+          control.wrapper_class = $wrapper.prop('class');
+        },
+        /**
+         * Replace wrapper information of control.
+         * @param control
+         * @param wrapper_name
+         */
+        replaceWrapper: function (control, wrapper_name) {
+          var $wrapper = $('#'+wrapper_name);
+          $wrapper.replaceWith('<div id="'+control.wrapper_id+'" class="'+control.wrapper_class+'">'+control.wrapper+'</div>');
+        },
+
+        /**
          * Allocate the view if view is undefined.
          * @param router
          * @param allocate

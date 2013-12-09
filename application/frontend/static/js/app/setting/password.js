@@ -1,5 +1,5 @@
-define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
-    function (can, User, FilterUserCurrent, utils, i18n, $) {
+define(['can', 'app/models/user/user', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
+    function (can, User, utils, i18n, $) {
     'use strict';
 
 
@@ -22,15 +22,9 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'u
         init: function () {
             utils.logInfo('*User/Password', 'Initialized');
         },
-        load: function (page) {
-            FilterUserCurrent.findOne({}, function (result) {
-                utils.logJson('setting#Password load',result);
-                password.user_data = result;
-                password.show();
-                utils.refreshTitle();
-            },function (xhr) {
-                utils.handleStatus(xhr);
-            });
+        load: function () {
+            password.show();
+            utils.refreshTitle();
         },
         /**
          * Show Setting view.
@@ -109,13 +103,15 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current', 'u
                 password = undefined;
                 utils.logInfo('*setting/Password/Router', 'Initialized');
             },
-            load: function(page) {
+            allocate: function () {
+                var $app = utils.getFreshDiv('setting-password');
+                password = new Password($app);
+            },
+            load: function(user) {
                 utils.logDebug('*setting/Password/Router', 'loaded');
-                if(password == undefined) {
-                    var $app = utils.getFreshDiv('setting-password');
-                    password = new Password($app);
-                }
-                password.load(page);
+                utils.allocate(this, password);
+                password.user_data = user;
+                password.load();
             }
         });
 

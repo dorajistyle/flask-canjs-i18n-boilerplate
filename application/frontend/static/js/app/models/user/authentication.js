@@ -1,5 +1,5 @@
 /*global define*/
-define(['can', 'app/models/model'], function (can, Model) {
+define(['can', 'app/models/model', 'app/models/api_path'], function (can, Model, API) {
     'use strict';
 
     /**
@@ -15,9 +15,9 @@ define(['can', 'app/models/model'], function (can, Model) {
      * @name authentications#Authentication
      */
     var Authentication = Model({
-        findAll: 'GET /api/v1/authentications',
-        create: 'POST /api/v1/authentications',
-        destroy: 'DELETE /api/v1/authentications'
+        findAll: 'GET '+API+'/authentications',
+        create: 'POST '+API+'/authentications',
+        destroy: 'DELETE '+API+'/authentications'
     }, {
     });
     return Authentication;

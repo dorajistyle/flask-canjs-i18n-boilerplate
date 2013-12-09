@@ -1,4 +1,6 @@
-define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/models/user/user_role', 'utils', 'i18n', 'jquery.bootstrap', 'jquery.typeahead'], function ($, can, User, Role, UserRole, utils, i18n) {
+define(['jquery', 'can', 'app/models/user/user', 'app/models/user/user_admin', 'app/models/user/role', 'app/models/user/user_role',
+    'settings', 'utils', 'i18n', 'jquery.bootstrap', 'jquery.typeahead'],
+    function ($, can, User, UserAdmin, Role, UserRole, settings, utils, i18n) {
     'use strict';
 
     /**
@@ -26,7 +28,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
               name: 'users',
               valueKey: 'email',
               template: '<p><strong>{{email}}</strong></p>',
-              remote: {url: '/api/v1/filters/users/email/%QUERY',
+              remote: {url: settings.api_path+'/users/list/email/%QUERY',
                        filter: function(resp, status, jqXhr) {
                            var users = [];
                            $.each(resp.users, function(i, obj) {
@@ -45,7 +47,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
 
         },
         load: function(page) {
-            User.findAll({page: page, extra: 'roles'}, function (users_data) {
+            UserAdmin.findAll({page: page}, function (users_data) {
                 Role.findAll({}, function (roles_data) {
                     var template_data = new can.Observe({
                         users: users_data.users,
@@ -64,7 +66,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
             });
         },
         reload: function(page) {
-            User.findAll({page: page, extra: 'roles'}, function (users_data) {
+            UserAdmin.findAll({page: page}, function (users_data) {
                 Role.findAll({}, function (roles_data) {
                     show_user.users_data.attr('has_prev',users_data.has_prev);
                     show_user.users_data.attr('has_next',users_data.has_next);
@@ -142,7 +144,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
                   engine: utils.getEngine()
                 });
 
-                can.when(User.findOne({id: create_user_role.user_id, extra: 'roles'})).then(function (result) {
+                can.when(UserAdmin.findOne({id: create_user_role.user_id})).then(function (result) {
                     utils.logJson('load',result);
                     $form.removeClass('hidden');
                     email.val(result.user.email);
@@ -376,15 +378,16 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/role', 'app/mo
             destroy_user = undefined;
             utils.logInfo('*admin/Router', 'Initialized')
         },
+         allocate: function () {
+            var $app = utils.getFreshDiv('admin-user');
+            show_user = new ShowUser($app);
+            create_user_role = new CreateUserRole($app);
+            destroy_user_role = new DestroyUserRole($app);
+            toggle_active_user = new ToggleActiveUser($app);
+            destroy_user = new DestroyUser($app);
+        },
         load: function(page) {
-            if(show_user == undefined){
-                var $app = utils.getFreshDiv('admin-user');
-                show_user = new ShowUser($app);
-                create_user_role = new CreateUserRole($app);
-                destroy_user_role = new DestroyUserRole($app);
-                toggle_active_user = new ToggleActiveUser($app);
-                destroy_user = new DestroyUser($app);
-            }
+            utils.allocate(this, show_user);
             if(show_user.users_data == undefined || page == undefined){
                 show_user.load(page);
                 return false;

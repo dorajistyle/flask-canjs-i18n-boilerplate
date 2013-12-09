@@ -7,7 +7,7 @@ define([], function () {
                             localStorageExpirationTime: 86400000,
                             fallbackLng: 'en',
                             resGetPath: '/static/locales/__lng__/__ns__.json'};
-
+    exports.api_path = '/api/v1';
     exports.use_logger = true;
     exports.spin_options = {
         lines: 7, // The number of lines to draw

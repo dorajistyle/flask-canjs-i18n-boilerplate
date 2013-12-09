@@ -1,5 +1,5 @@
 /*global define*/
-define(['can', 'app/models/model'], function (can, Model) {
+define(['can', 'app/models/model', 'app/models/api_path'], function (can, Model, API) {
     'use strict';
 
     /**
@@ -9,8 +9,8 @@ define(['can', 'app/models/model'], function (can, Model) {
      * @name admin#UserRole
      */
     var UserRole = Model({
-        update: 'PUT /api/v1/user_role/{id}',
-        create: 'POST /api/v1/user_role'
+        update: 'PUT '+API+'/user_role/{id}',
+        create: 'POST '+API+'/user_role'
     }, {
     });
     return UserRole;

@@ -1,6 +1,6 @@
-define(['can', 'app/models/user/user', 'app/models/user/filter_user_current',
+define(['can', 'app/models/user/user',
     'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
-    function (can, User, FilterUserCurrent, utils, i18n, $) {
+    function (can, User, utils, i18n, $) {
     'use strict';
 
     /**
@@ -22,15 +22,9 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current',
             utils.logInfo('*User/Basic', 'Initialized');
         },
         load: function (page) {
-            FilterUserCurrent.findOne({}, function (result) {
-                utils.logJson('users#Basic load',result);
-                basic.user_data = result.user;
-                    basic.show();
-                    basic.initForm();
-                    utils.refreshTitle();
-            },function (xhr) {
-                utils.handleStatus(xhr);
-            });
+            basic.show();
+            basic.initForm();
+            utils.refreshTitle();
         },
         initForm: function () {
             var gender = basic.user_data.gender;
@@ -125,13 +119,15 @@ define(['can', 'app/models/user/user', 'app/models/user/filter_user_current',
                 basic = undefined;
                 utils.logInfo('*setting/Basic/Router', 'Initialized');
             },
-            load: function(page) {
+            allocate: function () {
+                var $app = utils.getFreshDiv('setting-basic');
+                basic = new Basic($app);
+            },
+            load: function(user) {
                 utils.logDebug('*setting/Basic/Router', 'loaded');
-                if(basic == undefined) {
-                    var $app = utils.getFreshDiv('setting-basic');
-                    basic = new Basic($app);
-                }
-                basic.load(page);
+                utils.allocate(this, basic);
+                basic.user_data = user;
+                basic.load();
             }
         });
 

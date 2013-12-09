@@ -1,5 +1,5 @@
 /*global define*/
-define(['can', 'app/models/model'], function (can, Model) {
+define(['can', 'app/models/model', 'app/models/api_path'], function (can, Model, API) {
     'use strict';
 
     /**
@@ -15,11 +15,11 @@ define(['can', 'app/models/model'], function (can, Model) {
      * @name users#User
      */
     var User = Model({
-        findAll: 'GET /api/v1/users',
-        findOne: 'GET /api/v1/users/{id}',
+        findAll: 'GET '+API+'/users',
+        findOne: 'GET '+API+'/users/{id}',
         create: 'POST /users',
-        update: 'PUT /api/v1/users/{id}',
-        destroy: 'DELETE /api/v1/users/{id}'
+        update: 'PUT '+API+'/users/{id}',
+        destroy: 'DELETE '+API+'/users/{id}'
     }, {
     });
     return User;

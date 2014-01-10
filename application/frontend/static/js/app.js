@@ -2,6 +2,7 @@ require.config({
     "baseUrl": "/static/js",
     "paths": {
         "utils": "app/lib/utils",
+        "refresh": "app/lib/refresh",
         "loglevel": "vendor/loglevel.min",
         "jquery": [
             "//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min",
@@ -47,8 +48,8 @@ require.config({
  * @requires app/routers
  * @requires can/view/mustache
  */
-requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar', 'app/routers', 'can/view/mustache','placeholders', 'jquery.ba-bbq'],
-    function (can, $, utils, i18n, settings, Navbar, Routers) {
+requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar', 'refresh', 'app/routers', 'can/view/mustache','placeholders', 'jquery.ba-bbq'],
+    function (can, $, utils, i18n, settings, Navbar, Refresh, Routers) {
         'use strict';
 
         $(document).ready(function () {
@@ -88,6 +89,9 @@ requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar'
                 });
                 $document.ajaxStop(function () {
                     $(target).addClass('hidden');
+                });
+                $document.ajaxError(function(event, xhr, settings, exception) {
+                    Refresh.loadWithException('', xhr);
                 });
 
                 $document.on("keypress", 'form', function (e) {

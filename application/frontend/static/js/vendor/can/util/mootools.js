@@ -1,8 +1,8 @@
 /*!
- * CanJS - 2.0.0
+ * CanJS - 2.0.4
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 16 Oct 2013 20:40:41 GMT
+ * Mon, 23 Dec 2013 19:49:14 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -107,11 +107,11 @@ define(["can/util/can", "mootools", "can/util/event", "can/util/fragment", "can/
 	can.isArray = function(arr) {
 		return typeOf(arr) === 'array'
 	};
-	can.inArray = function(item,arr) {
+	can.inArray = function(item,arr,fromIndex) {
 		if(!arr) {
 			return -1;
 		}
-		return Array.prototype.indexOf.call(arr, item);
+		return Array.prototype.indexOf.call(arr, item, fromIndex);
 	}
 	can.map = function(arr, fn){
 		return Array.from(arr||[]).map(fn);
@@ -215,8 +215,7 @@ define(["can/util/can", "mootools", "can/util/event", "can/util/fragment", "can/
 				event = {type: event}
 			}
 			event.target = event.target || item;
-			event.data = args
-			can.dispatch.call(item, event)
+			can.dispatch.call(item, event, args)
 		}
 	}
 	can.delegate = function(selector, ev , cb){

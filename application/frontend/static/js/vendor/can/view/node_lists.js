@@ -1,16 +1,17 @@
 /*!
- * CanJS - 2.0.0
+ * CanJS - 2.0.4
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 16 Oct 2013 20:40:41 GMT
+ * Mon, 23 Dec 2013 19:49:14 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
  */
-define(["can/util/library"], function(can){
+define(["can/util/library", "can/view/elements"], function(can){
 
 
-	// text node expando test
+	// In some browsers, text nodes can not take expando properties.
+	// We test that here.
 	var canExpando = true;
 	try {
 		document.createTextNode('')._ = 0;
@@ -19,12 +20,10 @@ define(["can/util/library"], function(can){
 	}
 
 
-	// a mapping of element ids to nodeList ids
+	// A mapping of element ids to nodeList id
 	var nodeMap = {},
-	// a mapping of ids to text nodes
+	// A mapping of ids to text nodes
 	textNodeMap = {},
-	// a mapping of nodeList ids to nodeList
-	nodeListMap = {},
 	expando = "ejs_"+Math.random(),
 	_id=0,
 	id = function(node){
@@ -47,96 +46,203 @@ define(["can/util/library"], function(can){
 			return "text_" + _id;
 		}
 	},
-	// removes a nodeListId from a node's nodeListIds
-	removeNodeListId= function(node, nodeListId){
-		var nodeListIds = nodeMap[id(node)];
-		if( nodeListIds ) {
-			var index = can.inArray(nodeListId, nodeListIds);
-		
-			if ( index >= 0 ) {
-				nodeListIds.splice( index ,  1 );
-			}
-			if(!nodeListIds.length){
-				delete nodeMap[id(node)];
-			}
-		}
-	},
-	addNodeListId = function(node, nodeListId){
-		var nodeListIds = nodeMap[id(node)];
-			if(!nodeListIds){
-				nodeListIds = nodeMap[id(node)] = [];
-			}
-			nodeListIds.push(nodeListId);
-	};
+		splice = [].splice;
 
-
+	/**
+	 * @property {Object} can.view.nodeLists
+	 * @parent can.view.static
+	 * 
+	 * Stores hierarchical node references.
+	 * 
+	 * ## Use
+	 * 
+	 * `can.view.nodeLists` is used to make sure "directly nested" live-binding
+	 * sections update content correctly.
+	 * 
+	 * Consider a template like:
+	 * 
+	 *     <div>
+	 *     {{#if items.length}}
+	 *        Items:
+	 *        {{#items}}
+	 *           <label></label>
+	 *        {{/items}}
+	 *     {{/if}}
+	 *     </div>
+	 * 
+	 * 
+	 * The `{{#if}}` and `{{#items}}` seconds are "directly nested" because
+	 * they share the same `<div>` parent element.
+	 * 
+	 * If `{{#items}}` changes the DOM by adding more `<labels>`, 
+	 * `{{#if}}` needs to know about the `<labels>` to remove them
+	 * if `{{#if}}` is re-rendered.  `{{#if}}` would be re-rendered, for example, if 
+	 * all items were removed.
+	 * 
+	 * 
+	 * To keep all live-bound sections knowing which elements they are managing,
+	 * all live-bound elments are [can.view.nodeLists.register registered] and
+	 * [can.view.nodeLists.update updated] when the change.
+	 * 
+	 * For example, the above template, when rendered with data like:
+	 * 
+	 *     data = new can.Map({
+	 *       items: ["first","second"]
+	 *     })
+	 *     
+	 * This will first render the following content:
+	 * 
+	 *     <div>
+	 *        <span data-view-id='5'/>
+	 *     </div>
+	 * 
+	 * When the `5` [can.view.hookup hookup] callback is called, this will register the `<span>` like:
+	 * 
+	 *     var ifsNodes = [<span 5>]
+	 *     nodeLists.register(ifsNodes);
+	 * 
+	 * And then render `{{if}}`'s contents and update `ifsNodes` with it:
+	 * 
+	 *     nodeLists.update( ifsNodes, [<"\nItems:\n">, <span data-view-id="6">] );
+	 *      
+	 * Next, hookup `6` is called which will regsiter the `<span>` like:
+	 * 
+	 *     var eachsNodes = [<span 6>];
+	 *     nodeLists.register(eachsNodes);
+	 * 
+	 * And then it will render `{{#each}}`'s content and update `eachsNodes` with it:
+	 * 
+	 *     nodeLists.update(eachsNodes, [<label>,<label>]);
+	 * 
+	 * As `nodeLists` knows that `eachsNodes` is inside `ifsNodes`, it also updates
+	 * `ifsNodes`'s nodes to look like:
+	 * 
+	 *     [<"\nItems:\n">,<label>,<label>]
+	 * 
+	 * Now, if all items were removed, `{{#if}}` would be able to remove 
+	 * all the `<label>` elements.
+	 * 
+	 * When you regsiter a nodeList, you can also provide a callback to know when 
+	 * that nodeList has been replaced by a parent nodeList.  This is
+	 * useful for tearing down live-binding.
+	 * 
+	 * 
+	 *  
+	 * 
+	 * 
+	 */
 	var nodeLists = {
 		id: id,
-		// replaces the contents of one node list with the nodes in another list
-		replace: function(oldNodeList, newNodes){
-			// for each node in the node list
-			oldNodeList = can.makeArray( oldNodeList );
-			
-			// try every set
-			//can.each( oldNodeList, function(node){
-			var node = oldNodeList[0]
-				// for each nodeList the node is in
-				can.each( can.makeArray( nodeMap[id(node)] ), function( nodeListId ){
-					
-					// if startNode to endNode is 
-					// within list, replace that list
-					// 
-					// I think the problem is not the WHOLE part is being 
-					// matched
-					var nodeList = nodeListMap[nodeListId],
-						startIndex = can.inArray( node, nodeList ),
-						endIndex = can.inArray( oldNodeList[oldNodeList.length - 1], nodeList);
-					
 
-					// remove this nodeListId from each node
-					if(startIndex >=0 && endIndex >= 0){
-						for( var i = startIndex; i <= endIndex; i++){
-							var n = nodeList[i];
-							removeNodeListId(n, nodeListId);
-						}
-						// swap in new nodes into the nodeLIst
-						nodeList.splice.apply(nodeList, [startIndex,endIndex-startIndex+1 ].concat(newNodes));
-
-						// tell these new nodes they belong to the nodeList
-						can.each(newNodes, function( node ) {
-							addNodeListId(node, nodeListId);
-						});
-					} else {
-						nodeLists.unregister( nodeList );
-					}
-				});
-			//});
-		},
-		// registers a list of nodes
-		register: function(nodeList){
-			var nLId = id(nodeList);
-			nodeListMap[nLId] = nodeList;
+		/**
+		 * @function can.view.nodeLists.update
+		 * @parent can.view.nodeLists
+		 * 
+		 * Updates a nodeList with new items
+		 * 
+		 * @param {Array.<HTMLElement>} nodeList A registered nodeList.
+		 * 
+		 * @param {Array.<HTMLElement>} newNodes HTML nodes that should be placed in the nodeList.
+		 * 
+		 */
+		update: function(nodeList, newNodes){
+			// Unregister all childNodes.
+			can.each(nodeList.childNodeLists, function(nodeList){
+				nodeLists.unregister(nodeList)
+			})
+			nodeList.childNodeLists = [];
 			
+			// Remove old node pointers to this list.
 			can.each(nodeList, function(node){
-				addNodeListId(node, nLId);
+				delete nodeMap[id(node)];
 			});
+			
+			var newNodes = can.makeArray(newNodes);
+			
+			// indicate the new nodes belong to this list
+			can.each(newNodes, function(node){
+				nodeMap[id(node)] = nodeList;
+			});
+
+			
+			var oldListLength = nodeList.length,
+				firstNode = nodeList[0];
+			// Replace oldNodeLists's contents'
+			splice.apply( nodeList, [0, oldListLength ].concat(newNodes) );
+			
+			// update all parent nodes so they are able to replace the correct elements
+			var parentNodeList = nodeList;
+			while(parentNodeList = parentNodeList.parentNodeList) {
+				splice.apply(parentNodeList, [can.inArray(firstNode, parentNodeList), oldListLength ].concat(newNodes) );
+			}
+			
+			
+		},
+		/**
+		 * @function can.view.nodeLists.register
+		 * @parent can.view.nodeLists
+		 * 
+		 * Registers a nodeList.
+		 * 
+		 * @param {Array.<HTMLElement>} nodeList An array of elements. This array will be kept live if child nodeLists
+		 * update themselves.
+		 * 
+		 * @param {function} [unregistered] An optional callback that is called when the `nodeList` is 
+		 * replaced due to a parentNode list being updated.
+		 * 
+		 * @param {Array.<HTMLElement>} [parent] An optional parent nodeList.  If no parentNode list is found,
+		 * the first element in `nodeList`'s current nodeList will be used. 
+		 * 
+		 * @return {Array.<HTMLElement>} The `nodeList` passed to `register`.
+		 */
+		register: function(nodeList, unregistered, parent){
+			
+			// add an id to the nodeList
+			nodeList.unregistered = unregistered, 
+			
+			nodeList.childNodeLists = [];
+			
+			if(!parent) {
+				// find the parent by looking up where this node is
+				if(nodeList.length > 1) {
+					throw "does not work"
+				}
+				var nodeId = id(nodeList[0]);
+				parent =  nodeMap[nodeId];
 				
+			}
+			nodeList.parentNodeList = parent;
+			parent && parent.childNodeLists.push( nodeList );
+			return nodeList;
 		},
-		// removes mappings
+		// removes node in all parent nodes and unregisters all childNodes
+		/**
+		 * @function can.view.nodeLists.unregister
+		 * @parent can.view.nodeLists
+		 * 
+		 * Unregister's a nodeList.  Call if the nodeList is no longer being 
+		 * updated.  This will unregister all child nodeLists.
+		 * 
+		 * 
+		 * @param {Array.<HTMLElement>} nodeList The nodelist to unregister.
+		 */
 		unregister: function(nodeList){
-			var nLId = id(nodeList);
-			can.each(nodeList, function(node){
-				removeNodeListId(node, nLId);
-			});
-			delete nodeListMap[nLId];
+			if(!nodeList.isUnregistered) {
+				nodeList.isUnregistered = true;
+				// unregister all childNodeLists
+				delete nodeList.parentNodeList;
+				can.each(nodeList, function(node){
+					var nodeId = id(node);
+					delete nodeMap[nodeId]
+				});
+				// this can unbind which will call itself
+				nodeList.unregistered && nodeList.unregistered();
+				can.each( nodeList.childNodeLists, function(nodeList){
+					nodeLists.unregister(nodeList)
+				});
+			}
 		},
 		nodeMap: nodeMap,
-		nodeListMap: nodeListMap
-	}
-	var ids = function(nodeList){
-		return nodeList.map(function(n){
-			return id(n)+":"+(n.innerHTML  || n.nodeValue)  
-		})
 	}
 	return nodeLists;
 

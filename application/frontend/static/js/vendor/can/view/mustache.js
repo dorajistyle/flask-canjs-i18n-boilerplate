@@ -1,8 +1,8 @@
 /*!
- * CanJS - 2.0.0
+ * CanJS - 2.0.4
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 16 Oct 2013 20:40:41 GMT
+ * Mon, 23 Dec 2013 19:49:14 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -70,15 +70,15 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 		// used to make sure .fn and .inverse are always called with a Scope like object
 		makeConvertToScopes = function(orignal, scope, options){
 			return function(updatedScope, updatedOptions){
-				if(updatedScope != null && !(updatedScope instanceof  can.view.Scope)){
-					updatedScope = scope.add(updatedScope)
+				if(updatedScope !== undefined && !(updatedScope instanceof  can.view.Scope)){
+					updatedScope = scope.add(updatedScope)	
 				}
-				if(updatedOptions != null && !(updatedOptions instanceof  OptionsScope)){
+				if(updatedOptions !== undefined && !(updatedOptions instanceof  OptionsScope)){
 					updatedOptions = options.add(updatedOptions)
 				}
 				return orignal(updatedScope, updatedOptions || options)
 			}
-		}
+		};
 		
 		
 		// ## Mustache
@@ -1322,7 +1322,8 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 				inverse: function() {}
 			},
 			hash,
-			context = scope.attr("."); 
+			context = scope.attr("."),
+			getHelper = true; 
 		
 		// convert lookup values to actual values in name, arguments, and hash
 		for(var i =3; i < arguments.length;i++){
@@ -1346,7 +1347,13 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 		}
 		
 		if( isLookup(name) ){
-			name = Mustache.get(name.get, scopeAndOptions, args.length , false)
+			var get = name.get;
+			name = Mustache.get(name.get, scopeAndOptions, args.length , false);
+			
+			// Base whether or not we will get a helper on whether or not the original
+			// name.get and Mustache.get resolve to the same thing. Saves us from running
+			// into issues like {{text}} / {text: 'with'}
+			getHelper = (get === name);
 		}	
 			
 		// overwrite fn and inverse to always convert to scopes
@@ -1354,7 +1361,7 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 		helperOptions.inverse = makeConvertToScopes(helperOptions.inverse, scope, options)
 
 		// Check for a registered helper or a helper-like function.
-		if (helper = (Mustache.getHelper(name,options) || (can.isFunction(name) && !name.isComputed && !name.isObserveMethod && { fn: name }))) {
+		if (helper = ( getHelper && (typeof name === "string" && Mustache.getHelper(name,options)  )|| (can.isFunction(name) && !name.isComputed && { fn: name }))) {
 			// Add additional data to be used by helper functions
 			
 			can.extend(helperOptions,{
@@ -1373,9 +1380,7 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 		if( can.isFunction(name)  ){
 			if ( name.isComputed ) {
 				name = name();
-			} else if( name.isObserveMethod){
-				name = name(context, scope);
-			}
+			} 
 		}
 
 		// An array of arguments to check for truthyness when evaluating sections.
@@ -1418,7 +1423,7 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 						
 						// Add the reference to the list in the contexts.
 						for (i = 0; i < name.length; i++) {
-							result.push(helperOptions.fn(name[i]|| '') );
+							result.push( helperOptions.fn(name[i]) );
 							
 							// Ensure that live update works on observable lists
 							isObserveList && name.attr(''+i);
@@ -1439,7 +1444,7 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 					// This can cause issues if you are trying to
 					// eval on the length but this is the more
 					// common case.
-					return '' + (name !== undefined ? name : '');
+					return '' + (name != undefined ? name : '');
 					break;
 			}
 		}
@@ -1451,7 +1456,7 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 	 * @function can.Mustache.get
 	 * @hide
 	 *
-	 * Resolves a reference for a given object (and then a context if that fails).
+	 * Resolves a key for a given object (and then a context if that fails).
 	 *	obj = this
 	 *	context = { a: true }
 	 *	ref = 'a.b.c'
@@ -1473,71 +1478,53 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 	 *		{ a: { d: 1 } }
 	 *		=> ""
 	 *
-	 * @param {String} ref      The reference to check for on the obj/context.
+	 * @param {can.Mustache.key} key      The reference to check for on the obj/context.
 	 * @param {Object} obj  		The object to use for checking for a reference.
 	 * @param {Object} context  The context to use for checking for a reference if it doesn't exist in the object.
 	 * @param {Boolean} [isHelper]  Whether the reference is seen as a helper.
 	 */
-	Mustache.get = function(ref, scopeAndOptions, isHelper, isArgument) {
+	Mustache.get = function(key, scopeAndOptions, isHelper, isArgument) {
 		
+		// Cache a reference to the current context and options, we will use them a bunch.
+		var context = scopeAndOptions.scope.attr('.'),
+			options = scopeAndOptions.options || {};;
+		
+		// If key is called as a helper,
 		if(isHelper){
-			// highest priority to registered helpers
-			if(Mustache.getHelper(ref, scopeAndOptions.options)){
-				return ref
+			// try to find a registered helper.
+			if(Mustache.getHelper(key, options)){
+				return key
 			}
-			// Support helper-like functions as anonymous helpers
-			// Check if there is a method directly in the "top" context
-			if(scopeAndOptions.scope && can.isFunction(scopeAndOptions.scope.attr('.')[ref]) ){
-				return scopeAndOptions.scope.attr('.')[ref];
+			// Support helper-like functions as anonymous helpers.
+			// Check if there is a method directly in the "top" context.
+			if(scopeAndOptions.scope && can.isFunction(context[key]) ){
+				return context[key];
 			}
 			
 		}
 		
-		var options = scopeAndOptions.options || {};
+		// Get a compute (and some helper data) that represents key's value in the current scope
+		var computeData = scopeAndOptions.scope.computeData(key, {isArgument:isArgument, args: [context, scopeAndOptions.scope]}),
+			compute = computeData.compute;
+			
+		// Bind on the compute to cache its value. We will unbind in a timeout later.
+		can.compute.temporarilyBind(compute);
 		
+		// computeData gives us an initial value
+		var initialValue = computeData.initialValue;
 		
-		var data = scopeAndOptions.scope.get(ref);
-		
-		// use value over helper only if within top scope
-		
-		if(Mustache.getHelper(ref, options) && data.scope != scopeAndOptions.scope){
-			return ref
+		// Use helper over the found value if the found value isn't in the current context
+		if( (initialValue === undefined || computeData.scope != scopeAndOptions.scope) &&  Mustache.getHelper(key, options) ){
+			return key
 		}
 		
-		// special behaviors if an argument
-		if(isArgument){
-			if(can.isFunction(data.value)){
-				if(data.value.isComputed){
-					return data.value
-				} else {
-					return function() { 
-						return data.value.apply(data.parent, arguments); 
-					};
-				}
-			}  else if( isObserveLike(data.parent) ) {
-				return data.parent.compute(data.name);
-			} 
-		}
-		// Invoke the length to ensure that Observe.List events fire.
-		data.value && isObserveLike(data.value) && isArrayLike(data.value) && data.value.attr('length')
-		//	return data.value;
-
-		// If it's a function on an observe's prototype
-		if( can.isFunction(data.value) && isObserveLike(data.parent) && data.parent.constructor.prototype[data.name] === data.value  ){
-			// make sure the value is a function that calls the value
-			var val = can.proxy(data.value, data.parent);
-			// mark val as method
-			val.isObserveMethod = true;
-			return val;
-		}
-		// Add support for observes
-		else if ( data.parent && isObserveLike(data.parent)) {
-			return data.parent.compute(data.name);
-		} else if( can.isFunction(data.value) ){
-			return data.value.call(data.parent)
-		}
 		
-		return data.value;
+		// If there are no dependencies, just return the value.
+		if( ! compute.hasDependencies ) {
+			return initialValue;
+		} else {
+			return compute;
+		}
 	};
 	
 	/**
@@ -1546,39 +1533,12 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 	 * Resolves an object to its truthy equivalent.
 	 *
 	 * @param {Object} value    The object to resolve.
-	 * @param {Object} [lastValue]  	Only used with Mustache.get.
-	 * @param {Object} [name]  				Only used with Mustache.get.
-	 * @param {Boolean} [isArgument]  Only used with Mustache.get.
 	 * @return {Object} The resolved object.
 	 */
-	Mustache.resolve = function(value, lastValue, name, isArgument) {
-		if(lastValue && can.isFunction(lastValue[name]) && isArgument) {
-			if(lastValue[name].isComputed){
-				return lastValue[name];
-			}
-			// Don't execute functions if they are parameters for a helper and are not a can.compute
-			// Need to bind it to the original context so that that information doesn't get lost by the helper
-			return function() { 
-				return lastValue[name].apply(lastValue, arguments); 
-			};
-		}
-		// Support attributes on compute objects
-		else if(lastValue && can.isFunction(lastValue) && lastValue.isComputed) {
-			return lastValue()[name];
-		}
-		// Support functions stored in objects.
-		else if (lastValue && can.isFunction(lastValue[name])) {
-			return lastValue[name]();
-		} 
-		// Invoke the length to ensure that Observe.List events fire.
-		else if (isObserveLike(value) && isArrayLike(value) && value.attr('length')){
+	Mustache.resolve = function(value) {
+		if (isObserveLike(value) && isArrayLike(value) && value.attr('length')){
 			return value;
-		}
-		// Add support for observes
-		else if (lastValue && isObserveLike(lastValue)) {
-			return lastValue.compute(name);
-		} 
-		else if (can.isFunction(value)) {
+		} else if (can.isFunction(value)) {
 			return value();
 		}
 		else {
@@ -1692,6 +1652,52 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 		return can.view.render(partial, context/*, options*/);
 	};
 
+	/**
+   * @function can.Mustache.safeString
+   * @signature `can.Mustache.safeString(str)`
+   *
+   * @param {String} str A string you don't want to become escaped.
+   * @return {String} A string flagged by `can.Mustache` as safe, which will
+   * not become escaped, even if you use [can.Mustache.tags.unescaped](triple slash).
+   *
+   * @body
+   * If you write a helper that generates its own HTML, you will
+   * usually want to return a `can.Mustache.safeString.` In this case,
+   * you will want to manually escape parameters with `[can.esc].`
+   *
+   * @codestart
+   * can.Mustache.registerHelper('link', function(text, url) {
+   *   text = can.esc(text);
+   *   url  = can.esc(url);
+   *
+   *   var result = '&lt;a href="' + url + '"&gt;' + text + '&lt;/a&gt;';
+   *   return can.Mustache.safeString(result);
+   * });
+   * @codeend
+   *
+   * Rendering:
+   * @codestart
+   * &lt;div&gt;{{link "Google", "http://google.com"}}&lt;/div&gt;
+   * @codeend
+   *
+   * Results in:
+   *
+   * @codestart
+   * &lt;div&gt;&lt;a href="http://google.com"&gt;Google&lt;/a&gt;&lt;/div&gt;
+   * @codeend
+   *
+   * As an anchor tag whereas if we would have just returned the result rather than a
+   * `can.Mustache.safeString` our template would have rendered a div with the escaped anchor tag.
+   *
+   */
+  Mustache.safeString = function(str) {
+    return {
+      toString: function() {
+        return str;
+      }
+    }
+  };
+
 	Mustache.renderPartial = function(partialName,scope,options) {
 		var partial = options.attr("partials."+partialName)
 		if(partial){
@@ -1764,7 +1770,16 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 		 *     Miss
 		 */
 		'if': function(expr, options){
-			if (!!Mustache.resolve(expr)) {
+			var value;
+			// if it's a function, wrap its value in a compute
+			// that will only change values from true to false
+			if(can.isFunction(expr)){
+				value = can.compute.truthy(expr)()
+			} else {
+				value = !!Mustache.resolve(expr)
+			}
+			
+			if ( value ) {
 				return options.fn(options.contexts || this);
 			}
 			else {
@@ -1818,6 +1833,10 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 		 * If the value of the key is a [can.List], the resulting HTML is updated when the
 		 * list changes. When a change in the list happens, only the minimum amount of DOM
 		 * element changes occur.
+		 *
+		 * If the value of the key is a [can.Map], the resulting HTML is updated whenever
+		 * attributes are added or removed. When a change in the map happens, only 
+		 * the minimum amount of DOM element changes occur.
 	 	 * 
 	 	 * @param {can.Mustache} BLOCK A template that is rendered for each item in 
 	 	 * the `key`'s value. The `BLOCK` is rendered with the context set to the item being rendered.
@@ -1847,23 +1866,77 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 		 *       <li>Austin</li>
 		 *       <li>Justin</li>
 		 *     </ul>
+		 *
+		 * ## Object iteration
+		 *
+		 * As of 2.1, you can now iterate over properties of objects and attributes with
+		 * the `each` helper. When iterating over [can.Map] it will only iterate over the
+		 * map's [keys](can.Map.keys.html) and none of the hidden properties of a can.Map. For example,
 		 * 
+		 * The template:
+		 * 
+		 *     <ul>
+		 *       {{#each person}}
+		 *         <li>{{.}}</li>
+		 *       {{/each}}
+		 *     </ul>
+		 * 
+		 * Rendered with:
+		 * 
+		 *     {person: {name: 'Josh', age: 27}}
+		 * 
+		 * Renders:
+		 * 
+		 *     <ul>
+		 *       <li>Josh</li>
+		 *       <li>27</li>
+		 *     </ul>
 		 */
 		'each': function(expr, options) {
-      		expr = Mustache.resolve(expr);
+			// Check if this is a list or a compute that resolves to a list, and setup
+			// the incremental live-binding 
+			
+			
+			// First, see what we are dealing with.  It's ok to read the compute
+			// because can.view.text is only temporarily binding to what is going on here.
+			// Calling can.view.lists prevents anything from listening on that compute.
+			var resolved = Mustache.resolve(expr);
+			
+			if(resolved instanceof can.List){
+				return can.view.lists && can.view.lists(expr, function(item, index) {
+					return options.fn( options.scope.add({"@index": index}).add(item) );
+				});
+			}
+			expr = resolved;
+			
 			if (!!expr && isArrayLike(expr)) {
-				if (isObserveLike(expr) && typeof expr.attr('length') !== 'undefined') {
-					return can.view.lists && can.view.lists(expr, function(item) {
-						return options.fn(item);
-					});
+				var result = [];
+				for (var i = 0; i < expr.length; i++) {
+					var index = function() {
+						return i;
+					};
+					
+					result.push(options.fn(options.scope.add({"@index": index}).add(expr[i])));
 				}
-				else {
-					var result = [];
-					for (var i = 0; i < expr.length; i++) {
-						result.push(options.fn(expr[i]));
-					}
-					return result.join('');
+				return result.join('');
+			}
+			else if(isObserveLike(expr)) {
+				var result = [],
+					// listen to keys changing so we can livebind lists of attributes.
+					keys = can.Map.keys(expr);
+				for (var i = 0; i < keys.length; i++) {
+					var key = keys[i];
+					result.push(options.fn(options.scope.add({"@key": key}).add(expr[key])));
 				}
+				return result.join('');
+			}
+			else if(expr instanceof Object) {
+				var result = [];
+				for (var key in expr) {
+					result.push(options.fn(options.scope.add({"@key": key}).add(expr[key])));
+				}
+				return result.join('');
+
 			}
 		},
 		// Implements the `with` built-in helper.
@@ -1898,8 +1971,29 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 			if (!!expr) {
 				return options.fn(ctx);
 			}
+		},
+		/**
+		 * @function can.Mustache.helpers.log {{log}}
+		 * @parent can.Mustache.htags 9
+		 * 
+		 * @signature `{{#log [message]}}`
+		 * 
+		 * Logs the context of the current block with an optional message.
+		 * 
+		 * @param {*} message An optional message to log out in addition to the 
+		 * current context. 
+		 *
+		 */
+		'log': function(expr, options) {
+			if(console !== undefined) {
+				if(!options) {
+					console.log(expr.context);
+				}
+				else {
+					console.log(expr, options.context);	
+				}
+			}
 		}
-		
 		/**
 		 * @function can.Mustache.helpers.elementCallback {{(el)->CODE}}
 		 *
@@ -1923,6 +2017,82 @@ define(["can/util/library", "can/view/scope", "can/view", "can/view/scanner", "c
 		 * 
 		 */
 		//
+		/**
+		 * @function can.Mustache.helpers.index {{@index}}
+		 *
+		 * @parent can.Mustache.htags 10
+		 *
+		 * @signature `{{@index [offset]}}`
+		 * 
+		 * Insert the index of an Array or can.List we are iterating on with [#each](can.Mustache.helpers.each)
+		 * 
+		 * @param {Number} offset The number to optionally offset the index by.
+		 * 
+		 * @body
+		 * 
+		 * ## Use 
+		 * 
+		 * When iterating over and array or list of items, you might need to render the index
+		 * of the item. Use the `@index` directive to do so. For example,
+		 *
+		 * The template:
+		 * 
+		 *     <ul>
+		 *       {{#each items}}
+		 *         <li> {{@index}} - {{.}} </li>
+		 *       {{/each}}
+		 *     </ul>
+		 * 
+		 * Rendered with:
+		 * 
+		 *     { items: ['Josh', 'Eli', 'David'] }
+		 * 
+		 * Renders:
+		 * 
+		 *     <ul>
+		 *       <li> 0 - Josh </li>
+		 *       <li> 1 - Eli </li>
+		 *       <li> 2 - David </li>
+		 *     </ul>
+		 * 
+		 */
+		 //
+		/**
+		 * @function can.Mustache.helpers.key {{@key}}
+		 *
+		 * @parent can.Mustache.htags 11
+		 *
+		 * @signature `{{@key}}`
+		 * 
+		 * Insert the property name of an Object or attribute name of a can.Map that we iterate over with [#each](can.Mustache.helpers.each)
+		 * 
+		 * @body
+		 * 
+		 * ## Use 
+		 * 
+		 * Use `{{@key}}` to render the property or attribute name of an Object or can.Map, when iterating over it with [#each](can.Mustache.helpers.each). For example,
+		 * 
+		 * The template:
+		 * 
+		 *     <ul>
+		 *       {{#each person}}
+		 *         <li> {{@key}}: {{.}} </li>
+		 *       {{/each}}
+		 *     </ul>
+		 * 
+		 * Rendered with:
+		 * 
+		 *     { person: {name: 'Josh', age: 27, likes: 'Mustache, JavaScript, High Fives'} }
+		 * 
+		 * Renders:
+		 * 
+		 *     <ul>
+		 *       <li> name: Josh </li>
+		 *       <li> age: 27 </li>
+		 *       <li> likes: Mustache, JavaScript, High Fives </li>
+		 *     </ul>
+		 * 
+		 */
 	}, function(fn, name){
 		Mustache.registerHelper(name, fn);
 	});

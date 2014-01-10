@@ -1,8 +1,8 @@
 /*!
- * CanJS - 2.0.0
+ * CanJS - 2.0.4
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 16 Oct 2013 20:40:41 GMT
+ * Mon, 23 Dec 2013 19:49:14 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -68,7 +68,7 @@ define(["can/util/library", "can/view/mustache", "can/control"], function(can){
 	can.view.Scanner.attribute("can-value", function(data, el){
 		
 		var attr = el.getAttribute("can-value"),
-			value = data.scope.compute(attr);
+			value = data.scope.computeData(attr,{args:[]}).compute;
 		
 		if(el.nodeName.toLowerCase() === "input"){
 			if(el.type === "checkbox") {
@@ -141,12 +141,12 @@ define(["can/util/library", "can/view/mustache", "can/control"], function(can){
 	 */
 	can.view.Scanner.attribute(/can-[\w\.]+/,function(data, el){
 		
-		var event = data.attr.substr("can-".length),
-			attr = el.getAttribute(data.attr),
-			scopeData = data.scope.get(attr),
+		var attributeName = data.attr,
+			event = data.attr.substr("can-".length),
 			handler = function(ev){
-				
-				return scopeData.value.call(scopeData.parent,data.scope.attr("."), can.$(this), ev )
+				var attr = el.getAttribute(attributeName),
+					scopeData = data.scope.read(attr,{returnObserveMethods: true, isArgument: true});
+				return scopeData.value.call(scopeData.parent,data.scope._context, can.$(this), ev )
 			};
 		
 		if(special[event]){
@@ -156,11 +156,6 @@ define(["can/util/library", "can/view/mustache", "can/control"], function(can){
 		}
 		
 		can.bind.call( el, event, handler);
-		// not all libraries automatically remove bindings
-		can.bind.call( el, "removed",function(){
-			can.unbind.call( el, event, handler);
-		})
-		
 	});
 	
 	
@@ -168,7 +163,7 @@ define(["can/util/library", "can/view/mustache", "can/control"], function(can){
 		init: function(){
 			if(this.element[0].nodeName.toUpperCase() === "SELECT"){
 				// need to wait until end of turn ...
-				setTimeout($.proxy(this.set,this),1)
+				setTimeout(can.proxy(this.set,this),1)
 			} else {
 				this.set()
 			}
@@ -176,9 +171,16 @@ define(["can/util/library", "can/view/mustache", "can/control"], function(can){
 		},
 		"{value} change": "set",
 		set: function(){
-			this.element[0].value = this.options.value()
+			//this may happen in some edgecases, esp. with selects that are not in DOM after the timeout has fired
+			if(!this.element) return;
+
+			var val = this.options.value();
+			this.element[0].value = (typeof val === 'undefined' ? '' : val);
 		},
 		"change": function(){
+			//this may happen in some edgecases, esp. with selects that are not in DOM after the timeout has fired
+			if(!this.element) return;
+			
 			this.options.value(this.element[0].value)
 		}
 	})

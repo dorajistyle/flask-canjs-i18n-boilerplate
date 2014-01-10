@@ -1,8 +1,8 @@
 /*!
- * CanJS - 2.0.0
+ * CanJS - 2.0.4
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 16 Oct 2013 20:40:41 GMT
+ * Mon, 23 Dec 2013 19:49:14 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -50,11 +50,11 @@ define(["can/util/can", "yui", "can/util/event", "can/util/fragment", "can/util/
 		return Y.Array(arr);
 	};
 	can.isArray = Y.Lang.isArray;
-	can.inArray = function (item, arr) {
+	can.inArray = function (item, arr, fromIndex) {
 		if (!arr) {
 			return -1;
 		}
-		return Y.Array.indexOf(arr, item);
+		return Y.Array.indexOf(arr, item, fromIndex);
 	};
 
 	can.map = function (arr, fn) {
@@ -101,7 +101,7 @@ define(["can/util/can", "yui", "can/util/event", "can/util/fragment", "can/util/
 		} else if (selector instanceof Y.NodeList) {
 			return prepareNodeList(selector);
 		} else if (typeof selector === "object" && !can.isArray(selector) && typeof selector.nodeType === "undefined" && !selector.getDOMNode) {
-			return selector;
+			return new Y.NodeList(selector);
 		} else {
 			return prepareNodeList(Y.all(selector));
 		}
@@ -269,6 +269,7 @@ define(["can/util/can", "yui", "can/util/event", "can/util/fragment", "can/util/
 						var eventName = ev + ":" + selector,
 							handlers = events[eventName],
 							handler = handlers[cb.__bindingsIds];
+						
 						handler.detach();
 						delete handlers[cb.__bindingsIds];
 						if (can.isEmptyObject(handlers)) {
@@ -358,9 +359,8 @@ define(["can/util/can", "yui", "can/util/event", "can/util/fragment", "can/util/
 					type : event
 				}
 			}
-			event.target = event.target || item
-			event.data = args
-			can.dispatch.call(item, event)
+			event.target = event.target || item;
+			can.dispatch.call(item, event, args)
 		}
 	};
 	// Allow `dom` `destroyed` events.
@@ -415,7 +415,7 @@ define(["can/util/can", "yui", "can/util/event", "can/util/fragment", "can/util/
 				// // fireEvent. /me sighs. http://gist.github.com/315318
 				// throw("janktastic");
 				// }
-				n.fireEvent(ev);
+				n.fireEvent(ev, a);
 			} catch (er) {
 				// a lame duck to work with. we're probably a 'custom event'
 				var evdata = can.extend({

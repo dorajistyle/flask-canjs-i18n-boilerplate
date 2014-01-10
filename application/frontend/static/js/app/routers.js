@@ -1,5 +1,5 @@
-define(['can', 'app/users/router', 'app/setting/router', 'app/admin/router', 'app/models/user/user', 'app/components/navbar', 'utils'],
-    function (can, Users, Setting, Admin, User, Navbar, utils) {
+define(['can', 'app/users/router', 'app/setting/router', 'app/admin/router', 'app/models/user/user', 'refresh', 'utils'],
+    function (can, Users, Setting, Admin, User, Refresh, utils) {
     'use strict';
 
     /**
@@ -20,8 +20,7 @@ define(['can', 'app/users/router', 'app/setting/router', 'app/admin/router', 'ap
         },
         'route': function () {
             if (can.route.attr('_') == '_') {
-                Navbar.load();
-                utils.replaceHash('setting/connection');
+                Refresh.load('setting/connection');
                 return false;
             }
             this.show();

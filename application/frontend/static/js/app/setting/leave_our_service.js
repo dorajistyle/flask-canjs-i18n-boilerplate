@@ -1,5 +1,5 @@
-define(['can', 'app/models/user/user', 'app/components/navbar', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
-    function (can, User, Navbar, utils, i18n, $) {
+define(['can', 'app/models/user/user', 'refresh', 'utils', 'i18n', 'jquery', 'jquery.bootstrap'],
+    function (can, User, Refresh, utils, i18n, $) {
     'use strict';
 
 
@@ -91,8 +91,7 @@ define(['can', 'app/models/user/user', 'app/components/navbar', 'utils', 'i18n',
                 destroy_btn.attr('disabled', 'disabled');
                 can.when(User.destroy(values.id)).then(function () {
                     utils.showSuccessMsg(i18n.t('setting.leaveOurService.done'));
-                    Navbar.load();
-                    utils.replaceHash('');
+                    Refresh.load('');
                 }, function (xhr) {
                     destroy_btn.removeAttr('disabled');
                     $form.data('submitted', false);

@@ -5,6 +5,7 @@
     paths: {
         app: '../app',
         "utils": "../app/lib/utils",
+        "refresh": "../app/lib/refresh",
         "loglevel": "loglevel.min",
         "jquery": "jquery-1.10.1.min",
         "can": "can",

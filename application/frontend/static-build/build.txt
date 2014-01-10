@@ -33,6 +33,7 @@ js/vendor/jquery-1.10.1.min.js
 js/vendor/can/util/can.js
 js/vendor/can/util/array/each.js
 js/vendor/can/util/inserted.js
+js/vendor/can/util/event.js
 js/vendor/can/util/jquery.js
 js/vendor/can/util/library.js
 js/vendor/can/util/bind.js
@@ -61,12 +62,13 @@ js/vendor/can/component.js
 js/vendor/can.js
 js/vendor/loglevel.min.js
 js/vendor/i18next.amd.withJQuery-1.6.3.min.js
-js/app/lib/utils.js
 js/settings.js
 js/app/models/model.js
 js/app/models/api_path.js
 js/app/models/user/user_current.js
 js/app/components/navbar.js
+js/app/lib/utils.js
+js/app/lib/refresh.js
 js/app/models/user/authentication.js
 js/app/models/user/user.js
 js/app/models/user/user_email.js

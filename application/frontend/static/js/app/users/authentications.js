@@ -1,5 +1,5 @@
-define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/models/user/user_email', 'app/components/navbar', 'utils', 'i18n', 'jquery'],
-    function (can, Authentication, User, UserEmail, Navbar, utils, i18n, $) {
+define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/models/user/user_email', 'refresh', 'utils', 'i18n', 'jquery'],
+    function (can, Authentication, User, UserEmail, Refresh, utils, i18n, $) {
     'use strict';
     /**
      * Control for new propose
@@ -54,8 +54,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
                     can.when(Authentication.create(values)).then(function (result) {
                         utils.logJson("performLogin Response", result);
                         if (result.status) {
-                            Navbar.load();
-                            utils.replaceHash('');
+                            Refresh.load('');
                             utils.showSuccessMsg(i18n.t('login.welcome', result.email));
                         } else {
                             login_btn.removeAttr('disabled');
@@ -85,8 +84,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
                     utils.showErrorMsg(i18n.t('logout.error'));
                 }, function (xhr) {
                     utils.showSuccessMsg(i18n.t('logout.success'));
-                    Navbar.load();
-                    utils.replaceHash('login');
+                    Refresh.load('login');
                 });
             }, function (xhr) {
                 utils.handleStatusWithErrorMsg(xhr, i18n.t('logout.alreadyDone'));
@@ -145,8 +143,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
                         $form.data('submitted', false);
                         if (result.status) {
                             utils.showSuccessMsg(i18n.t('registration.welcome', result.email));
-                            Navbar.load();
-                            utils.replaceHash('');
+                            Refresh.load('');
                         } else {
                             utils.showErrorMsg(i18n.t('registration.failed'));
                         }

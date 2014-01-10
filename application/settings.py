@@ -9,12 +9,11 @@
 
 """
 import os
+from datetime import timedelta
 from application.babel_helper import _
 _basedir = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = False
-SECRET_KEY = 'super-secret-key'
-
 
 # Flask-DebugToolbar
 DEBUG_TB_INTERCEPT_REDIRECTS = False
@@ -30,10 +29,20 @@ MAX_SEARCH_RESULTS = 30
 # Flask-Babel
 BABEL_DEFAULT_LOCALE = 'ko'
 
-# Below three lines are just for temporary database.
+# Database & Session Control
+SECRET_KEY = 'dorajistyle-flask-canjs-i18n-boilerplate-is-the-grand'
+#SECRET_KEY = os.urandom(24)
+#PERMANENT_SESSION_LIFETIME = timedelta(seconds=10)
+#session.permanent = True
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/temp.db')
-# SQLALCHEMY_DATABASE_URI = 'mysql://user:@localhost/schema'
+if DEBUG:
+    # SQLALCHEMY_DATABASE_URI = 'mysql://user:@localhost/schema'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/temp.db')
+    PERMANENT_SESSION_LIFETIME = timedelta(days=15)
+else:
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/temp.db')
+    PERMANENT_SESSION_LIFETIME = timedelta(minutes=15)
+
 CELERY_BROKER_URL = 'redis://'
 
 # Celery

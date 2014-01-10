@@ -1,8 +1,8 @@
 /*!
- * CanJS - 2.0.0
+ * CanJS - 2.0.4
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 16 Oct 2013 20:40:41 GMT
+ * Mon, 23 Dec 2013 19:49:14 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -80,8 +80,7 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 				event = {type : event}
 			}
 			event.target = event.target || obj;
-			event.data = args;
-			can.dispatch.call(obj, event)
+			can.dispatch.call(obj, event, args)
 		}
 
 	}
@@ -211,14 +210,12 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 
 	$.fn.remove = function () {
 		this.each(function () {
+			if( this.getElementsByTagName ){
+				$.cleanData( [this].concat( can.makeArray(this.getElementsByTagName('*')) )  );
+			}
+
 			if (this.parentNode != null) {
 				// might be a text node
-				
-				if( this.getElementsByTagName ){
-					console.log()
-					$.cleanData( [this].concat( can.makeArray(this.getElementsByTagName('*')) )  );
-				} 
-				
 				this.parentNode.removeChild(this);
 			}
 		});

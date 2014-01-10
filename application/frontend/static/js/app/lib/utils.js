@@ -1,4 +1,4 @@
-define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
+define(['loglevel', 'i18n', 'can', 'settings', 'app/components/navbar'], function (log, i18n, can, settings, Navbar) {
     /**
      * A set for general purpose utilities.
      * @author dorajistyle
@@ -302,6 +302,8 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
          * @param xhr
          */
         handleStatus: function (xhr) {
+            var utils = this;
+            utils.logError('response code', xhr.status);
             switch (xhr.status) {
                 case 200:
                     // OK
@@ -309,10 +311,12 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
                 case 400:
                     // Bad Request
 //                    can.route.attr('route','');
-                    window.location.hash = "#!";
+                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
+                    utils.replaceHash('');
                     break;
                 case 500:
                     // Internal Server Error
+                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
                     break;
                 case 201:
                     // Created
@@ -322,16 +326,30 @@ define(['loglevel', 'i18n', 'can'], function (log, i18n, can) {
                     break;
                 case 404:
                     // Not Found
+                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
                     break;
                 case 401:
                     // Unauthorized
 //                    can.route.attr('route', 'login');
-                    window.location.hash = "#!login";
+                    Navbar.load();
+                    utils.showErrorMsg(i18n.t('error.loginPlease'));
+                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
+                    utils.replaceHash('login');
                     break;
                 case 403:
                     // Forbidden
 //                    can.route.attr('route', 'login');
-                    window.location.hash = "#!login";
+                    Navbar.load();
+                    utils.showErrorMsg(i18n.t('error.loginPlease'));
+                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
+                    utils.replaceHash('login');
+                    break;
+                case 405:
+                    // request method not supported by that resource
+                    break;
+                case 409:
+                    // request could not be processed because of conflict
+//                    this.replaceHash('cart');
                     break;
             }
         },

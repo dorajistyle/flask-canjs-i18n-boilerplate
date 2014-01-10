@@ -1,8 +1,8 @@
 /*!
- * CanJS - 2.0.0
+ * CanJS - 2.0.4
  * http://canjs.us/
  * Copyright (c) 2013 Bitovi
- * Wed, 16 Oct 2013 20:40:41 GMT
+ * Mon, 23 Dec 2013 19:49:14 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -14,8 +14,7 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 	//  
 		// Removes all listeners.
 	var	bindToChildAndBubbleToParent = function(child, prop, parent){
-			child.bind("change" + parent._cid, 
-				function( /* ev, attr */ ) {
+			can.listenTo.call(parent,child,"change", function( /* ev, attr */ ) {
 				// `batchTrigger` the type on this...
 				var args = can.makeArray(arguments),
 					ev = args.shift();
@@ -55,8 +54,22 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 					}
 				})
 			};
+		},
+		// A map that temporarily houses a reference 
+		// to maps that have already been made for a plain ole JS object
+		madeMap = null,
+		teardownMap = function(){
+			for(var cid in madeMap){
+				if(madeMap[cid].added) {
+					delete madeMap[cid].obj._cid;
+				}
+			}
+			madeMap = null;
+		},
+		getMapFromObject = function(obj){
+			return madeMap && madeMap[obj._cid] && madeMap[obj._cid].instance
 		};
-	
+		
 	/**
 	 * @add can.Map
 	 */
@@ -74,9 +87,13 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 				if(!this.defaults){
 					this.defaults = {};
 				}
+				// a list of the compute properties
+				this._computes = [];
 				for(var prop in this.prototype){
 					if(typeof this.prototype[prop] !== "function"){
 						this.defaults[prop] = this.prototype[prop];
+					} else if(this.prototype[prop].isComputed) {
+						this._computes.push(prop)	
 					}
 				}
 			}
@@ -86,20 +103,43 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 			}
 	
 		},
+		_computes: [],
 		// keep so it can be overwritten
-		bind : can.bindAndSetup,
-		on : can.bindAndSetup,
+		bind: can.bindAndSetup,
+		on: can.bindAndSetup,
 		unbind: can.unbindAndTeardown,
 		off: can.unbindAndTeardown,
 		id: "id",
 		helpers: {
+			addToMap: function(obj, instance){
+				var teardown;
+				if(!madeMap){
+					teardown = teardownMap;
+					madeMap = {}
+				}
+				// record if it has a Cid before we add one
+				var hasCid = obj._cid;
+				var cid = can.cid(obj);
+				
+				// only update if there already isn't one
+				if( !madeMap[cid] ){
+				
+					madeMap[cid] = {
+						obj: obj,
+						instance: instance,
+						added: !hasCid
+					}
+				}
+				return teardown;
+			},
+			
 			canMakeObserve : function( obj ) {
 				return obj && !can.isDeferred(obj) && (can.isArray(obj) || can.isPlainObject( obj ) || ( obj instanceof can.Map ));
 			},
-			unhookup: function(items, namespace){
+			unhookup: function(items, parent){
 				return can.each(items, function(item){
 					if(item && item.unbind){
-						item.unbind("change" + namespace);
+						can.stopListening.call(parent, item,"change");
 					}
 				});
 			},
@@ -118,11 +158,11 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 					// We have an `map` already...
 					// Make sure it is not listening to this already
 					// It's only listening if it has bindings already.
-					parent._bindings && Map.helpers.unhookup([child], parent._cid);
+					parent._bindings && Map.helpers.unhookup([child], parent);
 				} else if ( can.isArray(child) ) {
-					child = new List(child);
+					child = getMapFromObject(child) || new List(child);
 				} else {
-					child = new Ob(child);
+					child = getMapFromObject(child) || new Ob(child);
 				}
 				// only listen if something is listening to you
 				if(parent._bindings){
@@ -161,7 +201,7 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 		 * @description Iterate over the keys of an Map.
 		 * @signature `can.Map.keys(map)`
 		 * @param {can.Map} map the `can.Map` to get the keys from
-		 * @return {Array} array An array containing the keys from _observe_.
+		 * @return {Array} array An array containing the keys from _map_.
 		 * 
 		 * @body
 		 * `keys` iterates over an map to get an array of its keys.
@@ -203,24 +243,151 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 			// Sets all `attrs`.
 			this._init = 1;
 			this._setupComputes();
+			var teardownMapping = obj && can.Map.helpers.addToMap(obj, this);
+			/**
+			 * @property {*} can.Map.prototype.DEFAULT-ATTR
+			 * 
+			 * @description Specify a default property and value.
+			 * 
+			 * @option {*} A value of any type other than a function that will
+			 * be set as the `DEFAULT-ATTR` attribute's value.
+			 * 
+			 * @body
+			 * 
+			 * ## Use
+			 * 
+			 * When extending [can.Map], if a prototype property is not a function,
+			 * it is used as a default value on instances of the extended Map.  For example:
+			 * 
+			 *     var Paginate = can.Map.extend({
+			 *       limit: 20,
+			 *       offset: 0,
+			 *       next: function(){
+			 *         this.attr("offset", this.attr("offset")+this.attr("limit"))
+			 *       }  
+			 *     });
+			 * 
+			 *     var paginate = new Paginate({limit: 30});
+			 * 
+			 *     paginate.attr("offset") //-> 0
+			 *     paginate.attr("limit")  //-> 30
+			 * 
+			 *     paginate.next();
+			 *     
+			 *     paginate.attr("offset") //-> 30
+			 */
 			var data = can.extend( can.extend(true,{},this.constructor.defaults || {}), obj )
 			this.attr(data);
-			this.bind('change'+this._cid,can.proxy(this._changes,this));
+			
+			teardownMapping && teardownMapping()
+			
+			this.bind('change',can.proxy(this._changes,this));
+			
 			delete this._init;
 		},
+		/**
+		 * @property {can.compute} can.Map.prototype.COMPUTE-ATTR
+		 * 
+		 * @description Specify an attribute that is computed from other attributes.
+		 * 
+		 * @option {can.compute} A compute that reads values on instances of the
+		 * map and returns a derived value.  The compute may also be a getter-setter
+		 * compute and able to be passed a value.
+		 * 
+		 * @body
+		 * 
+		 * ## Use
+		 * 
+		 * When extending [can.Map], if a prototype property is a [can.compute]
+		 * it will setup that compute to behave like a normal attribute. This means
+		 * that it can be read and written to with [can.Map::attr attr] and bound to
+		 * with [can.Map::bind bind].  
+		 * 
+		 * The following example makes a `fullName` attribute on `Person` maps:
+		 * 
+		 *     var Person = can.Map.extend({
+		 *       fullName: can.compute(function(){
+		 *         return this.attr("first")+" "+this.attr("last")  
+		 *       })
+		 *     })
+		 *     
+		 *     var me = new Person({first: "Justin", last: "Meyer"})
+		 * 
+		 *     me.attr("fullName") //-> "Justin Meyer"
+		 *     
+		 *     me.bind("fullName", function(ev, newValue, oldValue){
+		 *       newValue //-> Brian Moschel
+		 *       oldValue //-> Justin Meyer
+		 *     })
+		 *     
+		 *     me.attr({first: "Brian", last: "Moschel"})
+		 * 
+		 * ## Getter / Setter computes
+		 * 
+		 * A compute's setter will be called if [can.Map::attr attr] is
+		 * used to set the compute-property's value.
+		 * 
+		 * The following makes `fullName` able to set `first` and `last`:
+		 * 
+		 *     var Person = can.Map.extend({
+		 *       fullName: can.compute(function(newValue){
+		 *         if( arguments.length ) {
+		 *           var parts = newValue.split(" ");
+		 *           this.attr({
+		 *             first: parts[0],
+		 *             last:  parts[1]
+		 *           });
+		 *            
+		 *         } else {
+		 *           return this.attr("first")+" "+this.attr("last");
+		 *         }
+		 *       })
+		 *     })
+		 *     
+		 *     var me = new Person({first: "Justin", last: "Meyer"})
+		 * 
+		 *     me.attr("fullName", "Brian Moschel") 
+		 *     me.attr("first") //-> "Brian"
+		 *     me.attr("last")  //-> "Moschel"
+		 * 
+		 * 
+		 * ## Alternatives
+		 * 
+		 * [can.Mustache] and [can.EJS] will automatically convert any function
+		 * read in the template to a can.compute. So, simply having a fullName
+		 * function like:
+		 * 
+		 *     var Person = can.Map.extend({
+		 *       fullName: function(){
+		 *         return this.attr("first")+" "+this.attr("last")  
+		 *       }
+		 *     })
+		 *     var me = new Person({first: "Justin", last: "Meyer"})
+		 * 
+		 * Will already be live-bound if read in a template like:
+		 * 
+		 *     {{me.fullName}}
+		 *     <%= me.attr("fullName") %>
+		 * 
+		 * The [can.Map.setter setter] plugin can also provide similar functionality as
+		 * Getter/Setter computes.
+		 */
 		_setupComputes: function(){
-			var prototype = this.constructor.prototype
-			for(var prop in prototype){
-				if(prototype[prop] && prototype[prop].isComputed){
-					this[prop] = prototype[prop].clone(this);
+			var computes = this.constructor._computes;
+			this._computedBindings = {};
+			for(var i = 0, len = computes.length, prop; i< len; i++) {
+				prop = computes[i];
+				this[prop] = this[prop].clone(this);
+				this._computedBindings[prop] = {
+					count: 0
 				}
 			}
 		},
 		_bindsetup: makeBindSetup(),
 		_bindteardown: function(){
-			var cid = this._cid;
+			var self = this;
 			this._each(function(child){
-				Map.helpers.unhookup([child], cid)
+				Map.helpers.unhookup([child], self)
 			})
 		},
 		_changes: function(ev, attr, how,newVal, oldVal){
@@ -506,7 +673,7 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 		// returns the "real" data object itself.
 		__get: function( attr ) {
 			if(attr){
-				if(this[attr] && this[attr].isComputed){
+				if(this[attr] && this[attr].isComputed && can.isFunction(this.constructor.prototype[attr])){
 					return this[attr]()
 				} else {
 					return this._data[attr]
@@ -573,15 +740,15 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 				
 				//can.batch.trigger(this, prop, [value, current]);
 				// If we can stop listening to our old value, do it.
-				current && Map.helpers.unhookup([current], this._cid);
+				current && Map.helpers.unhookup([current], this);
 			}
 
 		},
 		// Directly sets a property on this `object`.
 		___set: function( prop, val ) {
 			
-			if(this[prop] && this[prop].isComputed){
-				this[prop](val)
+			if(this[prop] && this[prop].isComputed && can.isFunction(this.constructor.prototype[prop])){
+				this[prop](val);
 			}
 			
 			this._data[prop] = val;
@@ -690,8 +857,24 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 		 * 
 		 * For a more specific way to changes on Observes, see the [can.Map.delegate] plugin.
 		 */
-		bind: can.bindAndSetup,
-		on: can.bindAndSetup,
+		bind: function(eventName, handler){
+			var computedBinding = this._computedBindings && this._computedBindings[eventName]
+			if( computedBinding ) {
+				if( !computedBinding.count ) {
+					computedBinding.count = 1;
+					var self =  this;
+					computedBinding.handler = function(ev, newVal, oldVal){
+						can.batch.trigger(self, {type: eventName, batchNum: ev.batchNum}, [newVal, oldVal] )
+					}
+					this[eventName].bind("change", computedBinding.handler)
+				} else {
+					computedBinding.count++
+				}
+				
+			}
+			return can.bindAndSetup.apply(this, arguments);
+			
+		},
 		/**
 		 * @function can.Map.prototype.unbind unbind
 		 * @description Unbind event handlers from an Map.
@@ -723,8 +906,21 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 		 * i; // 8
 		 * @codeend
 		 */
-		unbind: can.unbindAndTeardown,
-		off: can.unbindAndTeardown,
+		unbind: function(eventName, handler){
+			var computedBinding = this._computedBindings && this._computedBindings[eventName]
+			if( computedBinding ) {
+				if( computedBinding.count == 1 ) {
+					computedBinding.count = 0;
+					this[eventName].unbind("change", computedBinding.handler);
+					delete computedBinding.handler;
+				} else {
+					computedBinding.count++
+				}
+				
+			}
+			return can.unbindAndTeardown.apply(this, arguments);
+			
+		},
 		/**
 		 * @function can.Map.prototype.serialize serialize
 		 * @description Serialize this object to something that
@@ -764,12 +960,16 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 				return Map.helpers.serialize(this, 'attr', {})
 			}
 
-			props = can.extend({}, props);
+			props = can.simpleExtend({}, props);
 			var prop,
 				self = this,
 				newVal;
 			can.batch.start();
 			this.each(function(curVal, prop){
+				// you can not have a _cid property!
+				if(prop === "_cid"){
+					return;
+				}
 				newVal = props[prop];
 
 				// If we are merging...
@@ -797,8 +997,11 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 			})
 			// Add remaining props.
 			for ( var prop in props ) {
-				newVal = props[prop];
-				this._set(prop, newVal, true)
+				if(prop !== "_cid"){
+					newVal = props[prop];
+					this._set(prop, newVal, true)
+				}
+				
 			}
 			can.batch.stop()
 			return this;
@@ -839,6 +1042,9 @@ define(["can/util/library", "can/util/bind", "can/construct", "can/util/batch"],
 			
 		}
 	});
+	
+	Map.prototype.on = Map.prototype.bind;
+	Map.prototype.off = Map.prototype.unbind;
 
 	return Map;
 });

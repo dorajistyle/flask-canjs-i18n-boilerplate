@@ -4,5 +4,3 @@
 *.log
 *.py~
 search_index
-alembic/versions/*
-application/db/*

@@ -5,11 +5,11 @@ require.config({
         "refresh": "app/lib/refresh",
         "loglevel": "vendor/loglevel.min",
         "jquery": [
-            "//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min",
-            "vendor/jquery-1.10.1.min"
+            "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min",
+            "vendor/jquery-1.11.0.min"
         ],
         "can": "vendor/can",
-        "i18n": "vendor/i18next.amd.withJQuery-1.6.3.min",
+        "i18n": "vendor/i18next.amd.withJQuery-1.7.1.min",
         "spin": "vendor/spin.min",
         "placeholders": "vendor/Placeholders.min",
         "jquery.bootstrap": [

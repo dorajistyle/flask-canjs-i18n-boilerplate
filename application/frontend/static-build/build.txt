@@ -29,7 +29,7 @@ css/typeahead.js-bootstrap.css
 
 js/vendor/../app.js
 ----------------
-js/vendor/jquery-1.10.1.min.js
+js/vendor/jquery-1.11.0.min.js
 js/vendor/can/util/can.js
 js/vendor/can/util/array/each.js
 js/vendor/can/util/inserted.js
@@ -41,11 +41,11 @@ js/vendor/can/util/string.js
 js/vendor/can/construct.js
 js/vendor/can/util/batch.js
 js/vendor/can/map.js
+js/vendor/can/list.js
 js/vendor/can/util/string/deparam.js
 js/vendor/can/route.js
 js/vendor/can/control.js
 js/vendor/can/control/route.js
-js/vendor/can/list.js
 js/vendor/can/model.js
 js/vendor/can/view.js
 js/vendor/can/compute.js
@@ -61,7 +61,7 @@ js/vendor/can/view/bindings.js
 js/vendor/can/component.js
 js/vendor/can.js
 js/vendor/loglevel.min.js
-js/vendor/i18next.amd.withJQuery-1.6.3.min.js
+js/vendor/i18next.amd.withJQuery-1.7.1.min.js
 js/settings.js
 js/app/models/model.js
 js/app/models/api_path.js

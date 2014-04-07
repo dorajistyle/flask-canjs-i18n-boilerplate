@@ -1,1 +1,0 @@
-var config=module.exports;config["Porposal Center tests"]={rootPath:"../",environment:"browser",libs:["js/vendor/require.js","js/require-config.js"],resources:["js/**/*.js","locales/**/*.json"],sources:["js/app/**/*.js"],tests:["test/*-test.js"],extensions:[require("buster-amd")],"buster-amd":{pathMapper:function(e){return e.replace(/\.js$/,"").replace(/^\//,"../")}}};

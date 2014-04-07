@@ -16,19 +16,17 @@ html.no-js(lang='#{lang}')
     title {{ _('title') }}
     meta(name='description', content='')
     meta(name='viewport', content='width=device-width')
-    link(rel='shortcut icon', href='/static/img/favicon.ico')
-    {% assets "css_all" -%}
-    link(rel='stylesheet', href='#{ ASSET_URL }')
-    {%- endassets %}
+    link(rel='shortcut icon', href='/static/#{static_guid}/img/favicon.ico')
+    link(rel='stylesheet', href='/static/#{static_guid}/css/application.css')
     //if IE 7
-      <link rel="stylesheet" href="/static/css/bootstrap-ie7.min.css">
-      <link rel="stylesheet" href="/static/css/font-awesome-ie7.min.css">
-    link(rel='apple-touch-icon-precomposed', href='/static/img/apple/apple-touch-icon-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='57x57', href='/static/img/apple/apple-touch-icon-57x57-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/static/img/apple/apple-touch-icon-72x72-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/static/img/apple/apple-touch-icon-114x114-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/static/img/apple/apple-touch-icon-144x144-precomposed.png')
-    script(src='/static/js/vendor/html5-3.6-respond-1.1.0.min.js')
+      <link rel="stylesheet" href="/static/#{static_guid}/css/bootstrap-ie7.min.css">
+      <link rel="stylesheet" href="/static/#{static_guid}/css/font-awesome-ie7.min.css">
+    link(rel='apple-touch-icon-precomposed', href='/static/#{static_guid}/img/apple/apple-touch-icon-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='57x57', href='/static/#{static_guid}/img/apple/apple-touch-icon-57x57-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/static/#{static_guid}/img/apple/apple-touch-icon-72x72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/static/#{static_guid}/img/apple/apple-touch-icon-114x114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/static/#{static_guid}/img/apple/apple-touch-icon-144x144-precomposed.png')
+    script(src='/static/#{static_guid}/js/vendor/html5-3.6-respond-1.1.0.min.js')
   body
     //if lt IE 8
       p.chromeframe
@@ -45,7 +43,7 @@ html.no-js(lang='#{lang}')
     .container
       footer
         | {% include 'footer.jade' %}
-    script(data-main='/static/js/app', src='/static/js/vendor/require.js')
+    script(data-main='/static/#{static_guid}/js/app', src='/static/#{static_guid}/js/vendor/require.js')
     script
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

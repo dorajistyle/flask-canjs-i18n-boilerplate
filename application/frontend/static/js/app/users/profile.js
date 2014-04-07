@@ -48,7 +48,7 @@ define(['can', 'app/models/user/user', 'app/models/user/user_current', 'app/mode
             this.followers = this.followers_data.followers;
             this.following_flag = {has_next: this.following_data.has_next, current_page: this.following_data.current_page};
             this.followers_flag = {has_next: this.followers_data.has_next, current_page: this.followers_data.current_page};
-            this.element.html(can.view('/static/views/user/profile.mustache', {
+            this.element.html(can.view('views_user_profile_mustache', {
                 user_data: this.user,
                 following_flag: this.following_flag,
                 following: this.following,

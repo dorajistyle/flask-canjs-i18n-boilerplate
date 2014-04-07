@@ -36,7 +36,7 @@ define(['can', 'app/models/user/connection_facebook',
          * @memberof setting#Connection
          */
         show: function () {
-            this.element.html(can.view('/static/views/setting/connection.mustache', {
+            this.element.html(can.view('views_setting_connection_mustache', {
                 has_facebook_connection: this.has_facebook_connection
             }));
         },

@@ -311,12 +311,12 @@ define(['loglevel', 'i18n', 'can', 'settings', 'app/components/navbar'], functio
                 case 400:
                     // Bad Request
 //                    can.route.attr('route','');
-                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
+                    $(settings.app_div_id).html(can.view('views_share_error_mustache', {}));
                     utils.replaceHash('');
                     break;
                 case 500:
                     // Internal Server Error
-                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
+                    $(settings.app_div_id).html(can.view('views_share_error_mustache', {}));
                     break;
                 case 201:
                     // Created
@@ -326,14 +326,14 @@ define(['loglevel', 'i18n', 'can', 'settings', 'app/components/navbar'], functio
                     break;
                 case 404:
                     // Not Found
-                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
+                    $(settings.app_div_id).html(can.view('views_share_error_mustache', {}));
                     break;
                 case 401:
                     // Unauthorized
 //                    can.route.attr('route', 'login');
                     Navbar.load();
                     utils.showErrorMsg(i18n.t('error.loginPlease'));
-                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
+                    $(settings.app_div_id).html(can.view('views_share_error_mustache', {}));
                     utils.replaceHash('login');
                     break;
                 case 403:
@@ -341,7 +341,7 @@ define(['loglevel', 'i18n', 'can', 'settings', 'app/components/navbar'], functio
 //                    can.route.attr('route', 'login');
                     Navbar.load();
                     utils.showErrorMsg(i18n.t('error.loginPlease'));
-                    $(settings.app_div_id).html(can.view('/static/views/share/error.mustache', {}));
+                    $(settings.app_div_id).html(can.view('views_share_error_mustache', {}));
                     utils.replaceHash('login');
                     break;
                 case 405:

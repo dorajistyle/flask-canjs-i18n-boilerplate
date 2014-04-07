@@ -43,7 +43,7 @@ define(['can', 'app/admin/roles', 'app/admin/users', 'app/models/user/user_curre
          * @memberof admin#Admin
          */
         show: function () {
-            this.element.html(can.view('/static/views/admin/admin.mustache', {
+            this.element.html(can.view('views_admin_admin_mustache', {
             }));
         },
         /**

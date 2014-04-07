@@ -22,10 +22,6 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 #CSRF_ENABLED = False
 WTF_CSRF_ENABLED = False
 
-# Flask-WhooshAlchemy
-WHOOSH_BASE = os.path.join(_basedir, '../search_index')
-MAX_SEARCH_RESULTS = 30
-
 # Flask-Babel
 BABEL_DEFAULT_LOCALE = 'ko'
 
@@ -35,15 +31,18 @@ SECRET_KEY = 'dorajistyle-flask-canjs-i18n-boilerplate-is-the-grand'
 #PERMANENT_SESSION_LIFETIME = timedelta(seconds=10)
 #session.permanent = True
 
+DB_TYPE = 'mysql'
+DB_USER_ID = 'root'
+DB_USER_PASSWORD = ''
+DB_HOST_NAME = 'localhost'
+DB_NAME = 'fcib_dev'
+PERMANENT_SESSION_LIFETIME = timedelta(days=1000)
+DATABASE_QUERY_TIMEOUT = 0.7
 if DEBUG:
-    # SQLALCHEMY_DATABASE_URI = 'mysql://user:@localhost/schema'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/temp.db')
-    PERMANENT_SESSION_LIFETIME = timedelta(days=15)
-else:
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////' + os.path.join(_basedir, 'db/temp.db')
-    PERMANENT_SESSION_LIFETIME = timedelta(minutes=15)
-
-CELERY_BROKER_URL = 'redis://'
+    #SQLALCHEMY_ECHO = True
+    SQLALCHEMY_RECORD_QUERIES = True
+    DATABASE_QUERY_TIMEOUT = 0.5
+SQLALCHEMY_DATABASE_URI = DB_TYPE+'://'+DB_USER_ID+':'+DB_USER_PASSWORD+'@'+DB_HOST_NAME+'/'+DB_NAME
 
 # Celery
 CELERY_BROKER_URL = 'redis://'
@@ -56,6 +55,8 @@ CELERY_ENABLE_UTC = True
 # Flask-Cache Cache Type
 CACHE_TYPE = 'simple'
 
+# GetSentry
+SENTRY_DSN = ''
 
 # Flask-Mail Setting
 MAIL_DEFAULT_SENDER = 'no-reply@myservice.com'

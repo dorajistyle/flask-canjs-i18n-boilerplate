@@ -20,7 +20,7 @@ define(['can', 'app/models/user/authentication', 'app/models/user/user', 'app/mo
          * @memberof authentications#Create
          */
         show: function () {
-            this.element.html(can.view('/static/views/user/login.mustache', {registration_message : create_auth.registration_message}));
+            this.element.html(can.view('views_user_login_mustache', {registration_message : create_auth.registration_message}));
             utils.refreshTitle();
         },
 

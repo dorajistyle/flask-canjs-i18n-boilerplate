@@ -10,7 +10,7 @@ define(['jquery', 'can', 'app/models/user/user_current', 'can/view/mustache'],
                 });
             },
             show: function () {
-                $("#navbar").html(can.view('/static/views/navbar.mustache', {
+                $("#navbar").html(can.view('views_navbar_mustache', {
                     data: this.data
                 }));
             }

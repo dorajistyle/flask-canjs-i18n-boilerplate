@@ -28,7 +28,7 @@ define(['can', 'app/users/router', 'app/setting/router', 'app/admin/router', 'ap
         show: function () {
             User.findAll({}, function (data) {
                 utils.logJson('data', data);
-                $(utils.getFreshApp()).html(can.view('/static/views/main.mustache', {
+                $(utils.getFreshApp()).html(can.view('views_main_mustache', {
                     users: data.users
                 }));
                utils.refreshTitle();

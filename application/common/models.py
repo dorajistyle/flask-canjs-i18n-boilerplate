@@ -17,11 +17,6 @@ from application.helpers import JsonSerializer
 from application.properties import COMMENT_SUB_PER_PAGE
 from application.util.datetime import naturaltime
 
-images_poll_items = db.Table('images_poll_items',
-                             db.Column('poll_item_id', db.Integer, db.ForeignKey('poll_item.id', ondelete="CASCADE"), nullable=False),
-                             db.Column('image_id', db.Integer, db.ForeignKey('image.id'), nullable=False))
-
-
 from sqlalchemy.orm.interfaces import PropComparator
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy import event
@@ -134,10 +129,6 @@ def on_new_class(mapper, cls_):
     cls_.type_map = info_dict
 
 
-class ImageJsonSerializer(JsonSerializer):
-    __json_public__ = ['id', 'large', 'medium', 'thumbnail', 'kind']
-
-
 class TagJsonSerializer(JsonSerializer):
     __json_public__ = ['id', 'name']
 
@@ -178,22 +169,7 @@ class PollItem(PollItemJsonSerializer, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     poll_id = db.Column(db.Integer, db.ForeignKey('poll.id'), nullable=False)
-    images = db.relationship('Image', secondary=images_poll_items, lazy='dynamic',
-                             backref=db.backref('poll_item', uselist=False), cascade="all, delete-orphan",
-                             passive_deletes=True, single_parent=True)
     description = db.Column(db.Text)
-
-
-class Image(ImageJsonSerializer, db.Model):
-    """Image model
-    kind [0 : main | 1 : sub_first | 2: sub_second | 3 : sub_third]
-    """
-    id = db.Column(db.Integer, primary_key=True)
-    large = db.Column(db.String(512))
-    medium = db.Column(db.String(512))
-    thumbnail = db.Column(db.String(512))
-    kind = db.Column(db.SmallInteger(), default=0)
-    created_at = db.Column(db.DateTime, default=datetime.datetime.now)
 
 
 class Tag(TagJsonSerializer, db.Model):
@@ -232,18 +208,6 @@ class Comment(CommentJsonSerializer, db.Model):
             return {'replies': subs, 'has_prev': has_prev, 'has_next': has_next, 'current_page': 1}
         else:
             return {}
-
-    @hybrid_property
-    def username(self):
-        if self.user is not None:
-            return self.user.username
-        return ''
-
-    @hybrid_property
-    def thumbnail(self):
-        if self.user is not None:
-            return self.user.thumbnail
-        return ''
 
     @hybrid_property
     def is_own(self):

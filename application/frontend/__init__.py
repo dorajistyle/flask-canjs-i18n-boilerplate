@@ -12,23 +12,25 @@ from functools import wraps
 from flask import render_template
 from werkzeug.exceptions import InternalServerError, NotFound
 from flask_debugtoolbar import DebugToolbarExtension
-
+from application.core import babel
 from application import factory
 from application.helpers import JSONEncoder
 from application.frontend import assets
-from application.properties import STATIC_FOLDER, STATIC_FOLDER_DEBUG
+from application.properties import STATIC_FOLDER, STATIC_FOLDER_DEBUG, STATIC_GUID
+from datetime import datetime
 
 def create_app(settings_override=None):
     """Returns the main application instance"""
     app = factory.create_app(__name__, __path__, settings_override)
 
-    # Init assets
-    assets.init_app(app)
+
 
     # Set static folder
     app.static_folder = STATIC_FOLDER
     if app.debug:
         app.static_folder = STATIC_FOLDER_DEBUG
+        # Init assets
+        assets.init_app(app)
 
     # Init debugToolbar
     DebugToolbarExtension(app)
@@ -54,6 +56,9 @@ def handle_error(e):
     :param e:
     :return:
     """
+    lang=babel.app.config['BABEL_DEFAULT_LOCALE']
+    this_year=datetime.now().year
+    static_guid=STATIC_GUID
     if isinstance(e, InternalServerError) or isinstance(e, NotFound):
         return render_template('%s.jade' % e.code, error=e), e.code
     return render_template('500.jade'), 500

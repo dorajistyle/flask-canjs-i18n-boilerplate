@@ -5,6 +5,39 @@
 It's a simple multilingual application boilerplate for developer who interested in Canjs and Python Flask combination.
 Flask part is inspired by [Matt Wright](https://github.com/mattupstate)'s [article](http://mattupstate.com/python/2013/06/26/how-i-structure-my-flask-applications.html).
 
+## Development Precautions.
+
+### Repository
+When you develop new feature.
+
+1. pull develop branch
+2. make a new branch : git branch <name_of_new_feature_branch>
+3. develop and commit to new feature branch.
+4. make a test and do testing.
+5. If it works properly, review codes to avoid new bugs, merge to develop branch.
+6. remove new feature branch.
+
+When you fix a critical problem.
+
+1. pull test branch
+2. make a new branch : git branch <name_of_hotfix_branch>
+3. develop and commit to new feature branch.
+4. make a test and do testing.
+5. If it works properly, review codes to avoid new bugs, merge to develop branch.
+6. Also, merge to test branch.
+7. remove hotfix branch.
+
+
+### Frontend
+
+#### Logs
+* Don't use console.log();
+* Use utils.log(Trace|Debug|Info|Warn|Json|Object|Error).
+* Javascript log(utils.log(Trace|Debug|Info|Warn|Json|Object|Error)) should not contain '()' for optimize javascript.
+* If you miss it, it will occur error in production environment.
+* ex)utils.logDebug('initEdit', upload_image);
+* wrong) utils.logDebug('initEdit', something_wrong());
+
 
 ## Features
 * Flask/Canjs combination.
@@ -129,12 +162,41 @@ If you want detail document, Click [RequireJS Optimizer](http://requirejs.org/do
 
     $ optimize_static.sh
 
+### update platform
+    $ python update_platform.py
+
+### Generate documents
+    $ python generate_documents.py
+
 ### Tests
-    $ nosetests
-
-    You can use test script as well.
-
     $ python run_nosetests.py
+
+### Refresh database (drop/create table and insert test data)
+    $ python refresh_database.py
+
+### Refresh Views to see mustache template changes.
+You should install nodeJS npm and grunt first.
+
+    $ npm install -g grunt-cli
+
+And then you should install npm modules into ./application/frontend/views
+
+    $ npm install can-compile --save-dev
+    $ npm install grunt-shell --save-dev
+    $ npm install grunt-contrib-watch --save-dev
+    $ npm install time-grunt --save-dev
+
+Or just run script below.
+
+    $ python install_node_modules.py
+
+And finally run below.
+
+    $ python refresh_static.py
+
+If you want to watch mustache files and refresh views automatically, run below.
+
+    $ python watch_static.py
 
 
 
@@ -144,4 +206,4 @@ ________________________
 
 ## Attributions
 
-Flask-canjs-i18n-boilerplate is under the MIT license.
+Flask-canjs-i18n-boilerplate is under the [MIT license](http://opensource.org/licenses/MIT).

@@ -1,15 +1,16 @@
 require.config({
-    "baseUrl": "/static/js",
+    "baseUrl": "../static/6844ed715e744ad1b3dcff5cbdc809b9/js",
     "paths": {
         "utils": "app/lib/utils",
         "refresh": "app/lib/refresh",
         "loglevel": "vendor/loglevel.min",
+        "views": "views.build",
         "jquery": [
             "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min",
             "vendor/jquery-1.11.0.min"
         ],
         "can": "vendor/can",
-        "i18n": "vendor/i18next.amd.withJQuery-1.7.1.min",
+        "i18n": "vendor/i18next.amd.withJQuery-1.7.2",
         "spin": "vendor/spin.min",
         "placeholders": "vendor/Placeholders.min",
         "jquery.bootstrap": [
@@ -48,7 +49,8 @@ require.config({
  * @requires app/routers
  * @requires can/view/mustache
  */
-requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar', 'refresh', 'app/routers', 'can/view/mustache','placeholders', 'jquery.ba-bbq'],
+requirejs(['can', 'jquery', 'utils', 'i18n', 'settings', 'app/components/navbar', 'refresh', 'app/routers',
+           'can/view/mustache','placeholders', 'jquery.ba-bbq', 'views'],
     function (can, $, utils, i18n, settings, Navbar, Refresh, Routers) {
         'use strict';
 

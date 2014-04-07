@@ -6,7 +6,7 @@ define([], function () {
                             useLocalStorage: false,
                             localStorageExpirationTime: 86400000,
                             fallbackLng: 'en',
-                            resGetPath: '/static/locales/__lng__/__ns__.json'};
+                            resGetPath: '../static/6844ed715e744ad1b3dcff5cbdc809b9/locales/__lng__/__ns__.json'};
     exports.api_path = '/api/v1';
     exports.use_logger = true;
     exports.app_div_id = '#app';

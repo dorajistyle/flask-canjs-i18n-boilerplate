@@ -3,4 +3,5 @@
 *.pyc
 *.log
 *.py~
-search_index
+node_modules
+application/frontend/static-build

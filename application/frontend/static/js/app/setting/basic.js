@@ -46,7 +46,7 @@ define(['can', 'app/models/user/user',
          * @memberof users#Basic
          */
         show: function () {
-            this.element.html(can.view('/static/views/setting/basic.mustache', {
+            this.element.html(can.view('views_setting_basic_mustache', {
                 user: basic.user_data
             }));
         },

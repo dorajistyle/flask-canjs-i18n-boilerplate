@@ -15,8 +15,9 @@ from flask import Flask
 from flask_security import SQLAlchemyUserDatastore
 from flask_social import SQLAlchemyConnectionDatastore
 from werkzeug.contrib.fixers import ProxyFix
+from application.properties import STATIC_GUID
 
-from core import db, mail, security, social, babel, gravatar, cache
+from core import db, mail, security, social, babel, cache, sentry
 from helpers import register_blueprints
 from middleware import HTTPMethodOverrideMiddleware
 from models import User, Role, Connection
@@ -35,7 +36,7 @@ def create_app(package_name, package_path, settings_override=None,
                                         to `True`.
     """
 
-    app = Flask(package_name, instance_relative_config=True)
+    app = Flask(package_name, instance_relative_config=True, static_url_path='/static/'+str(STATIC_GUID))
     app.config.from_object('application.settings')
     app.config.from_pyfile('settings.cfg', silent=True)
     app.config.from_object(settings_override)
@@ -45,20 +46,23 @@ def create_app(package_name, package_path, settings_override=None,
     babel.init_app(app)
     # Init cache
     cache.init_app(app)
+    # Init Sentry
+    sentry.init_app(app)
+    # cache.init_app(app, config={'CACHE_TYPE': 'simple'})
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.datastore = user_datastore
     security.init_app(app, user_datastore,
                       register_blueprint=register_security_blueprint)
     social.init_app(app, SQLAlchemyConnectionDatastore(db, Connection))
-    gravatar.__init__(app, size=128, rating='g', default='mm', force_default=False,
-                      force_lower=False, use_ssl=False)
+    #gravatar.__init__(app, size=128, rating='g', default='mm', force_default=False,
+    #                  force_lower=False, use_ssl=False)
     register_blueprints(app, package_name, package_path)
     app.wsgi_app = ProxyFix(HTTPMethodOverrideMiddleware(app.wsgi_app))
 
     if not app.debug:
         import logging
         from logging.handlers import RotatingFileHandler
-        file_handler = RotatingFileHandler('logs/errors.log', maxBytes=1024 * 1024 * 100, backupCount=20)
+        file_handler = RotatingFileHandler('logs/errors_debug.log', maxBytes=1024 * 1024 * 100, backupCount=20)
         file_handler.setLevel(logging.WARNING)
         formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         file_handler.setFormatter(formatter)

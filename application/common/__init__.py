@@ -12,10 +12,6 @@ from application.core import Service, DictEncoder
 from models import *
 
 
-class ImagesService(Service):
-    __model__ = Image
-
-
 class TagsService(Service):
     __model__ = Tag
 

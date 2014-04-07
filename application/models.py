@@ -7,4 +7,5 @@
     consolodated models module
 """
 
+from application.common.models import *
 from application.user.models import *

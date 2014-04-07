@@ -15,6 +15,9 @@ from flask_social import Social
 from flask.ext.babel import Babel
 from flask.ext.gravatar import Gravatar
 from flask_cache import Cache
+from sqlalchemy_fulltext import FullTextSearch
+import sqlalchemy_fulltext.modes as FulltextMode
+from raven.contrib.flask import Sentry
 
 #: Flask-SQLAlchemy extension instance
 db = SQLAlchemy()
@@ -36,6 +39,9 @@ gravatar = Gravatar()
 
 #: Flask-Cache extension instance
 cache = Cache()
+
+#: Sentry extension instance
+sentry = Sentry()
 
 class ApplicationError(Exception):
     """Base application error class."""
@@ -97,6 +103,10 @@ class Service(object):
         db.session.commit()
         return model
 
+    def searched_paginate(self, page, per_page, text):
+        paginated = self.__model__.query.filter(FullTextSearch(text, self.__model__, FulltextMode.BOOLEAN)).paginate(page, per_page, False)
+        return paginated.items, paginated.has_prev, paginated.has_next
+
     def paginate(self, page, per_page):
         """Returns a paginate containing all instances of the service's model.
         """
@@ -126,12 +136,12 @@ class Service(object):
 
     def search(self, text, limit):
         """
-        Search models by whoosh.
+        Fulltext Search models.
         :param text:
         :param limit:
         :return:
         """
-        return self.__model__.query.whoosh_search(text, limit=limit)
+        return self.__model__.query.filter(FullTextSearch(text, self.__model__))
 
     def find(self, **kwargs):
         """Returns a list of instances of the service's model filtered by the

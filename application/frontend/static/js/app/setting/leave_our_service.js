@@ -33,7 +33,7 @@ define(['can', 'app/models/user/user', 'refresh', 'utils', 'i18n', 'jquery', 'jq
          * @memberof admin#Admin
          */
         show: function () {
-            this.element.html(can.view('/static/views/setting/leave_our_service.mustache', {
+            this.element.html(can.view('views_setting_leave_our_service_mustache', {
                 user: this.user_data
             }));
         },
@@ -44,21 +44,18 @@ define(['can', 'app/models/user/user', 'refresh', 'utils', 'i18n', 'jquery', 'jq
             ev.preventDefault();
             ev.stopPropagation();
             this.performConfirm();
-            return false;
         },
         '.leave-our-service-final click': function (el, ev) {
             ev.preventDefault();
             ev.stopPropagation();
             this.isConfirmed = true;
             can.when($('#leaveOurServiceConfirm').modal('hide')).then(this.performDestroy());
-            return false;
         },
         '.cancel-confirm click': function (el, ev) {
             ev.preventDefault();
             ev.stopPropagation();
             this.isConfirmed = false;
             this.performCancel();
-            return false;
         },
 
         /**

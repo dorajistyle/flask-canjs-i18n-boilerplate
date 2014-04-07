@@ -59,7 +59,7 @@ define(['jquery', 'can', 'app/models/user/user', 'app/models/user/user_admin', '
                     });
                     show_user.users_data = template_data;
                     $("#admin-user").html(
-                        can.view('/static/views/admin/admin_user.mustache', show_user.users_data)
+                        can.view('views_admin_admin_user_mustache', show_user.users_data)
                     );
                     show_user.searchInit();
                 });

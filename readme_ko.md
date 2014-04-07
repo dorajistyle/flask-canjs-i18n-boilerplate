@@ -5,6 +5,38 @@
 canjs와 python flask를 이용한 다국어 어플리케이션 제작을 위한 토대입니다.
 Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http://mattupstate.com/python/2013/06/26/how-i-structure-my-flask-applications.html)에서 영감을 얻었습니다.
 
+## 개발시 주의사항
+
+### 저장소
+새 기능 개발시.
+
+1. develop 브랜치를 pull 한다.
+2. 새 브랜치 생성 : git branch <name_of_new_feature_branch>
+3. 개발중에는 새 기능 브랜치에 커밋한다.
+4. 기능을 완성했으면 테스트를 만들어 잘 동작하는지 시험한다.
+5. 잘 동작하면, 새로운 기능으로 인해 생길수 있는 버그를 다시 한번 잘 살펴보고 develop 브랜치에 통합한다.
+6. 새 기능 브랜치를 지운다.
+
+치명적인 버그 hotfix 패치 개발시.
+
+1. test 브랜치를 pull 한다.
+2. 새 브랜치 생성 : git branch <name_of_hotfix_branch>
+3. 개발중에는 hotfix 브랜치에 커밋한다.
+4. 수정을 완료했으면 테스트를 만들어 잘 동작하는지 시험한다.
+5. 잘 동작하면, 새로운 수정으로 인해 생길수 있는 버그를 다시 한번 잘 살펴보고 develop 브랜치에 통합한다.
+6. test 브랜치에도 hotfix를 통합한다.
+7. hotfix 브랜치를 지운다.
+
+### Frontend
+
+#### Logs
+* console.log(); 는 사용하지 않는다.
+* utils.log(Trace|Debug|Info|Warn|Json|Object|Error)를 사용한다.
+* 자바스크립트 로그(utils.log(Trace|Debug|Info|Warn|Json|Object|Error))를 사용할 때 내부에 '()'를 사용하면 안된다.
+만약 그렇지 않으면, 배포시 오류가 발생한다.
+* 예)utils.logDebug('initEdit', upload_image);
+* 틀린예) utils.logDebug('initEdit', something_wrong());
+
 
 ## 특징
 * Flask/Canjs 연동.
@@ -128,15 +160,41 @@ Nodejs 와 RequireJS가 설치되어 있어야 합니다.
 
     $ optimize_static.sh
 
+### 플랫폼 업데이트
+    $ python update_platform.py
+
 ### 테스트
-    $ nosetests
-
-    아래의 테스트 스크립트를 이용하셔도 됩니다.
-
     $ python run_nosetests.py
+
+### 데이터베이스 새로 갱신 (데이터베이스 drop/create 후 테스트 데이터 넣기)
+    $ python refresh_database.py
+
+### Mustache 템플릿 변경사항 적용
+nodeJS npm 과 grunt를 먼저 설치한다.
+
+    $ npm install -g grunt-cli
+
+그리고 ./application/frontend/views 디렉토리에 필요한 npm 모듈을 설치한다.
+
+    $ npm install can-compile --save-dev
+    $ npm install grunt-shell --save-dev
+    $ npm install grunt-contrib-watch --save-dev
+    $ npm install time-grunt --save-dev
+
+혹은 아래 스크립트를 실행하여 설치한다.
+
+    $ python install_node_modules.py
+
+마지막으로 아래 명령어를 실행한다.
+
+    $ python refresh_static.py
+
+mustache의 변경사항을 감시하다가 자동으로 변경사항을 적용하려면 아래 명령어를 실행한다.
+
+    $ python watch_static.py
 
 ________________________
 
 ## 사용권
 
-Flask-canjs-i18n-boilerplate는 MIT license를 따릅니다.
+Flask-canjs-i18n-boilerplate는 [MIT license](http://opensource.org/licenses/MIT)를 따릅니다.

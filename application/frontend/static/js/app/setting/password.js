@@ -31,7 +31,7 @@ define(['can', 'app/models/user/user', 'utils', 'i18n', 'jquery', 'jquery.bootst
          * @memberof setting#Password
          */
         show: function () {
-            this.element.html(can.view('/static/views/setting/password.mustache', {
+            this.element.html(can.view('views_setting_password_mustache', {
                 user: this.user_data
             }));
         },

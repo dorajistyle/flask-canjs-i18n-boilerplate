@@ -49,7 +49,7 @@ define(['can', 'app/setting/basic', 'app/setting/password', 'app/setting/connect
          */
         show: function () {
             utils.logDebug('setting element', this);
-            this.element.html(can.view('/static/views/setting/setting.mustache', {
+            this.element.html(can.view('views_setting_setting_mustache', {
             }));
         },
         /**

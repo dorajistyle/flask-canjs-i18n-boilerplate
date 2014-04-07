@@ -23,7 +23,7 @@ define(['can', 'app/models/user/role', 'utils', 'i18n', 'jquery', 'jquery.bootst
                 });
                 show_role.roles_data = template_data;
                 $("#admin-role").html(
-                    can.view('/static/views/admin/admin_role.mustache', show_role.roles_data)
+                    can.view('views_admin_admin_role_mustache', show_role.roles_data)
                 );
                 }
             );

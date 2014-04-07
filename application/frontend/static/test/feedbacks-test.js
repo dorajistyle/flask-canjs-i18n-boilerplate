@@ -20,7 +20,6 @@ define(['can', 'i18n', 'utils', 'app/feedbacks', 'app/models/feedback', 'can/vie
                 new Feedbacks.router(document);
                 can.route.ready(true);
             });
-//            utils.logInfo("service",i18n.t("app"));
             var self = this;
             this.timeout = 7000;
 //            var spy = this.spy();

@@ -1,5 +1,5 @@
 # Static Folder Path
-STATIC_GUID = '6844ed715e744ad1b3dcff5cbdc809b9'
+STATIC_GUID = '2f5ff8e3666d4f59996d18805430bc3d'
 STATIC_FOLDER = 'static-build'
 STATIC_FOLDER_DEBUG = 'static'
 

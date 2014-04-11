@@ -1,5 +1,5 @@
 require.config({
-    "baseUrl": "../static/6844ed715e744ad1b3dcff5cbdc809b9/js",
+    "baseUrl": "../static/2f5ff8e3666d4f59996d18805430bc3d/js",
     "paths": {
         "utils": "app/lib/utils",
         "refresh": "app/lib/refresh",

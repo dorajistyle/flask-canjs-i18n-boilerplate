@@ -81,6 +81,12 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), 파이썬용 Jade 템플릿 엔진 확장.
 * [jQuery](http://jquery.com/), 작고 빠르고 유용한 자바스크립트 라이브러리.
 * [jQuery BBQ](http://benalman.com/projects/jquery-bbq-plugin/), HTML5 hashchange 이벤트 사용을 도와줌.
+* [Grunt](http://gruntjs.com/), 자바스크립트 작업 실행기.
+* [Can-Compile](http://daffl.github.io/can-compile/), CanJS 뷰를 하나의 자바스크립트 파일로 컴파일 함.
+* [grunt-shell](https://github.com/sindresorhus/grunt-shell), 외부 CLI 도구를 Grunt에서 쓰도록 도와줌.
+* [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch), 파일이 추가되거나, 변경되거나 삭제되면 그것을 감시하여 작업을 실행.
+* [grunt-uncss](https://github.com/addyosmani/grunt-uncss), 사용하지 않는 CSS를 제거해줌.
+* [time-grunt](https://github.com/sindresorhus/time-grunt), Grunt 작업의 소요시간을 보여줌.
 
 ### 서버 사이드
 * [Flask](http://flask.pocoo.org/), 가벼운 파이썬 프레임워크.
@@ -96,7 +102,6 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * [Celery](http://www.celeryproject.org/), 분산 메시지 전달 기반의 비동기 작업 queue/job 큐.
 
 ### 디버깅과 테스팅
-* [flask-debugtoolbar](http://flask-debugtoolbar.readthedocs.org/en/latest/), django-debug-toolbar를 플라스크 용으로 포팅한 디버깅 툴바.
 * [nose](https://nose.readthedocs.org/en/latest/index.html), 멋진 파이썬용 테스팅 도구.
 * [BusterJS](http://docs.busterjs.org/en/latest/#), 자바스크립트 테스팅 도구.
 

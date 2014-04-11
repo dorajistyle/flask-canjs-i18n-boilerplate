@@ -83,6 +83,13 @@ When you fix a critical problem.
 * [Jade(pyjade)](https://github.com/SyrusAkbary/pyjade), High performance port of Jade-lang for python.
 * [jQuery](http://jquery.com/), It is a fast, small, and feature-rich JavaScript library.
 * [jQuery BBQ](http://benalman.com/projects/jquery-bbq-plugin/), It leverages the HTML5 hashchange event to allow simple, yet powerful bookmarkable #hash history.
+* [Grunt](http://gruntjs.com/), The JavaScript Task Runner.
+* [Can-Compile](http://daffl.github.io/can-compile/), Compiles CanJS EJS and Mustache views into a single JavaScript file.
+* [grunt-shell](https://github.com/sindresorhus/grunt-shell), A good way to interact with other CLI tools.
+* [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch), Run predefined tasks whenever watched file patterns are added, changed or deleted..
+* [grunt-uncss](https://github.com/addyosmani/grunt-uncss), A grunt task for removing unused CSS from your projects.
+* [time-grunt](https://github.com/sindresorhus/time-grunt), Displays the execution time of grunt tasks.
+
 
 ### Server side
 * [Flask](http://flask.pocoo.org/), Microframework for Python based on Werkzeug, Jinja 2 and good intentions.
@@ -98,7 +105,6 @@ When you fix a critical problem.
 * [Celery](http://www.celeryproject.org/), Celery is an asynchronous task queue/job queue based on distributed message passing.
 
 ### Debugging & Testing
-* [flask-debugtoolbar](http://flask-debugtoolbar.readthedocs.org/en/latest/), It is a port of the excellent django-debug-toolbar for Flask applications.
 * [nose](https://nose.readthedocs.org/en/latest/index.html), It is nicer testing for python.
 * [BusterJS](http://docs.busterjs.org/en/latest/#), JavaScript testing toolkit.
 

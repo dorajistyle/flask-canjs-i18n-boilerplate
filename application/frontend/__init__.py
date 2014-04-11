@@ -11,7 +11,6 @@ from functools import wraps
 
 from flask import render_template
 from werkzeug.exceptions import InternalServerError, NotFound
-from flask_debugtoolbar import DebugToolbarExtension
 from application.core import babel
 from application import factory
 from application.helpers import JSONEncoder
@@ -32,8 +31,6 @@ def create_app(settings_override=None):
         # Init assets
         assets.init_app(app)
 
-    # Init debugToolbar
-    DebugToolbarExtension(app)
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     app.json_encoder = JSONEncoder
 
@@ -47,6 +44,12 @@ def create_app(settings_override=None):
         for e in [500, 404]:
             app.errorhandler(e)(handle_error)
 
+    @app.context_processor
+    def inject_default():
+        lang = babel.app.config['BABEL_DEFAULT_LOCALE']
+        this_year = datetime.now().year
+        return dict(lang=lang, this_year=this_year, static_guid=STATIC_GUID)
+
     return app
 
 
@@ -56,9 +59,7 @@ def handle_error(e):
     :param e:
     :return:
     """
-    lang=babel.app.config['BABEL_DEFAULT_LOCALE']
-    this_year=datetime.now().year
-    static_guid=STATIC_GUID
+
     if isinstance(e, InternalServerError) or isinstance(e, NotFound):
         return render_template('%s.jade' % e.code, error=e), e.code
     return render_template('500.jade'), 500

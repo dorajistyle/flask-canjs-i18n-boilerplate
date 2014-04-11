@@ -18,8 +18,6 @@ from application.api_v1 import login_required
 from application.form.users import RegistrationForm
 from werkzeug.datastructures import MultiDict
 from flask_social.utils import get_provider_or_404
-from datetime import datetime
-from application.properties import STATIC_GUID
 
 bp = Blueprint('main', __name__)
 
@@ -30,13 +28,10 @@ def change_locales(locale):
     refresh()
     return redirect('/', 302)
 
-def get_this_year():
-    return datetime.now().year
-
 # @cache.cached(timeout=86400, key_prefix='content')
 def get_content():
     current_app.logger.debug("get contents called")
-    return render_template('main.jade', lang=babel.app.config['BABEL_DEFAULT_LOCALE'], this_year=get_this_year(), static_guid=STATIC_GUID)
+    return render_template('main.jade')
 
 @route(bp, '/')
 def index():

@@ -15,9 +15,6 @@ _basedir = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = False
 
-# Flask-DebugToolbar
-DEBUG_TB_INTERCEPT_REDIRECTS = False
-
 # Flask-WTF
 #CSRF_ENABLED = False
 WTF_CSRF_ENABLED = False
@@ -36,6 +33,7 @@ DB_USER_ID = 'root'
 DB_USER_PASSWORD = ''
 DB_HOST_NAME = 'localhost'
 DB_NAME = 'fcib_dev'
+
 PERMANENT_SESSION_LIFETIME = timedelta(days=1000)
 DATABASE_QUERY_TIMEOUT = 0.7
 if DEBUG:

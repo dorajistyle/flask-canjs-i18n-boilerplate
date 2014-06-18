@@ -1,8 +1,8 @@
 /*!
- * CanJS - 2.0.5
+ * CanJS - 2.1.2
  * http://canjs.us/
  * Copyright (c) 2014 Bitovi
- * Tue, 04 Feb 2014 22:36:26 GMT
+ * Mon, 16 Jun 2014 20:44:18 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -136,13 +136,15 @@ define(["can/util/library", "can/map", "can/list", "can/util/string/deparam"], f
 			test = "",
 			lastIndex = matcher.lastIndex = 0,
 			next,
-			querySeparator = can.route._call("querySeparator");
+			querySeparator = can.route._call("querySeparator"),
+			matchSlashes = can.route._call("matchSlashes");
 
 		// res will be something like [":foo","foo"]
 		while (res = matcher.exec(url)) {
 			names.push(res[1]);
 			test += removeBackslash(url.substring(lastIndex, matcher.lastIndex - res[0].length));
-			next = "\\" + (removeBackslash(url.substr(matcher.lastIndex, 1)) || querySeparator);
+			// if matchSlashes is false (the default) don't greedily match any slash in the string, assume its part of the URL
+			next = "\\" + (removeBackslash(url.substr(matcher.lastIndex, 1)) || querySeparator+(matchSlashes? "": "|/"));
 			// a name without a default value HAS to have a value
 			// a name that has a default value can be empty
 			// The `\\` is for string-escaping giving single `\` for `RegExp` escaping.
@@ -355,6 +357,18 @@ define(["can/util/library", "can/map", "can/list", "can/util/string/deparam"], f
 		 * A can.Map that represents the state of the history.
 		 */
 		data: new can.Map({}),
+		map: function(data){
+			var appState;
+			// appState is a can.Map constructor function
+			if(data.prototype instanceof can.Map){
+				appState = new data();
+			}
+			// appState is an instance of can.Map
+			else {
+				appState = data;
+			}
+			can.route.data = appState;
+		},
 		/**
 		 * @property {Object} routes
 		 * @hide
@@ -521,6 +535,8 @@ define(["can/util/library", "can/map", "can/list", "can/util/string/deparam"], f
 			hashchange: {
 				paramsMatcher: paramsMatcher,
 				querySeparator: "&",
+				// don't greedily match slashes in routing rules
+				matchSlashes: false,
 				bind: function () {
 					can.bind.call(window, 'hashchange', setState);
 				},
@@ -577,7 +593,7 @@ define(["can/util/library", "can/map", "can/list", "can/util/string/deparam"], f
 				prop = args.shift(),
 				binding = can.route.bindings[can.route.currentBinding || can.route.defaultBinding],
 				method = binding[prop];
-			if (typeof method === "function") {
+			if (method.apply) {
 				return method.apply(binding, args);
 			} else {
 				return method;
@@ -632,12 +648,20 @@ define(["can/util/library", "can/map", "can/list", "can/util/string/deparam"], f
 	// if the data is changing or the hash already matches the hash that was set.
 	setState = can.route.setState = function () {
 		var hash = can.route._call("matchingPartOfURL");
+		var oldParams = curParams;
 		curParams = can.route.deparam(hash);
 
 		// if the hash data is currently changing, or
 		// the hash is what we set it to anyway, do NOT change the hash
 		if (!changingData || hash !== lastHash) {
-			can.route.attr(curParams, true);
+			can.batch.start();
+			for(var attr in oldParams){
+				if(!curParams[attr]){
+					can.route.removeAttr(attr);
+				}
+			}
+			can.route.attr(curParams);
+			can.batch.stop();
 		}
 	};
 

@@ -1,17 +1,40 @@
 /*!
- * CanJS - 2.0.5
+ * CanJS - 2.1.2
  * http://canjs.us/
  * Copyright (c) 2014 Bitovi
- * Tue, 04 Feb 2014 22:36:26 GMT
+ * Mon, 16 Jun 2014 20:44:18 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
  */
 define(["can/util/library", "can/list"], function (can) {
+
+	// Change bubble rule to bubble on change if their is a comparator
+	var oldBubbleRule = can.List._bubbleRule;
+	can.List._bubbleRule = function(eventName, list) {
+		if(list.comparator) {
+			return "change";
+		}
+		return oldBubbleRule.apply(this, arguments);
+	};
+	if(can.Model) {
+		var oldModelListBubble = can.Model.List._bubbleRule;
+		can.Model.List._bubbleRule = function(eventName, list){
+			if(list.comparator) {
+				return "change";
+			}
+			return oldModelListBubble.apply(this, arguments);
+		};
+	}
+		
 	var proto = can.List.prototype,
 		_changes = proto._changes,
 		setup = proto.setup;
+
+	//Add `move` as an event that lazy-bubbles
+
 	// extend the list for sorting support
+
 	can.extend(proto, {
 		comparator: undefined,
 		sortIndexes: [],

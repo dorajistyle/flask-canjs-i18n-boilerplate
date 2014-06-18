@@ -15,9 +15,15 @@ module.exports = function (grunt) {
       }
     },
     cancompile: {
+        options: {
+            version: '2.1.2',
+            wrapper: 'define(["can/view/mustache"], function(can) { {{{content}}} });'
+        },
         dist: {
             src: [static_path+'/views/**/*.mustache'],
             out: static_path+'/js/views.build.js',
+            dest: static_path+'/js/views.build.js',
+            version: '2.1.2',
             wrapper: 'define(["can/view/mustache"], function(can) { {{{content}}} });'
         }
     },

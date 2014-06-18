@@ -1,13 +1,13 @@
 /*!
- * CanJS - 2.0.5
+ * CanJS - 2.1.2
  * http://canjs.us/
  * Copyright (c) 2014 Bitovi
- * Tue, 04 Feb 2014 22:36:26 GMT
+ * Mon, 16 Jun 2014 20:44:18 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
  */
-define(["can/util/library", "can/map"], function (can, Map) {
+define(["can/util/library", "can/map", "can/map/bubble"], function (can, Map, bubble) {
 
 	// Helpers for `observable` lists.
 	var splice = [].splice,
@@ -21,10 +21,11 @@ define(["can/util/library", "can/map"], function (can, Map) {
 			splice.call(obj, 0, 1);
 			return !obj[0];
 		})();
+
 	/**
 	 * @add can.List
 	 */
-	var list = Map(
+	var list = Map.extend(
 		/**
 		 * @static
 		 */
@@ -96,6 +97,7 @@ define(["can/util/library", "can/map"], function (can, Map) {
 				this.length = 0;
 				can.cid(this, ".map");
 				this._init = 1;
+				this._setupComputes();
 				instances = instances || [];
 				var teardownMapping;
 
@@ -119,28 +121,47 @@ define(["can/util/library", "can/map"], function (can, Map) {
 
 				Map.prototype._triggerChange.apply(this, arguments);
 				// `batchTrigger` direct add and remove events...
-				if (!~attr.indexOf('.')) {
+				var index = +attr;
+				// Make sure this is not nested and not an expando
+				if (!~attr.indexOf('.') && !isNaN(index)) {
 
 					if (how === 'add') {
-						can.batch.trigger(this, how, [newVal, +attr]);
+						can.batch.trigger(this, how, [newVal, index]);
 						can.batch.trigger(this, 'length', [this.length]);
 					} else if (how === 'remove') {
-						can.batch.trigger(this, how, [oldVal, +attr]);
+						can.batch.trigger(this, how, [oldVal, index]);
 						can.batch.trigger(this, 'length', [this.length]);
 					} else {
-						can.batch.trigger(this, how, [newVal, +attr]);
+						can.batch.trigger(this, how, [newVal, index]);
 					}
 
 				}
 
 			},
 			__get: function (attr) {
-				return attr ? this[attr] : this;
+				if (attr) {
+					if (this[attr] && this[attr].isComputed && can.isFunction(this.constructor.prototype[attr])) {
+						return this[attr]();
+					} else {
+						return this[attr];
+					}
+				} else {
+					return this;
+				}
 			},
 			___set: function (attr, val) {
 				this[attr] = val;
 				if (+attr >= this.length) {
 					this.length = (+attr + 1);
+				}
+			},
+			_remove: function(prop, current) {
+				// if removing an expando property
+				if(isNaN(+prop)) {
+					delete this[prop];
+					this._triggerChange(prop, "remove", undefined, current);
+				} else {
+					this.splice(prop, 1);
 				}
 			},
 			_each: function (callback) {
@@ -149,7 +170,6 @@ define(["can/util/library", "can/map"], function (can, Map) {
 					callback(data[i], i);
 				}
 			},
-			_bindsetup: Map.helpers.makeBindSetup("*"),
 			// Returns the serialized form of this list.
 			/**
 			 * @hide
@@ -260,18 +280,26 @@ define(["can/util/library", "can/map"], function (can, Map) {
 			 */
 			splice: function (index, howMany) {
 				var args = can.makeArray(arguments),
-					i;
-
+					added =[],
+					i, j;
 				for (i = 2; i < args.length; i++) {
-					var val = args[i];
-					if (Map.helpers.canMakeObserve(val)) {
-						args[i] = Map.helpers.hookupBubble(val, "*", this, this.constructor.Map, this.constructor);
-					}
+					args[i] = bubble.set(this, i, this.__type(args[i], i) );
+					added.push(args[i]);
 				}
 				if (howMany === undefined) {
 					howMany = args[1] = this.length - index;
 				}
-				var removed = splice.apply(this, args);
+				var removed = splice.apply(this, args),
+					cleanRemoved = removed;
+
+				// remove any items that were just added from the removed array
+				if(added.length && removed.length){
+					for (j = 0; j < removed.length; j++) {
+						if(can.inArray(removed[j], added) >= 0) {
+							cleanRemoved.splice(j, 1);
+						}
+					}
+				}
 
 				if (!spliceRemovesProps) {
 					for (i = this.length; i < removed.length + this.length; i++) {
@@ -282,7 +310,7 @@ define(["can/util/library", "can/map"], function (can, Map) {
 				can.batch.start();
 				if (howMany > 0) {
 					this._triggerChange("" + index, "remove", undefined, removed);
-					Map.helpers.unhookup(removed, this);
+					bubble.removeMany(this, removed);
 				}
 				if (args.length > 2) {
 					this._triggerChange("" + index, "add", args.slice(2), removed);
@@ -566,7 +594,7 @@ define(["can/util/library", "can/map"], function (can, Map) {
 					var curVal = this[prop],
 						newVal = items[prop];
 
-					if (Map.helpers.canMakeObserve(curVal) && Map.helpers.canMakeObserve(newVal)) {
+					if (Map.helpers.isObservable(curVal) && Map.helpers.canMakeObserve(newVal)) {
 						curVal.attr(newVal, remove);
 						//changed from a coercion to an explicit
 					} else if (curVal !== newVal) {
@@ -630,8 +658,8 @@ define(["can/util/library", "can/map"], function (can, Map) {
 			 *
 			 * ## See also
 			 *
-			 * `push` has a counterpart in [can.List.pop pop], or you may be
-			 * looking for [can.List.unshift unshift] and its counterpart [can.List.shift shift].
+			 * `push` has a counterpart in [can.List::pop pop], or you may be
+			 * looking for [can.List::unshift unshift] and its counterpart [can.List::shift shift].
 			 */
 			push: "length",
 			/**
@@ -672,8 +700,8 @@ define(["can/util/library", "can/map"], function (can, Map) {
 			 *
 			 * ## See also
 			 *
-			 * `unshift` has a counterpart in [can.List.shift shift], or you may be
-			 * looking for [can.List.push push] and its counterpart [can.List.pop pop].
+			 * `unshift` has a counterpart in [can.List::shift shift], or you may be
+			 * looking for [can.List::push push] and its counterpart [can.List::pop pop].
 			 */
 			unshift: 0
 		},
@@ -693,9 +721,7 @@ define(["can/util/library", "can/map"], function (can, Map) {
 				// Go through and convert anything to an `map` that needs to be converted.
 				while (i--) {
 					val = arguments[i];
-					args[i] = Map.helpers.canMakeObserve(val) ?
-						Map.helpers.hookupBubble(val, "*", this, this.constructor.Map, this.constructor) :
-						val;
+					args[i] = bubble.set(this, i, this.__type(val, i) );
 				}
 
 				// Call the original method.
@@ -742,8 +768,8 @@ define(["can/util/library", "can/map"], function (can, Map) {
 			 *
 			 * ## See also
 			 *
-			 * `pop` has its counterpart in [can.List.push push], or you may be
-			 * looking for [can.List.unshift unshift] and its counterpart [can.List.shift shift].
+			 * `pop` has its counterpart in [can.List::push push], or you may be
+			 * looking for [can.List::unshift unshift] and its counterpart [can.List::shift shift].
 			 */
 			pop: "length",
 			/**
@@ -756,7 +782,7 @@ define(["can/util/library", "can/map"], function (can, Map) {
 			 * @return {*} the element just shifted off the List, or `undefined` if the List is empty
 			 *
 			 * @body
-			 * `shift` is the opposite action from `[can.List.unshift unshift]`:
+			 * `shift` is the opposite action from `[can.List::unshift unshift]`:
 			 *
 			 * @codestart
 			 * var list = new can.List(['Alice']);
@@ -777,8 +803,8 @@ define(["can/util/library", "can/map"], function (can, Map) {
 			 *
 			 * ## See also
 			 *
-			 * `shift` has a counterpart in [can.List.unshift unshift], or you may be
-			 * looking for [can.List.push push] and its counterpart [can.List.pop pop].
+			 * `shift` has a counterpart in [can.List::unshift unshift], or you may be
+			 * looking for [can.List::push push] and its counterpart [can.List::pop pop].
 			 */
 			shift: 0
 		},
@@ -799,8 +825,9 @@ define(["can/util/library", "can/map"], function (can, Map) {
 				this._triggerChange("" + len, "remove", undefined, [res]);
 
 				if (res && res.unbind) {
-					can.stopListening.call(this, res, "change");
+					bubble.remove(this, res);
 				}
+				
 				return res;
 			};
 		});
@@ -880,7 +907,10 @@ define(["can/util/library", "can/map"], function (can, Map) {
 		 * list === reversedList; // true
 		 * @codeend
 		 */
-		reverse: [].reverse,
+		reverse: function() {
+			var list = can.makeArray([].reverse.call(this));
+			this.replace(list);
+		},
 
 		/**
 		 * @function can.List.prototype.slice slice
@@ -1003,7 +1033,7 @@ define(["can/util/library", "can/map"], function (can, Map) {
 		 * ## Events
 		 *
 		 * A major difference between `replace` and `attr(newElements, true)` is that `replace` always emits
-		 * an_add_ event and a _remove_ event, whereas `attr` will cause _set_ events along an _add_ or _remove_
+		 * an _add_ event and a _remove_ event, whereas `attr` will cause _set_ events along with an _add_ or _remove_
 		 * event if needed. Corresponding _change_ and _length_ events will be fired as well.
 		 *
 		 * The differences in the events fired by `attr` and `replace` are demonstrated concretely by this example:
@@ -1042,6 +1072,18 @@ define(["can/util/library", "can/map"], function (can, Map) {
 			}
 
 			return this;
+		},
+		filter: function (callback, thisArg) {
+			var filteredList = new can.List(),
+				self = this,
+				filtered;
+			this.each(function(item, index, list){
+				filtered = callback.call( thisArg | self, item, index, self);
+				if(filtered){
+					filteredList.push(item);
+				}
+			});
+			return filteredList;
 		}
 	});
 	can.List = Map.List = list;

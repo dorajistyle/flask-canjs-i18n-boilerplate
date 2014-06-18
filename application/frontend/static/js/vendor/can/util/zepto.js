@@ -1,13 +1,16 @@
 /*!
- * CanJS - 2.0.5
+ * CanJS - 2.1.2
  * http://canjs.us/
  * Copyright (c) 2014 Bitovi
- * Tue, 04 Feb 2014 22:36:26 GMT
+ * Mon, 16 Jun 2014 20:44:18 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
  */
-define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "can/util/fragment", "can/util/deferred", "can/util/array/each", "can/util/inserted"], function (can) {
+define(["can/util/can", "can/util/attr", "can/event", "zepto", "can/util/object/isplain", "can/util/fragment", "can/util/deferred", "can/util/array/each", "can/util/inserted"], function (can, attr, event) {
+		// data.js
+		// ---------
+		// _jQuery-like data methods._
 		var $ = Zepto;
 
 		// data.js
@@ -42,9 +45,8 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 				});
 		};
 		$.cleanData = function (elems) {
-			var i, elem;
 			// trigger all the events ... then remove the data
-			for (i = 0;
+			for (var i = 0, elem;
 				(elem = elems[i]) !== undefined; i++) {
 				can.trigger(elem, "removed", [], false);
 			}
@@ -64,7 +66,8 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 		// Extend what you can out of Zepto.
 		$.extend(can, Zepto);
 		can.each = oldEach;
-
+		can.attr = attr;
+		can.event = event;
 		var arrHas = function (obj, name) {
 			return obj[0] && obj[0][name] || obj[name];
 		};
@@ -89,7 +92,7 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 					};
 				}
 				event.target = event.target || obj;
-				can.dispatch.call(obj, event, args);
+				can.dispatch.call(obj, event, can.makeArray(args));
 			}
 
 		};
@@ -98,7 +101,7 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 
 		can.bind = function (ev, cb) {
 			// If we can bind to it...
-			if (this.bind) {
+			if (this.bind && this.bind !== can.bind) {
 				this.bind(ev, cb);
 			} else if (arrHas(this, "addEventListener")) {
 				$([this])
@@ -110,7 +113,7 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 		};
 		can.unbind = function (ev, cb) {
 			// If we can bind to it...
-			if (this.unbind) {
+			if (this.unbind && this.unbind !== can.unbind) {
 				this.unbind(ev, cb);
 			} else if (arrHas(this, "addEventListener")) {
 				$([this])
@@ -126,19 +129,31 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 		can.off = can.unbind;
 
 		can.delegate = function (selector, ev, cb) {
-			if (this.delegate) {
+			if (!selector) {
+				// Zepto fails with no selector
+				can.bind.call(this, ev, cb);
+			} else if (this.delegate) {
 				this.delegate(selector, ev, cb);
-			} else {
+			} else if (arrHas(this, "addEventListener")) {
 				$([this])
 					.delegate(selector, ev, cb);
+			} else {
+				// Make it bind-able...
+				can.addEvent.call(this, ev, cb);
 			}
 		};
 		can.undelegate = function (selector, ev, cb) {
-			if (this.undelegate) {
+			if (!selector) {
+				// Zepto fails with no selector
+				can.unbind.call(this, ev, cb);
+			} else if (this.undelegate) {
 				this.undelegate(selector, ev, cb);
-			} else {
+			} else if (arrHas(this, "addEventListener")) {
 				$([this])
 					.undelegate(selector, ev, cb);
+			} else {
+				// Make it bind-able...
+				can.removeEvent.call(this, ev, cb);
 			}
 		};
 
@@ -151,9 +166,19 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 
 		can.makeArray = function (arr) {
 			var ret = [];
+
+			if(arr == null) {
+				return [];
+			}
+
+			if(arr.length === undefined || typeof arr === 'string') {
+				return [arr];
+			}
+
 			can.each(arr, function (a, i) {
 				ret[i] = a;
 			});
+
 			return ret;
 		};
 
@@ -239,13 +264,10 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 		can.trim = function (str) {
 			return str.trim();
 		};
-
 		can.isEmptyObject = function (object) {
 			var name;
-			for (name in object) {
-				return false;
-			}
-			return true;
+			for (name in object) {}
+			return name === undefined;
 		};
 
 		// Make extend handle `true` for deep.
@@ -288,6 +310,67 @@ define(["can/util/can", "zepto", "can/util/object/isplain", "can/util/event", "c
 				return ret;
 			};
 		});
+
+		// Setup attributes events
+
+		// turn off mutation events for zepto
+		delete attr.MutationObserver;
+
+		var oldAttr = $.fn.attr;
+		$.fn.attr = function (attrName, value) {
+			var isString = typeof attrName === "string",
+				oldValue,
+				newValue;
+			if (value !== undefined && isString) {
+				oldValue = oldAttr.call(this, attrName);
+			}
+			var res = oldAttr.apply(this, arguments);
+			if (value !== undefined && isString) {
+				newValue = oldAttr.call(this, attrName);
+			}
+			if (newValue !== oldValue) {
+				can.attr.trigger(this[0], attrName, oldValue);
+			}
+			return res;
+		};
+		var oldRemove = $.fn.removeAttr;
+		$.fn.removeAttr = function (attrName) {
+			var oldValue = oldAttr.call(this, attrName),
+				res = oldRemove.apply(this, arguments);
+
+			if (oldValue != null) {
+				can.attr.trigger(this[0], attrName, oldValue);
+			}
+			return res;
+		};
+
+		var oldBind = $.fn.bind,
+			oldUnbind = $.fn.unbind;
+
+		$.fn.bind = function (event) {
+			if (event === "attributes") {
+				this.each(function () {
+					var el = can.$(this);
+					can.data(el, "canHasAttributesBindings", (can.data(el, "canHasAttributesBindings") || 0) + 1);
+				});
+			}
+			return oldBind.apply(this, arguments);
+		};
+
+		$.fn.unbind = function (event) {
+			if (event === "attributes") {
+				this.each(function () {
+					var el = can.$(this),
+						cur = can.data(el, "canHasAttributesBindings") || 0;
+					if (cur <= 0) {
+						can.data(el, "canHasAttributesBindings", 0);
+					} else {
+						can.data(el, "canHasAttributesBindings", cur - 1);
+					}
+				});
+			}
+			return oldUnbind.apply(this, arguments);
+		};
 
 		return can;
 	});

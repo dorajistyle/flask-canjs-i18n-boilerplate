@@ -1,8 +1,8 @@
 /*!
- * CanJS - 2.0.5
+ * CanJS - 2.1.2
  * http://canjs.us/
  * Copyright (c) 2014 Bitovi
- * Tue, 04 Feb 2014 22:36:26 GMT
+ * Mon, 16 Jun 2014 20:44:18 GMT
  * Licensed MIT
  * Includes: CanJS default build
  * Download from: http://canjs.us/
@@ -102,7 +102,10 @@ define(["can/util/library"], function (can) {
 			return compares(a, b, aParent, bParent);
 		}
 		compares = compares || {};
-		if (a instanceof Date) {
+		if (a === null || b === null) {
+			return a === b;
+		}
+		if (a instanceof Date || b instanceof Date) {
 			return a === b;
 		}
 		if (deep === -1) {
@@ -208,7 +211,15 @@ define(["can/util/library"], function (can) {
 			return ('' + a)
 				.toLowerCase() === ('' + b)
 				.toLowerCase();
+		},
+		eq: function(a, b) {
+			return a === b;
+		},
+		similar: function(a, b) {
+			/*jshint eqeqeq:false */
+			return a == b;
 		}
 	};
+	compareMethods.eqeq = compareMethods.similar;
 	return can.Object;
 });

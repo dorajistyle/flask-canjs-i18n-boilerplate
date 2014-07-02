@@ -55,10 +55,6 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * 더 많은 기능을 윈하신다면, 함께 만들어 가요! :D
 
 
-## 써보기
-[http://flask-canjs-i18n-boilerplate.hp.af.cm/](http://flask-canjs-i18n-boilerplate.hp.af.cm/)
-* Facebook 연결은 동작하지 않습니다. 페이스북에서 서버 URL을 위험한 사이트 URL로 인식해서 그렇습니다.
-
 ## 어떻게 동작하나요?
 
 ![flask-canjs-i18n-boilerplate](https://f.cloud.github.com/assets/1202809/914493/b584032c-fe3b-11e2-83c0-05b83e8959ba.png)

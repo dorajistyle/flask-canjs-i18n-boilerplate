@@ -56,10 +56,6 @@ When you fix a critical problem.
 * Do you need more Features? Fork it and improve it! :D
 
 
-## Live application
-[http://flask-canjs-i18n-boilerplate.hp.af.cm/](http://flask-canjs-i18n-boilerplate.hp.af.cm/)
-* Facebook connection not available. Because Facebook said 'Site URL has been been identified as malicious and/or abusive'.
-
 ## How it works?
 
 ![flask-canjs-i18n-boilerplate](https://f.cloud.github.com/assets/1202809/914493/b584032c-fe3b-11e2-83c0-05b83e8959ba.png)

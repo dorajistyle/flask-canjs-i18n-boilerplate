@@ -14,7 +14,8 @@
         "spin": "spin.min",
         "google-analytics": "empty:",
         "placeholders": "Placeholders.min",
-        "jquery.bootstrap": "bootstrap.min",
+        "jquery.bootstrap": "empty:",
+//        "jquery.bootstrap": "bootstrap.min",
         "jquery.typeahead": "typeahead.min",
         "jquery.ba-bbq": "jquery.ba-bbq.min",
         "settings": "../settings"

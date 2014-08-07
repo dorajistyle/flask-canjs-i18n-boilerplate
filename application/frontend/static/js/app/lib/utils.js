@@ -332,7 +332,7 @@ define(['loglevel', 'i18n', 'can', 'settings', 'app/components/navbar'], functio
                     // Unauthorized
 //                    can.route.attr('route', 'login');
                     Navbar.load();
-                    utils.showErrorMsg(i18n.t('error.loginPlease'));
+//                    utils.showErrorMsg(i18n.t('error.loginPlease'));
                     $(settings.app_div_id).html(can.view('views_share_error_mustache', {}));
                     utils.replaceHash('login');
                     break;

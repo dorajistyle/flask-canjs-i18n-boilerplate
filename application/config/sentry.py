@@ -1,0 +1,2 @@
+# GetSentry
+SENTRY_DSN = ''

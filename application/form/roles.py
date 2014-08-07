@@ -8,15 +8,15 @@
 
 """
 
-from wtforms import TextField
+from wtforms import StringField
 from wtforms.validators import Required
 from application.form import Form
 
 
 class RoleForm(Form):
     """The role form"""
-    name = TextField('name', [Required()])
-    description = TextField('description')
+    name = StringField('name', [Required()])
+    description = StringField('description')
 
     def __init__(self, *args, **kwargs):
         super(RoleForm, self).__init__(*args, **kwargs)

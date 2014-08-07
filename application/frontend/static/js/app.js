@@ -1,5 +1,5 @@
 require.config({
-    "baseUrl": "../static/2f5ff8e3666d4f59996d18805430bc3d/js",
+//    "baseUrl": "../static/bfb41b62d4ef4d949620c689af1d19e6/js",
     "paths": {
         "utils": "app/lib/utils",
         "refresh": "app/lib/refresh",
@@ -14,7 +14,7 @@ require.config({
         "spin": "vendor/spin.min",
         "placeholders": "vendor/Placeholders.min",
         "jquery.bootstrap": [
-            "//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min",
+            "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min",
             "vendor/bootstrap.min"
         ],
         "jquery.typeahead": "vendor/typeahead.min",

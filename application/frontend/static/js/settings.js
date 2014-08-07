@@ -1,12 +1,18 @@
 define([], function () {
     'use strict';
     var exports = {};
+    var require_to_url = require.toUrl('');
+    var js_path = '..'+require_to_url;
+    if(/^http(.)*:\/\//.test(require_to_url)) {
+        js_path = require_to_url;
+    }
+    exports.static_root = js_path.toString().substring(0,js_path.length-4).toString();
     exports.i18n_options = {debug: true,
                             getAsync: true,
                             useLocalStorage: false,
                             localStorageExpirationTime: 86400000,
                             fallbackLng: 'en',
-                            resGetPath: '../static/2f5ff8e3666d4f59996d18805430bc3d/locales/__lng__/__ns__.json'};
+                            resGetPath: exports.static_root+'/locales/__lng__/__ns__.json'};
     exports.api_path = '/api/v1';
     exports.use_logger = true;
     exports.app_div_id = '#app';

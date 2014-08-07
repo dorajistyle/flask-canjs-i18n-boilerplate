@@ -15,7 +15,7 @@ from application.core import babel
 from application import factory
 from application.helpers import JSONEncoder
 from application.frontend import assets
-from application.properties import STATIC_FOLDER, STATIC_FOLDER_DEBUG, STATIC_GUID
+from application.properties import STATIC_FOLDER, STATIC_FOLDER_DEBUG, STATIC_GUID, STATIC_FOLDER_PATH
 from datetime import datetime
 
 def create_app(settings_override=None):
@@ -48,7 +48,7 @@ def create_app(settings_override=None):
     def inject_default():
         lang = babel.app.config['BABEL_DEFAULT_LOCALE']
         this_year = datetime.now().year
-        return dict(lang=lang, this_year=this_year, static_guid=STATIC_GUID)
+        return dict(lang=lang, this_year=this_year, static_path=STATIC_FOLDER_PATH, static_guid=STATIC_GUID)
 
     return app
 

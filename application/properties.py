@@ -1,7 +1,10 @@
+from application.config.guid import GUID
+
 # Static Folder Path
-STATIC_GUID = '2f5ff8e3666d4f59996d18805430bc3d'
+STATIC_GUID = GUID
 STATIC_FOLDER = 'static-build'
 STATIC_FOLDER_DEBUG = 'static'
+STATIC_FOLDER_PATH = '/static'
 
 # API path
 API_PATH = '/api/v1'

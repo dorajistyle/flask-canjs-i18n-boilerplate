@@ -2,31 +2,43 @@ if not lang
   lang = 'ko'
 !!! 5
 //if lt IE 7
-  <html class='no-js lt-ie9 lt-ie8 lt-ie7' lang='#{lang}'>
+  <html class='no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7' lang='#{lang}'>
 //if IE 7
-  <html class='no-js lt-ie9 lt-ie8' lang='#{lang}'>
+  <html class='no-js lt-ie10 lt-ie9 lt-ie8' lang='#{lang}'>
 //if IE 8
-  <html class='no-js lt-ie9' lang='#{lang}'>
-//[if gt IE 8]><!
-html.no-js(lang='#{lang}')
+  <html class='no-js lt-ie10 lt-ie9' lang='#{lang}'>
+//if IE 9
+  <html class='no-js lt-ie10' lang='#{lang}'>
+
+//[if gt IE 9]><!
+html.no-js(lang='#{lang}', xmlns:fb='http://ogp.me/ns/fb#')
   //<![endif]
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(name="google-site-verification", content="rws0V5anNsR5HoM3-E7C2-flwfOzDRMPyTiyQLtUugk")
     title {{ _('title') }}
     meta(name='description', content='')
-    meta(name='viewport', content='width=device-width')
-    link(rel='shortcut icon', href='/static/#{static_guid}/img/favicon.ico')
-    link(rel='stylesheet', href='/static/#{static_guid}/css/application.css')
+    meta(property='og:title', content='{{ _("title") }}')
+
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    link(rel='shortcut icon', href='#{static_path}/#{static_guid}/img/favicon.ico')
+    link(rel='stylesheet', href='#{static_path}/#{static_guid}/css/application.css')
+
     //if IE 7
-      <link rel="stylesheet" href="/static/#{static_guid}/css/bootstrap-ie7.min.css">
-      <link rel="stylesheet" href="/static/#{static_guid}/css/font-awesome-ie7.min.css">
-    link(rel='apple-touch-icon-precomposed', href='/static/#{static_guid}/img/apple/apple-touch-icon-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='57x57', href='/static/#{static_guid}/img/apple/apple-touch-icon-57x57-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/static/#{static_guid}/img/apple/apple-touch-icon-72x72-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/static/#{static_guid}/img/apple/apple-touch-icon-114x114-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/static/#{static_guid}/img/apple/apple-touch-icon-144x144-precomposed.png')
-    script(src='/static/#{static_guid}/js/vendor/html5-3.6-respond-1.1.0.min.js')
+      <link rel="stylesheet" href="#{static_path}/#{static_guid}/css/bootstrap-ie7.min.css">
+      <link rel="stylesheet" href="#{static_path}/#{static_guid}/css/font-awesome-ie7.min.css">
+    link(rel='apple-touch-icon-precomposed', href='#{static_path}/#{static_guid}/img/apple/apple-touch-icon-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='57x57', href='#{static_path}/#{static_guid}/img/apple/apple-touch-icon-57x57-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='#{static_path}/#{static_guid}/img/apple/apple-touch-icon-72x72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='#{static_path}/#{static_guid}/img/apple/apple-touch-icon-114x114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='#{static_path}/#{static_guid}/img/apple/apple-touch-icon-144x144-precomposed.png')
+    //if lt IE 9
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <link href="#{static_path}/#{static_guid}/js/vendor/respond-proxy.html" id="respond-proxy", rel="respond-proxy">
+      <link href="/cors/respond/respond.proxy.gif" id="respond-redirect", rel="respond-redirect">
+      <script src="/cors/respond/respond.proxy.js"></script>
   body
     //if lt IE 8
       p.chromeframe
@@ -36,17 +48,14 @@ html.no-js(lang='#{lang}')
         {{ _('to improve your experience') }}.
     //
     | {% include 'header.jade' %}
-    .container
+    .container.app-main
       .row
         | {% block content %}{% endblock %}
-    hr
-    .container
-      footer
-        | {% include 'footer.jade' %}
-    script(data-main='/static/#{static_guid}/js/app', src='/static/#{static_guid}/js/vendor/require.js')
-    script
-      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-      s.parentNode.insertBefore(g,s)}(document,'script'));
+    #fb-root
+    script(data-main='#{static_path}/#{static_guid}/js/app', src='#{static_path}/#{static_guid}/js/vendor/require.js')
+    //script
+    //  var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    //  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    //  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    //  s.parentNode.insertBefore(g,s)}(document,'script'));
 

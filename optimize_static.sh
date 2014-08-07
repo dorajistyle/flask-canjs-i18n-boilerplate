@@ -1,12 +1,18 @@
 #!/bin/sh
 guid=$(uuidgen | tr -d '\n-' | tr '[:upper:]' '[:lower:]')
+guid=${guid:0:8}
+today=$(date '+%Y%m%d')
+guid=$today'-'$guid
 #static_path="..\/application\/frontend\/static-build\/$guid"
-static_url="..\/static\/$guid"
+#static_url="..\/static\/$guid"
 echo "$guid"
-sed -i "s/^STATIC_GUID = .*/STATIC_GUID = '$guid'/" ./application/properties.py
-#sed -i "s/^    dir: .*/    dir: '$static_path',/" ./optimizer/build.js
-sed -i "s/^    \"baseUrl\": .*/    \"baseUrl\": \"$static_url\/js\",/" ./application/frontend/static/js/app.js
-sed -i "s/^                            resGetPath: .*/                            resGetPath: '$static_url\/locales\/__lng__\/__ns__.json'};/" ./application/frontend/static/js/settings.js
+extremely_very_old_guid=$(sed -n '/^VERY_OLD_GUID/ s/.*\= *//p' ./application/config/guid.py)
+sed -i "s/^EXTREMELY_VERY_OLD_GUID = .*/EXTREMELY_VERY_OLD_GUID = $extremely_very_old_guid/" ./application/config/guid.py
+very_old_guid=$(sed -n '/^OLD_GUID/ s/.*\= *//p' ./application/config/guid.py)
+sed -i "s/^VERY_OLD_GUID = .*/VERY_OLD_GUID = $very_old_guid/" ./application/config/guid.py
+old_guid=$(sed -n '/^GUID/ s/.*\= *//p' ./application/config/guid.py)
+sed -i "s/^OLD_GUID = .*/OLD_GUID = $old_guid/" ./application/config/guid.py
+sed -i "s/^GUID = .*/GUID = '$guid'/" ./application/config/guid.py
 cd './application/frontend/compiler/'
 grunt static
 grunt --gruntfile Gruntfile_uncss.js

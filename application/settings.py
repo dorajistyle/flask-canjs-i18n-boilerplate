@@ -11,9 +11,15 @@
 import os
 from datetime import timedelta
 from application.babel_helper import _
-_basedir = os.path.abspath(os.path.dirname(__file__))
+from application.config.debug_flag import DEBUG
+from application.config.database import *
+from application.config.celery import *
+from application.config.flask_cache import *
+from application.config.sentry import *
+from application.config.flask_mail import *
+from application.config.flask_social import *
 
-DEBUG = False
+_basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Flask-WTF
 #CSRF_ENABLED = False
@@ -28,42 +34,11 @@ SECRET_KEY = 'dorajistyle-flask-canjs-i18n-boilerplate-is-the-grand'
 #PERMANENT_SESSION_LIFETIME = timedelta(seconds=10)
 #session.permanent = True
 
-DB_TYPE = 'mysql'
-DB_USER_ID = 'root'
-DB_USER_PASSWORD = ''
-DB_HOST_NAME = 'localhost'
-DB_NAME = 'fcib_dev'
-
 PERMANENT_SESSION_LIFETIME = timedelta(days=1000)
-DATABASE_QUERY_TIMEOUT = 0.7
 if DEBUG:
     #SQLALCHEMY_ECHO = True
     SQLALCHEMY_RECORD_QUERIES = True
     DATABASE_QUERY_TIMEOUT = 0.5
-SQLALCHEMY_DATABASE_URI = DB_TYPE+'://'+DB_USER_ID+':'+DB_USER_PASSWORD+'@'+DB_HOST_NAME+'/'+DB_NAME
-
-# Celery
-CELERY_BROKER_URL = 'redis://'
-CELERY_RESULT_BACKEND = 'amqp://'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Seoul'
-CELERY_ENABLE_UTC = True
-
-# Flask-Cache Cache Type
-CACHE_TYPE = 'simple'
-
-# GetSentry
-SENTRY_DSN = ''
-
-# Flask-Mail Setting
-MAIL_DEFAULT_SENDER = 'no-reply@myservice.com'
-# MAIL_SERVER = 'smtp.googlemail.com'
-# MAIL_PORT = 465
-MAIL_USE_TLS = False
-MAIL_USE_SSL = True
-# MAIL_USERNAME = 'user@mail.com'
-# MAIL_PASSWORD = 'my-password'
 
 # Flask-Security Setting
 SECURITY_EMAIL_SENDER = 'no-reply@myservice.com'
@@ -137,23 +112,4 @@ SECURITY_FORGOT_PASSWORD_TEMPLATE = 'security/forgot_password.jade'
 SECURITY_RESET_PASSWORD_TEMPLATE = 'security/reset_password.jade'
 SECURITY_SEND_CONFIRMATION_TEMPLATE = 'security/send_confirmation.jade'
 
-# Flask-Social Setting
-SOCIAL_TWITTER = {
-    'consumer_key': 'twitter app id',
-    'consumer_secret': 'twitter app secret'
-}
-SOCIAL_FACEBOOK = {
-    'consumer_key': 'facebook app id',
-    'consumer_secret': 'facebook app secret',
-    'request_token_params': {
-        'scope': 'email,publish_actions'
-    }
-}
-SOCIAL_FOURSQUARE = {
-    'consumer_key': 'foursquare app id',
-    'consumer_secret': 'foursquare app secret'
-}
-SOCIAL_GOOGLE = {
-    'consumer_key': 'google app id',
-    'consumer_secret': 'google app secret'
-}
+

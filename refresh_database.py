@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import os
-from application.settings import DB_USER_ID, DB_USER_PASSWORD, DB_HOST_NAME, DB_HOST_PORT, DB_NAME
+# from application.settings import DB_USER_ID, DB_USER_PASSWORD, DB_HOST_NAME, DB_HOST_PORT, DB_NAME
 
 os.system('pip2 install -r requirements.txt')
 # os.system('mysqladmin -u'+str(DB_USER_ID)+' -h'+DB_HOST_NAME+' -P'+DB_HOST_PORT+' -p'+DB_USER_PASSWORD+' drop '+str(DB_NAME))

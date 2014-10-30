@@ -1,16 +1,16 @@
 <div>
     <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                  <span class="fa fa-bar"></span>
-                  <span class="fa fa-bar"></span>
-                  <span class="fa fa-bar"></span>
-                </button>
+                <div>
+                    <button id="navbar-toggle-btn" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <i class="fa fa-bars fa-lg white"></i>
+                    </button>
+                </div>
                 <a href="/#!" title="{{i18n 'service.name'}}" class="navbar-brand">
                     <i class="fa fa-home"></i>&nbsp; {{i18n 'service.name'}}
                 </a>
 
-                <div class="nav-collapse collapse navbar-responsive-collapse">
+                <div id="navbar-responsive-collapse" class="nav-collapse collapse">
                     <ul class="nav navbar-nav pull-right">
                         {{#data}}
                             {{^user}}

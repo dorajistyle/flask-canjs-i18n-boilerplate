@@ -693,7 +693,7 @@ function(){ return can.Mustache.renderPartial('views_share_user_list',scope,opti
 ___v1ew.push(
 "\n");; return ___v1ew.join('') }));
 can.view.preloadStringRenderer('views_navbar_mustache',can.Mustache(function(scope,options) { var ___v1ew = [];___v1ew.push(
-"<div>\n    <div class=\"navbar navbar-inverse navbar-fixed-top\">\n            <div class=\"container\">\n                <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-responsive-collapse\">\n                  <span class=\"fa fa-bar\"></span>\n                  <span class=\"fa fa-bar\"></span>\n                  <span class=\"fa fa-bar\"></span>\n                </button>\n                <a href=\"/#!\" title=\"");___v1ew.push(
+"<div>\n    <div class=\"navbar navbar-inverse navbar-fixed-top\">\n            <div class=\"container\">\n                <div>\n                    <button id=\"navbar-toggle-btn\" type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-responsive-collapse\">\n                        <i class=\"fa fa-bars fa-lg white\"></i>\n                    </button>\n                </div>\n                <a href=\"/#!\" title=\"");___v1ew.push(
 can.view.txt(
 true,
 'a',
@@ -712,7 +712,7 @@ this,
 can.Mustache.txt(
 {scope:scope,options:options},
 null,{get:"i18n"},'service.name')));___v1ew.push(
-"\n                </a>\n                <div class=\"nav-collapse collapse navbar-responsive-collapse\">\n                    <ul class=\"nav navbar-nav pull-right\">");___v1ew.push(
+"\n                </a>\n                <div id=\"navbar-responsive-collapse\" class=\"nav-collapse collapse\">\n                    <ul class=\"nav navbar-nav pull-right\">");___v1ew.push(
 "\n");___v1ew.push(
 can.view.txt(
 0,
@@ -891,7 +891,7 @@ this,
 can.Mustache.txt(
 {scope:scope,options:options},
 null,{get:"i18n"},'navbar.korean')));___v1ew.push(
-"</a>\n                                </li>\n                            </ul>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n    </div>\n</div>");; return ___v1ew.join('') }));
+"</a>\n                                </li>\n                            </ul>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n    </div>\n</div>\n");; return ___v1ew.join('') }));
 can.view.preloadStringRenderer('views_setting_basic_mustache',can.Mustache(function(scope,options) { var ___v1ew = [];___v1ew.push(
 can.view.txt(
 0,

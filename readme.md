@@ -115,10 +115,12 @@ When you fix a critical problem.
 
 1. Install [Docker](https://docs.docker.com/installation/).
 2. Pull docker image from [Docker Hub](https://registry.hub.docker.com/u/dorajistyle/flask-canjs-i18n-boilerplate/).
+
     ```bash
     docker pull dorajistyle/flask-canjs-i18n-boilerplate
     ```
 3. Run Docker image.
+
     ```bash
     $ docker run -d -p 5544:5000 dorajistyle/flask-canjs-i18n-boilerplate
     ```

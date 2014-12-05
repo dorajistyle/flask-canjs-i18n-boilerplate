@@ -112,10 +112,12 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 
 1. [Docker](https://docs.docker.com/installation/) 설치.
 2. [Docker Hub](https://registry.hub.docker.com/u/dorajistyle/flask-canjs-i18n-boilerplate/)에서 이미지 설치.
+
     ```bash
     docker pull dorajistyle/flask-canjs-i18n-boilerplate
     ```
 3. Docker 이미지 실행.
+
     ```bash
     $ docker run -d -p 5544:5000 dorajistyle/flask-canjs-i18n-boilerplate
     ```

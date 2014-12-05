@@ -111,30 +111,45 @@ When you fix a critical problem.
 
 ## Installation
 
-### Install tools
+### Install with docker.
+
+1. Install [Docker](https://docs.docker.com/installation/).
+2. Clone the [flask-canjs-i18n-boilerplate](https://github.com/dorajistyle/flask-canjs-i18n-boilerplate.git)
+    $ git clone https://github.com/dorajistyle/flask-canjs-i18n-boilerplate.git
+3. Go to the flask-canjs-i18n-boilerplate directory.
+    $ cd flask-canjs-i18n-boilerplate
+4. Build the project form Dockerfile.
+    $ docker build -t "dorajistyle/flask-canjs-i18n-boilerplate" --no-cache .
+5. Run Docker image.
+    $ docker run -d -p 5544:5000 dorajistyle/flask-canjs-i18n-boilerplate
+6. Enter 127.0.0.1:5544 into your web browser's addreess bar.
+
+### Install without docker.
+
+#### Install tools
 * [virtualenv](https://python-guide.readthedocs.org/en/latest/dev/virtualenvs/#virtualenv), It is a tool to create isolated Python environments.
 * [virtualenvwrapper](https://python-guide.readthedocs.org/en/latest/dev/virtualenvs/#virtualenvwrapper), It' provides a set of commands which makes working with virtual environments much more pleasant.
 
-### Clone the project
+#### Clone the project
     $ git clone https://github.com/dorajistyle/flask-canjs-i18n-boilerplate.git
-    $ cd flask-canjs-i18n-boilerplate.git
+    $ cd flask-canjs-i18n-boilerplate
 
-### Create virtualenv for the project
+#### Create virtualenv for the project
     $ mkvirtualenv flask-canjs-i18n-boilerplate
 
-### Install libraries
+#### Install libraries
     $ pip install -r requirements.txt
 
-### Migrate database
+#### Migrate database
     $ alembic revision --autogenerate -m "Alembic initilized boilerplate tables."
     $ alembic upgrade head
 
-### Add administrator user
+#### Add administrator user
 You can login with 'admin@github.com' and 'password'.
 
     $ python manage.py init_user
 
-### Setting
+#### Setting
 
     You should set values properly.(database, mail, social providers...)
 
@@ -142,11 +157,11 @@ You can login with 'admin@github.com' and 'password'.
 * application/frontend/static/js/settings.js contain client side settings.
 * ./alembic.ini contain alembic settings.
 
-### Translation
+#### Translation
 * Server side translations(Babel) in applications/frontend/translations
 * Client side translations(i18next) in applications/frontend/static/locales
 
-#### Babel translations compile
+##### Babel translations compile
     $ python tr_compile.py
 
 

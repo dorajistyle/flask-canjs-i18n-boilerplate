@@ -108,30 +108,45 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 
 ## 설치
 
-### 도구 설치
+### docker로 설치하기.
+
+1. [Docker](https://docs.docker.com/installation/) 설치.
+2. [Docker Hub](https://registry.hub.docker.com/u/dorajistyle/flask-canjs-i18n-boilerplate/)에서 이미지 설치.
+        ```bash
+        docker pull dorajistyle/flask-canjs-i18n-boilerplate
+        ```
+3. Docker 이미지 실행.
+        ```bash
+        $ docker run -d -p 5544:5000 dorajistyle/flask-canjs-i18n-boilerplate
+        ```
+4. 127.0.0.1:5544 를 웹 브라우저 주소창에 입력.
+
+### docker 없이 설치하기.
+
+#### 도구 설치
 * [virtualenv](https://python-guide.readthedocs.org/en/latest/dev/virtualenvs/#virtualenv), 분리된 파이썬 환경을 만들어줍니다.
 * [virtualenvwrapper](https://python-guide.readthedocs.org/en/latest/dev/virtualenvs/#virtualenvwrapper), virtualenv를 보다 편리하게 사용하도록 돕습니다.
 
-### 프로젝트 복제
+#### 프로젝트 복제
     $ git clone https://github.com/dorajistyle/flask-canjs-i18n-boilerplate.git
     $ cd flask-canjs-i18n-boilerplate.git
 
-### 프로젝트를 위한 virtualenv 생성
+#### 프로젝트를 위한 virtualenv 생성
     $ mkvirtualenv flask-canjs-i18n-boilerplate
 
-### 필요 라이브러리 설치
+#### 필요 라이브러리 설치
     $ pip install -r requirements.txt
 
-### 데이터베이스 마이그레이션
+#### 데이터베이스 마이그레이션
     $ alembic revision --autogenerate -m "Alembic initilized boilerplate tables."
     $ alembic upgrade head
 
-### 관리자 추가
+#### 관리자 추가
 'admin@github.com'와 'password'로 로그인 하시면 됩니다.
 
     $ python manage.py init_user
 
-### 설정
+#### 설정
 
     설정 값을 올바르게 설정해야 합니다.(데이터베이스, 메일, 소셜 네트워크 정보...)
 
@@ -139,11 +154,11 @@ Flask 부분은 [Matt Wright](https://github.com/mattupstate)님의 [글](http:/
 * application/frontend/static/js/settings.js엔 클라이언트 사이드 설정이 들어 있습니다.
 * ./alembic.ini엔 alembic설정이 들어있습니다.
 
-### 번역
+#### 번역
 * 서버 사이드 번역(Babel)은 applications/frontend/translations 폴더에 있습니다.
 * 클라이언트 사이드 번역(i18next)은 applications/frontend/static/locales 폴더에 있습니다.
 
-#### 바벨 번역 컴파일
+##### 바벨 번역 컴파일
     $ python tr_compile.py
 
 

@@ -115,28 +115,21 @@ When you fix a critical problem.
 
 1. Install [Docker](https://docs.docker.com/installation/).
 2. Clone the [flask-canjs-i18n-boilerplate](https://github.com/dorajistyle/flask-canjs-i18n-boilerplate.git)
-
 ```bash
 $ git clone https://github.com/dorajistyle/flask-canjs-i18n-boilerplate.git
 ```
-
 3. Go to the flask-canjs-i18n-boilerplate directory.
-
 ```bash
 $ cd flask-canjs-i18n-boilerplate
 ```
 4. Build the project form Dockerfile.
-
 ```bash
 $ docker build -t "dorajistyle/flask-canjs-i18n-boilerplate" --no-cache .
 ```
-
 5. Run Docker image.
-
 ```bash
 $ docker run -d -p 5544:5000 dorajistyle/flask-canjs-i18n-boilerplate
 ```
-
 6. Enter 127.0.0.1:5544 into your web browser's addreess bar.
 
 ### Install without docker.
